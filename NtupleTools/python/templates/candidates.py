@@ -26,6 +26,10 @@ vertex_info = PSet(
 # The info about the associated pat::Jet
 base_jet = PSet(
     objectJetPt = '{object}.userFloat("jetPt")',
+    objectJetQGMVAID = '? {object}.userCand("patJet").isNonnull ? '
+        '{object}.userCand("patJet").userFloat("QuarkGluonMVAID") : -5',
+    objectJetQGLikelihoodID = '? {object}.userCand("patJet").isNonnull ? '
+        '{object}.userCand("patJet").userFloat("QuarkGluonLikelihoodID") : -5',
     objectJetBtag = '? {object}.userCand("patJet").isNonnull ? '
         '{object}.userCand("patJet").bDiscriminator("") : -5',
     objectJetCSVBtag = '? {object}.userCand("patJet").isNonnull ? '
@@ -53,3 +57,4 @@ base_jet = PSet(
     '(evt.jetVariables({object_idx},"mult_MLP")) : -100',
  
 )
+
