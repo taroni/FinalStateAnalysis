@@ -40,8 +40,7 @@ base_jet = PSet(
         '{object}.userCand("patJet").phiphiMoment() : -5',
     objectJetArea = '? {object}.userCand("patJet").isNonnull ? '
         '{object}.userCand("patJet").jetArea() : -5',
-    objectJetptD  =   '? {object}.userCand("patJet").isNonnull ? '
-    '(evt.jetVariables({object_idx}, "ptD")) : -100',
+    objectJetptD  =  '(evt.jetVariables({object_idx}, "ptD")) : -100',
     objectJetaxis1  =   '? {object}.userCand("patJet").isNonnull ? '
     'evt.jetVariables({object_idx},"axis1") : -100 ',
     objectJetaxis2  =   '? {object}.userCand("patJet").isNonnull ? '

@@ -55,6 +55,7 @@ class SubtractionView(views.SumView):
 
     def merge_views(self, *histograms):
         output = super(SubtractionView, self).merge_views(*histograms)
+       
         if self.restrict_positive:
             # Steal PositiveView's positive-izer
             output = PositiveView.positivize(output)

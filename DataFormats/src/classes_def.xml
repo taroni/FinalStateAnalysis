@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <lcgdict>
 <selection>
   <class name="edm::Ptr<reco::Vertex >"/>
@@ -37,7 +38,9 @@
    <version ClassVersion="10" checksum="4038526841"/>
   </class>
 
-  <class name="PATFinalStateEvent" ClassVersion="14">
+  <class name="PATFinalStateEvent" ClassVersion="16">
+    <version ClassVersion="16" checksum="1619979458"/>
+    <version ClassVersion="15" checksum="2890669373"/>
    <version ClassVersion="14" checksum="1619979458"/>
    <version ClassVersion="13" checksum="3775954220"/>
    <version ClassVersion="12" checksum="4160196554"/>
