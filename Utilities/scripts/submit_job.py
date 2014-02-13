@@ -78,6 +78,11 @@ if __name__ == "__main__":
                                               description="Farmout options")
 
     farmout_group.add_argument(
+        '--job-count', type=int, dest='jobcount',
+        default=1000000,
+        help = 'number of jobs',
+    )
+    farmout_group.add_argument(
         '--output-dag-file', dest='dagdir',
         default='/nfs_scratch/{user}/{jobid}/{sample}/dags/dag',
         help = 'Where to put dag files',
@@ -221,6 +226,7 @@ if __name__ == "__main__":
             '"--output-dag-file=%s"' % dag_dir,
             '"--output-dir=%s"' % output_dir,
             '--input-files-per-job=%i' % args.filesperjob,
+            '--job-count=%i' % args.jobcount,
         ]
         if args.sharedfs:
             command.append('--shared-fs')
