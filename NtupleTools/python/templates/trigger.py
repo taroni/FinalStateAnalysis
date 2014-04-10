@@ -103,3 +103,28 @@ isoMuTau =PSet(
 )
 
 
+isoETau =PSet(
+    _trig_template.replace(
+        name='ele22wp90rhotau20',
+	paths=r"HLT_Ele22_eta2p1_WP90Rho_LooseIsoPFTau20_v\\d+"),
+    _trig_template.replace(
+	name='ele22wp90noisotau20',
+	paths=r"HLT_Ele22_eta2p1_WP90NoIso_LooseIsoPFTau20_v\\d+"),
+    _trig_template.replace(
+        name='ele20caloidisorhoLooseIsotau20',
+        path=r"Ele20_CaloIdVT_CaloIsoRhoT_TrkIdT_TrkIsoT_LooseIsoPFTau20_v\\d+"), 
+    _trig_template.replace(
+        name='ele20caloidisoMediumIsotau20',
+        path=r"Ele20_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_MediumIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele18caloidisoMediumIsotau20',
+        path=r"Ele18_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_MediumIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele15caloidisoTightIsotau20',
+        path=r"Ele15_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TightIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele15caloidisoLooseIsotau20',
+        path=r"Ele15_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_LooseIsoPFTau20\\d+"),
+    
+)
+
