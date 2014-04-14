@@ -10,12 +10,15 @@ import fnmatch
 import re
 import os
 import rootpy.plotting.views as views
+from rootpy.plotting.hist import HistStack
 import rootpy.plotting as plotting
 from FinalStateAnalysis.MetaData.data_views import data_views
 from FinalStateAnalysis.PlotTools.RebinView import RebinView
 from FinalStateAnalysis.Utilities.struct import struct
 import FinalStateAnalysis.Utilities.prettyjson as prettyjson
+from FinalStateAnalysis.MetaData.data_styles import data_styles
 import ROOT
+from pdb import set_trace
 
 _original_draw = plotting.Legend.Draw
 # Make legends not have crappy border
@@ -52,17 +55,21 @@ class Plotter(object):
         self.keep = []
         # List of MC sample names to use.  Can be overridden.
         self.mc_samples = [
-            'Zjets_M50',
-            'WplusJets_madgraph',
-            'TTplusJets_madgraph',
-            'WZ*',
-            'ZZ*',
-            'WW*',
+            #'Zjets_M50',
+            #'WplusJets_madgraph',
+            #'TTplusJets_madgraph',
+            #'WZ*',
+            #'ZZ*',
+            #'WW*',
         ]
-        file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())[0]
+        
+        file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())
+        #from pdb import set_trace; set_trace()
         if not file_to_map: #no data here!
             file_to_map = self.views.keys()[0]
-        #from pdb import set_trace; set_trace()
+        else:
+            file_to_map = file_to_map[0]
+        print file_to_map
         self.file_dir_structure = Plotter.map_dir_structure( self.views[file_to_map]['file'] )
 
     @staticmethod
@@ -106,7 +113,7 @@ class Plotter(object):
 
 
     def get_view(self, sample_pattern, key_name='view'):
-        ''' Get a view which matches a pattern like "Zjets*"
+        ''' Get a view which matches a patetrn like "Zjets*"
 
         Generally key_name does not need to be modified, unless getting
         unblinded data via "unblinded_view"
@@ -149,8 +156,13 @@ class Plotter(object):
             legend = plotting.Legend(nentries, leftmargin=0.03, topmargin=0.05, rightmargin=0.65)
         else:
             legend = plotting.Legend(nentries, rightmargin=0.07, topmargin=0.05, leftmargin=0.45)
-        for sample in samples:
-            legend.AddEntry(sample)
+        for i, sample in enumerate(samples):
+            if isinstance(sample, HistStack):
+                for k,j in enumerate(sample.GetHists()):
+                    #j.SetTitle('%s' % (self.mc_samples[k]))
+                    legend.AddEntry(j)
+            else :
+                legend.AddEntry(sample)
         legend.SetEntrySeparation(0.0)
         legend.SetMargin(0.35)
         legend.Draw()
@@ -409,3 +421,86 @@ class Plotter(object):
         self.add_legend([data, mc_stack], leftside, entries=len(mc_stack.GetHists())+1)
         if show_ratio:
             self.add_ratio_plot(data, mc_stack, xrange, ratio_range=0.2)
+            
+    def get_os(y):
+        return y.replace('et/', 'et/os/ept0/ ')
+
+
+    def make_stackSum(self, rebin=1, preprocess=None, folder=''):
+        ''' Make a stack of the MC histograms '''
+
+        mc_views = []
+       
+        for x in self.mc_samples:
+            
+            #try: 
+            mc_view = self.get_view(x)
+            if preprocess:
+                mc_view = preprocess(mc_view)
+            if folder:
+                mc_view = self.get_wild_dir(mc_view, folder)
+            mc_views.append(
+                self.rebin_view(mc_view, rebin)
+            )
+            #except  KeyError:                
+            #    if preprocess: 
+            #        x = preprocess(x)
+            #    if folder:
+            #        x = self.get_wild_dir(x, folder)
+            #    mc_views.append(self.rebin_view(x, rebin))
+
+        return views.StackView(*mc_views)
+
+    def plot_mc(self, folder, signames,  variable, rebin=1, xaxis='',
+                        leftside=True, xrange=None, preprocess=None,
+                        show_ratio=False, ratio_range=0.2,rescale=1.):
+        ''' Compare Monte Carlo signal to bkg '''
+        #path = os.path.join(folder, variable)
+        #is_not_signal = lambda x: x is not signame
+        #set_trace()
+        
+        ##mc_stack_view = self.make_stackSum(rebin, preprocess, folder)
+        ##mc_stack_view = self.make_stack(rebin, preprocess, folder)
+        mc_stack_view = self.get_view('Zjets_M50')
+        mc_stack = (self.get_wild_dir(mc_stack_view, folder)).Get(variable)
+        self.canvas.SetLogy(False)
+        mc_stack.Draw()
+        ###mc_stack.GetHistogram().GetXaxis().SetTitle(xaxis)
+        if xrange:
+            mc_stack.GetXaxis().SetRangeUser(xrange[0], xrange[1])
+            mc_stack.Draw()
+        self.keep.append(mc_stack)
+        # Draw signal
+        sigmax = -100
+        sig_views=[]
+        
+
+        sig_view = self.get_view(signames)
+        if preprocess:
+            sig_view = preprocess(signames)
+        sig_view = self.get_wild_dir(views.ScaleView(
+            self.rebin_view(sig_view, rebin), rescale),folder)
+        sig = sig_view.Get(variable)
+        sig.Draw('same')
+        if sig.GetMaximum() > sigmax : sigmax = sig.GetMaximum()
+        #for x in signames: 
+            #print 'plotter ', x 
+            #sig_view = self.get_view(x)
+            #if preprocess:
+            #    sig_view = preprocess(x)
+            #sig_view = self.get_wild_dir(views.ScaleView(
+            #    self.rebin_view(sig_view, rebin), rescale),folder)
+            
+            #sig_views.append(sig_view)
+            #sig = sig_view.Get(variable)
+            #sig.Draw('same')
+            #self.keep.append(sig)
+            # Make sure we can see everything
+            #if sig.GetMaximum() > sigmax : sigmax = sig.GetMaximum()
+
+        if sigmax > mc_stack.GetMaximum() :
+            mc_stack.SetMaximum(1.2*sigmax)
+
+        #self.add_legend([mc_stack], leftside, entries=len(mc_stack.GetHists())+len(sig_views))
+#        if show_ratio:
+#            self.add_ratio_plot(sig_views, mc_stack, xrange, ratio_range=10000)

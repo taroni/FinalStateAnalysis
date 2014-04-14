@@ -16,18 +16,19 @@ http://ndawe.github.com/rootpy/reference/rootpy.plotting.html#rootpy.plotting.co
 from FinalStateAnalysis.Utilities.solarized import colors
 
 data_styles = {
-    'Zjets*' : {
+    'Z*jets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
         'fillcolor' : '#FFCC66',
         'linecolor' : '#000000',
-        'name' : "Z + jets",
+        'name' : "DY + jets",
         'fillstyle': 'solid',
         },
-    'WplusJets*' : {
+    'Wplus*Jets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : '#990000',
+        'fillcolor' : colors['orange'],
+        'linecolor' : colors['orange'],
         'name' : "W + jets",
         'fillstyle': 'solid',
     },
@@ -42,11 +43,19 @@ data_styles = {
     'TT*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : '#9999CC',
-        'linecolor' : '#9999CC',
-        'name' : "ttbar",
+        'fillcolor' : colors['cyan'],
+        'linecolor' : colors['cyan'],
+        'name' : "t#bar{t}",
         'fillstyle': 'solid',
     },
+    'T*_t*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#9999CC',
+        'linecolor' : '#9999CC',
+        'name' : "Single Top",
+        'fillstyle': 'solid',
+    },    
     'VH*HWW' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
@@ -68,8 +77,8 @@ data_styles = {
     'WZ*ZToTauTau*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : colors['blue'],
-        'linecolor' : colors['blue'],
+        'fillcolor' : colors['red'],
+        'linecolor' : colors['red'],
         'name' : "WZ#rightarrowl#tau#tau",
         'fillstyle': 'solid',
     },
@@ -86,15 +95,31 @@ data_styles = {
         'drawstyle' : 'hist',
         'fillcolor' : colors['red'],
         'linecolor' : colors['red'],
-        'name' : "WW",
+        'name' : "EWK Dibosons",
         'fillstyle': 'solid',
     },
     'ZZ*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'linecolor' : '#50A634',
-        'fillcolor' : '#50A634',
+        'linecolor' : colors['red'],
+        'fillcolor' : colors['red'],
         'name' : "ZZ",
+        'fillstyle': 'solid',
+    },
+    'VBF_HToTauTau*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : colors['blue'],
+        'linecolor' : colors['blue'],
+        'name' : "SM vbf Higgs",
+        'fillstyle': 'solid',
+    },
+    'GluGluToHToTauTau*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : colors['blue'],
+        'linecolor' : colors['blue'],
+        'name' : "SM gg Higgs",
         'fillstyle': 'solid',
     },
     'data*' : {
@@ -104,10 +129,26 @@ data_styles = {
 #        'markersize'  : 2,
         'name' : "Observed",
     },
+    'ggHiggsToETau*' : {
+        'legendstyle' : 'lp',
+        'drawstyle' : 'pe',
+        'markerstyle' : 20,
+#        'markersize'  : 2,
+        'name' : "LFV gg Higgs",
+    },
+    'vbfHiggsToETau*' : {
+        'legendstyle' : 'lp',
+        'drawstyle' : 'pe',
+        'markerstyle' : 20,
+#        'markersize'  : 2,
+        'markercolor' : 4,
+        'name' : "LFV vbf Higgs",
+    },
+
 }
 
-#makes life easier when converting shape files
-data_styles['fakes'] = data_styles['Zjets*']
+#Makes life easier when converting shape files
+data_styles['fakes'] = data_styles['Z*jets*']
 data_styles['zz'] = data_styles['ZZ*']
 data_styles['wz'] = data_styles['WZ*']
 data_styles['charge_fakes'] = data_styles['TT*']

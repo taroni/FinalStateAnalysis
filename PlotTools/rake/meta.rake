@@ -11,6 +11,7 @@ namespace :meta do
     opt_relative = ""
     if ENV.has_key?("MEGAPATH")
         opt_relative = "--relative"
+	
     end
     discovercheck = ENV.fetch('discovercheck', "0")
     if discovercheck == "1" then
@@ -88,14 +89,16 @@ namespace :meta do
 
   task :getmeta, [:directory, :ntuple, :sqrts] do |t, args|
     puts "Computing meta information for #{args.sqrts} TeV in #{args.directory}"
+    
     chdir(args.directory) do
-
+    
       #get override meta tree values
       override_keyword   = 'OVERRIDE_META_TREE_'
       meta_override_keys = ENV.keys.select{|x| x.start_with?(override_keyword)}
 
       FileList["*.txt"].each do |txtfile|
         sample = txtfile.sub('.txt', '')
+	
         #check if we have to override
         meta_ntuple = args.ntuple
         meta_override_keys.each do |key|

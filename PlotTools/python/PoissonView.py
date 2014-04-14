@@ -10,10 +10,12 @@ Author: Evan K. Friis, UW Madison
 '''
 
 from rootpy.plotting import views
-try:
-    from rootpy.utils import asrootpy
+try: 
+   from rootpy.utils import asrootpy
 except ImportError:
-    from rootpy import asrootpy
+   from rootpy import asrootpy
+
+
 import FinalStateAnalysis.StatTools.poisson as poisson
 
 class PoissonView(views._FolderView):

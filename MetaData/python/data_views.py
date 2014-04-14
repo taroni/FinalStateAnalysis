@@ -15,7 +15,7 @@ import rootpy.io as io
 from rootpy.plotting import views
 
 log = logging.getLogger("data_views")
-
+log.setLevel(logging.WARNING)
 def extract_sample(filename):
     ''' Get sample name from a path
 
@@ -77,6 +77,7 @@ def data_views(files, lumifiles, forceLumi=-1):
 
     # Identify data files
     datafiles = set([name for name in histo_files.keys() if 'data' in name])
+    if not datafiles: datafiles=set([name for name in histo_files.keys() if 'ggHiggsToETau' in name])
 
     log.info("Found the following data samples:")
     log.info(" ".join(datafiles))

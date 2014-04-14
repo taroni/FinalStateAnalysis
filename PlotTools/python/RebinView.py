@@ -9,6 +9,7 @@ Author: Evan K. Friis, UW Madison
 import array
 import rootpy.plotting.views as views
 import rootpy.plotting as plotting
+
 try:
     from rootpy.utils import asrootpy
 except ImportError:
