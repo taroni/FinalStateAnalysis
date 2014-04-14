@@ -23,8 +23,28 @@ PAT tuple, and utilities for generating plain ROOT ntuples from the PAT tuple.
     </tr>
 </table>
 
-Installation
-------------
+Installation for SL6 (abridged)
+---------------------
+```
+scram project CMSSW_5_3_14
+cd CMSSW_5_3_14/src
+cmsenv
+git cms-init # needs to be done before ANYTHING else
+git clone --recursive https://github.com/uwcms/FinalStateAnalysis.git
+cd FinalStateAnalysis/recipeGIT
+kinit [cern_username]@CERN.CH
+./recipe.sh
+USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable" scram b -j 8
+```
+Now, you need to set the relevant environment variables and such
+
+```bash
+cmsenv
+source $CMSSW_BASE/src/FinalStateAnalysis/environment.sh
+```
+
+Installation for SL6 (detailed)
+--------------------
 
 Current CMSSW versions: ``5_3_14``.
 The installation instructions are the same for both.  
@@ -49,7 +69,7 @@ Checkout the FinalStateAnalysis repository::
 
 This will checkout the lastest and greatest version of the code.  You might also want the Summer 2013 compatible branch, if so you should additionally run:
 ```bash
-git checkout 53X_SLC6
+git checkout 53X_SLC6_Dev
 ```
 and then proceed as normal.
 
@@ -66,7 +86,7 @@ Checkout the needed CMSSW tags:
   # Compile
   cd ../../
   # Avoid the new strict version of the compiler by relaxing some flags
-  export USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable"
+  export USER_CXXFLAGS="-Wno-delete-non-virtual-dtor -Wno-error=unused-but-set-variable -Wno-error=unused-variable -Wno-error=sign-compare -Wno-error=reorder"
   scram b -j 8
 ```
 
@@ -84,3 +104,4 @@ packages (note this is *not* necessary for PAT tuple production)::
   ./install_python.sh
   yolk -l # List installed packages
 ```
+

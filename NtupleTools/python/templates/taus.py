@@ -1,3 +1,4 @@
+
 '''
 
 Ntuple branch template sets for tau objects.
@@ -22,7 +23,6 @@ info = PSet(
 
 # ID and isolation
 id = PSet(
-
     #Against Electron
     #STD
     objectAntiElectronLoose  = '{object}.tauID("againstElectronLoose")',
@@ -45,19 +45,30 @@ id = PSet(
     objectAntiMuonLoose  = '{object}.tauID("againstMuonLoose")',
     objectAntiMuonMedium = '{object}.tauID("againstMuonMedium")',
     objectAntiMuonTight  = '{object}.tauID("againstMuonTight")',
-    #v2
-    objectAntiMuonLoose2  = '{object}.tauID("againstMuonLoose2")',
-    objectAntiMuonMedium2 = '{object}.tauID("againstMuonMedium2")',
-    objectAntiMuonTight2  = '{object}.tauID("againstMuonTight2")',
+    
+    objectAntiMuon2Loose   = '{object}.tauID("againstMuonLoose2")',
+    objectAntiMuon2Medium  = '{object}.tauID("againstMuonMedium2")',
+    objectAntiMuon2Tight   = '{object}.tauID("againstMuonTight2")',
+    
+    objectAntiMuon3Loose  = '{object}.tauID("againstMuonLoose3")',
+    objectAntiMuon3Tight  = '{object}.tauID("againstMuonTight3")',
+    
+    objectAntiMuonMVALoose   = '{object}.tauID("againstMuonLooseMVA")',
+    objectAntiMuonMVAMedium  = '{object}.tauID("againstMuonMediumMVA")',
+    objectAntiMuonMVATight   = '{object}.tauID("againstMuonTightMVA")',
 
-    #ISO
-    objectDecayFinding = '{object}.tauID("decayModeFinding")',
-    #STD
+    #DM
+    objectDecayFinding       = '{object}.tauID("decayModeFinding")',
+    objectDecayFindingNewDMs = '{object}.tauID("decayModeFindingNewDMs")',
+    objectDecayFindingOldDMs = '{object}.tauID("decayModeFindingOldDMs")',
+
+    #ISO DB
     objectVLooseIso = '{object}.tauID("byVLooseCombinedIsolationDeltaBetaCorr")',
     objectLooseIso  = '{object}.tauID("byLooseCombinedIsolationDeltaBetaCorr")',
     objectMediumIso = '{object}.tauID("byMediumCombinedIsolationDeltaBetaCorr")',
     objectTightIso  = '{object}.tauID("byTightCombinedIsolationDeltaBetaCorr")',
-    #3hits
+
+    #ISO DB 3Hits
     objectLooseIso3Hits  = '{object}.tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits")',
     objectMediumIso3Hits = '{object}.tauID("byMediumCombinedIsolationDeltaBetaCorr3Hits")',
     objectTightIso3Hits  = '{object}.tauID("byTightCombinedIsolationDeltaBetaCorr3Hits")',

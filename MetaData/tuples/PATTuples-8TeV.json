@@ -36,7 +36,6 @@
   "WZJetsTo3LNu_pythia" : "/hdfs/store/user/tapas/WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "ZZJetsTo4L_pythia" : "/hdfs/store/user/tapas/ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola" : "/hdfs/store/user/tapas/WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
-
   "GluGlu_H2Tau_M-100" : "/hdfs/store/user/tapas/GluGluToHToTauTau_M-100_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "GluGlu_H2Tau_M-105" : "/hdfs/store/user/tapas/GluGluToHToTauTau_M-105_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "GluGlu_H2Tau_M-110" : "/hdfs/store/user/tapas/GluGluToHToTauTau_M-110_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
@@ -101,10 +100,10 @@
   "data_MuEG_Run2012C_22Jan2013_v1" : "/hdfs/store/user/tapas/MuEG/Run2012C-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
   "data_MuEG_Run2012D_22Jan2013_v1" : "/hdfs/store/user/tapas/MuEG/Run2012D-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
 
-  "data_SingleMu_Run2012A_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleMu/Run2012A-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
-  "data_SingleMu_Run2012B_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleMu/Run2012B-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master", 
-  "data_SingleMu_Run2012C_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleMu/Run2012C-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master", 
-  "data_SingleMu_Run2012D_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleMu/Run2012D-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master", 
+  "data_SingleMu_Run2012A_22Jan2013_v1" : "/hdfs/store/user/mverzett/SingleMu/Run2012A-22Jan2013-v1/AOD/Spring2014PATTuples_v2",
+  "data_SingleMu_Run2012B_22Jan2013_v1" : "/hdfs/store/user/mverzett/SingleMu/Run2012B-22Jan2013-v1/AOD/Spring2014PATTuples_v2",
+  "data_SingleMu_Run2012C_22Jan2013_v1" : "/hdfs/store/user/mcepeda/SingleMu/Run2012C-22Jan2013-v1/AOD/Spring2014PATTuples",
+  "data_SingleMu_Run2012D_22Jan2013_v1" : "/hdfs/store/user/mcepeda/SingleMu/Run2012D-22Jan2013-v1/AOD/Spring2014PATTuples",
     
   "data_TauPlusX_Run2012A_13Jul2012_v1" : "/hdfs/store/user/tapas/TauPlusX/Run2012A-13Jul2012-v1/AOD/2013-02-25-8TeV-53X-PatTuple_Master",
   "data_TauPlusX_Run2012B_13Jul2012_v1" : "/hdfs/store/user/tapas/TauPlusX/Run2012B-13Jul2012-v1/AOD/2013-02-25-8TeV-53X-PatTuple_Master",
