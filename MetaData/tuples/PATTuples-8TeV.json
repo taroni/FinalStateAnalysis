@@ -1,5 +1,8 @@
 {
 
+   "data_SingleElectron_Run2012B_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleElectron/Run2012B-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
+   "data_SingleElectron_Run2012C_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleElectron/Run2012C-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
+   "data_SingleElectron_Run2012D_22Jan2013_v1" : "/hdfs/store/user/tapas/SingleElectron/Run2012D-22Jan2013-v1/AOD/2013-06-25-8TeV-53X-PatTuple_Master",
 
    "ggHiggsToMuTau" : "/hdfs/store/user/mcepeda/LFV_GG_H2MuTau_LONG-MuTauMC",
    "vbfHiggsToMuTau" : "/hdfs/store/user/mcepeda/LFV_VBF_H2MuTau_LONG-MuTauMC",
@@ -31,7 +34,7 @@
 
   "Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola" : "/hdfs/store/user/tapas/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola"    : "/hdfs/store/user/tapas/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
-  "Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola" : "/hdfs/store/user/tapas/Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
+    "Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola" : "/hdfs/store/user/tapas/Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master",
   "T_t-channel_TuneZ2star_8TeV-powheg-tauola"    : "/hdfs/store/user/cepeda/T_t-channel_TuneZ2star_8TeV-powheg-tauola/T_t-channel_TuneZ2star_8TeV-powheg-tauola_Take1/d7953237447dd3f9e473d136597562f6",
   
   "WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola" : "/hdfs/store/user/tapas/WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM/2013-02-25-8TeV-53X-PatTuple_Master", 

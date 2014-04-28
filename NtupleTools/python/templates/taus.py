@@ -50,18 +50,18 @@ id = PSet(
     objectAntiMuon2Medium  = '{object}.tauID("againstMuonMedium2")',
     objectAntiMuon2Tight   = '{object}.tauID("againstMuonTight2")',
     
-    objectAntiMuon3Loose  = '{object}.tauID("againstMuonLoose3")',
-    objectAntiMuon3Tight  = '{object}.tauID("againstMuonTight3")',
+    #objectAntiMuon3Loose  = '{object}.tauID("againstMuonLoose3")',
+    #objectAntiMuon3Tight  = '{object}.tauID("againstMuonTight3")',
     
-    objectAntiMuonMVALoose   = '{object}.tauID("againstMuonLooseMVA")',
-    objectAntiMuonMVAMedium  = '{object}.tauID("againstMuonMediumMVA")',
-    objectAntiMuonMVATight   = '{object}.tauID("againstMuonTightMVA")',
+    #objectAntiMuonMVALoose   = '{object}.tauID("againstMuonLooseMVA")',
+    #objectAntiMuonMVAMedium  = '{object}.tauID("againstMuonMediumMVA")',
+    #objectAntiMuonMVATight   = '{object}.tauID("againstMuonTightMVA")',
 
     #DM
     objectDecayFinding       = '{object}.tauID("decayModeFinding")',
-    objectDecayFindingNewDMs = '{object}.tauID("decayModeFindingNewDMs")',
-    objectDecayFindingOldDMs = '{object}.tauID("decayModeFindingOldDMs")',
-
+    #objectDecayFindingNewDMs = '{object}.tauID("decayModeFindingNewDMs")',
+    #objectDecayFindingOldDMs = '{object}.tauID("decayModeFindingOldDMs")',
+#
     #ISO DB
     objectVLooseIso = '{object}.tauID("byVLooseCombinedIsolationDeltaBetaCorr")',
     objectLooseIso  = '{object}.tauID("byLooseCombinedIsolationDeltaBetaCorr")',

@@ -76,15 +76,16 @@ options = TauVarParsing.TauVarParsing(
     rerunMVAMET=0,  # If one, (re)build the MVA MET
     rerunJets=0,
     runTauSpinner=0,
+    skimCuts=""
 )
 
-options.register(
-    'skimCuts',
-    '',
-    TauVarParsing.TauVarParsing.multiplicity.list,
-    TauVarParsing.TauVarParsing.varType.string,
-    'additional cuts to impose on the NTuple'
-)
+##options.register(
+##    'skimCuts',
+##    '',
+##    TauVarParsing.TauVarParsing.multiplicity.list,
+##    TauVarParsing.TauVarParsing.varType.string,
+##    'additional cuts to impose on the NTuple'
+##)
 
 
 options.outputFile = "ntuplize.root"

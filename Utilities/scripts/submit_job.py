@@ -202,6 +202,7 @@ if __name__ == "__main__":
             with open(args.tupledirlist) as tuple_file:
                 # Parse info about PAT tuples
                 tuple_info = json.load(tuple_file)
+                
                 if sample not in tuple_info:
                     log.warning("No data directory for %s specified, skipping",
                                 sample)

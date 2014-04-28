@@ -40,11 +40,27 @@ doublemu = PSet(
         paths=r'HLT_Mu17_Mu8_v\\d+')
 )
 
+
 singlee = PSet(
     _trig_template.replace(
     name='singleE',
     paths=r'HLT_Ele27_WP80_v\\d+,HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+,HLT_Ele32_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
     ),
+
+    _trig_template.replace(
+    name='singleE27WP80',
+    paths=r'HLT_Ele27_WP80_v\\d+,'
+    ),
+
+    _trig_template.replace(
+    name='singleE27Calo',
+    paths=r'HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
+    ),
+    _trig_template.replace(
+    name='singleE32Calo',
+    paths=r'HLT_Ele32_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
+    ),
+
     _trig_template.replace(
     name='singleEPFMT',
     paths=r'HLT_Ele27_WP80_PFMET_MT50_v\\d+,HLT_Ele32_WP70_PFMT50_v\\d+'
