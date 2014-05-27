@@ -81,6 +81,9 @@ id = PSet(
     objectMediumMVA2Iso = '{object}.tauID("byMediumIsolationMVA2")',
     objectTightMVA2Iso  = '{object}.tauID("byTightIsolationMVA2")',
 
+    objectRawIso3Hits = '{object}.tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits")',
+
+
     objectGenEnergy      = '? (getDaughterGenParticle({object_idx}, 15, 0).isAvailable && getDaughterGenParticle({object_idx}, 15, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 15, 0).energy() : -999',
     objectGenPt          = '? (getDaughterGenParticle({object_idx}, 15, 0).isAvailable && getDaughterGenParticle({object_idx}, 15, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 15, 0).pt() : -999',
     objectGenPx          = '? (getDaughterGenParticle({object_idx}, 15, 0).isAvailable && getDaughterGenParticle({object_idx}, 15, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 15, 0).px() : -999',

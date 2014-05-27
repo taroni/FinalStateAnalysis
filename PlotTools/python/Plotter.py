@@ -333,7 +333,7 @@ class Plotter(object):
         if verbose:
             print 'saving '+os.path.join(self.outputdir, filename) + '.png'
         self.canvas.SaveAs(os.path.join(self.outputdir, filename) + '.png')
-        self.canvas.SaveAs(os.path.join(self.outputdir, filename) + '.pdf')
+        #self.canvas.SaveAs(os.path.join(self.outputdir, filename) + '.pdf')
         if dotc:
             self.canvas.SaveAs(os.path.join(self.outputdir, filename) + '.C')
         if json:
