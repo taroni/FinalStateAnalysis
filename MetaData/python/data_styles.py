@@ -16,18 +16,35 @@ http://ndawe.github.com/rootpy/reference/rootpy.plotting.html#rootpy.plotting.co
 from FinalStateAnalysis.Utilities.solarized import colors
 
 data_styles = {
-    'Zjets*' : {
+    'Z*jets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
         'fillcolor' : '#FFCC66',
-        'linecolor' : '#000000',
-        'name' : "Z + jets",
+        'linecolor' : '#FFCC66',
+        'name' : "DY + jets",
         'fillstyle': 'solid',
         },
-    'WplusJets*' : {
+    'Z*jets*LL' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : '#990000',
+        'fillcolor' : '#FFCC66',
+        'linecolor' : '#FFCC66',
+        'name' : "DY (#rightarrow ll)  + jets",
+        'fillstyle': 'solid',
+        },
+    'Z*jets*TT' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#fa8795',
+        'linecolor' : '#fa8795',
+        'name' : "DY (#rightarrow #tau#tau)  + jets",
+        'fillstyle': 'solid',
+        },
+    'Wplus*Jets*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#07a242',
+        'linecolor' : '#07a242',
         'name' : "W + jets",
         'fillstyle': 'solid',
     },
@@ -42,11 +59,19 @@ data_styles = {
     'TT*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : '#9999CC',
-        'linecolor' : '#9999CC',
-        'name' : "ttbar",
+        'fillcolor' : colors['cyan'],
+        'linecolor' : colors['cyan'],
+        'name' : "t#bar{t}",
         'fillstyle': 'solid',
     },
+    'T*_t*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#9999CC',
+        'linecolor' : '#9999CC',
+        'name' : "Single Top",
+        'fillstyle': 'solid',
+    },    
     'VH*HWW' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
@@ -68,8 +93,8 @@ data_styles = {
     'WZ*ZToTauTau*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'fillcolor' : colors['blue'],
-        'linecolor' : colors['blue'],
+        'fillcolor' : colors['red'],
+        'linecolor' : colors['red'],
         'name' : "WZ#rightarrowl#tau#tau",
         'fillstyle': 'solid',
     },
@@ -86,15 +111,31 @@ data_styles = {
         'drawstyle' : 'hist',
         'fillcolor' : colors['red'],
         'linecolor' : colors['red'],
-        'name' : "WW",
+        'name' : "EWK Dibosons",
         'fillstyle': 'solid',
     },
     'ZZ*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
-        'linecolor' : '#50A634',
-        'fillcolor' : '#50A634',
+        'linecolor' : colors['red'],
+        'fillcolor' : colors['red'],
         'name' : "ZZ",
+        'fillstyle': 'solid',
+    },
+    'VBF_HToTauTau*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : colors['blue'],
+        'linecolor' : colors['blue'],
+        'name' : "SM vbf Higgs",
+        'fillstyle': 'solid',
+    },
+    'GluGluToHToTauTau*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : colors['blue'],
+        'linecolor' : colors['blue'],
+        'name' : "SM Higgs",
         'fillstyle': 'solid',
     },
     'data*' : {
@@ -104,10 +145,29 @@ data_styles = {
 #        'markersize'  : 2,
         'name' : "Observed",
     },
+    'ggHiggsToETau*' : {
+        'legendstyle' : 'lp',
+        'drawstyle' : 'hist',
+        'linecolor' : 4,
+        'linestyle' : 1,
+        'linewidth' : 2,
+        'name' : "LFV gg Higgs x10, BR = 0.1",
+        'fillstyle': 'hollow',
+    },
+    'vbfHiggsToETau*' : {
+        'legendstyle' : 'lp',
+        'drawstyle' : 'hist',
+        'linecolor' : 4,
+        'linestyle' : 2,
+        'linewidth' : 2,
+        'name' : "LFV vbf Higgs x10, BR=0.1",
+        'fillstyle': 'hollow',
+    },
+
 }
 
-#makes life easier when converting shape files
-data_styles['fakes'] = data_styles['Zjets*']
+#Makes life easier when converting shape files
+data_styles['fakes'] = data_styles['Z*jets*']
 data_styles['zz'] = data_styles['ZZ*']
 data_styles['wz'] = data_styles['WZ*']
 data_styles['charge_fakes'] = data_styles['TT*']

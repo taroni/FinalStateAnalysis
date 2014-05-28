@@ -40,11 +40,27 @@ doublemu = PSet(
         paths=r'HLT_Mu17_Mu8_v\\d+')
 )
 
+
 singlee = PSet(
     _trig_template.replace(
     name='singleE',
     paths=r'HLT_Ele27_WP80_v\\d+,HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+,HLT_Ele32_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
     ),
+
+    _trig_template.replace(
+    name='singleE27WP80',
+    paths=r'HLT_Ele27_WP80_v\\d+,'
+    ),
+
+    _trig_template.replace(
+    name='singleE27Calo',
+    paths=r'HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
+    ),
+    _trig_template.replace(
+    name='singleE32Calo',
+    paths=r'HLT_Ele32_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
+    ),
+
     _trig_template.replace(
     name='singleEPFMT',
     paths=r'HLT_Ele27_WP80_PFMET_MT50_v\\d+,HLT_Ele32_WP70_PFMT50_v\\d+'
@@ -102,4 +118,29 @@ isoMuTau =PSet(
         paths=r"HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v\\d+"),
 )
 
+
+isoETau =PSet(
+    _trig_template.replace(
+        name='ele22wp90rhotau20',
+	paths=r"HLT_Ele22_eta2p1_WP90Rho_LooseIsoPFTau20_v\\d+"),
+    _trig_template.replace(
+	name='ele22wp90noisotau20',
+	paths=r"HLT_Ele22_eta2p1_WP90NoIso_LooseIsoPFTau20_v\\d+"),
+    _trig_template.replace(
+        name='ele20caloidisorhoLooseIsotau20',
+        path=r"Ele20_CaloIdVT_CaloIsoRhoT_TrkIdT_TrkIsoT_LooseIsoPFTau20_v\\d+"), 
+    _trig_template.replace(
+        name='ele20caloidisoMediumIsotau20',
+        path=r"Ele20_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_MediumIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele18caloidisoMediumIsotau20',
+        path=r"Ele18_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_MediumIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele15caloidisoTightIsotau20',
+        path=r"Ele15_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TightIsoPFTau20\\d+"),
+    _trig_template.replace(
+        name='ele15caloidisoLooseIsotau20',
+        path=r"Ele15_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_LooseIsoPFTau20\\d+"),
+    
+)
 

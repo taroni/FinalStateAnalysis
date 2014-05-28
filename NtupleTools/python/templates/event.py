@@ -1,3 +1,4 @@
+
 '''
 
 Ntuple branch template sets for event level quantities
@@ -81,6 +82,8 @@ gen = PSet(
     EmbPtWeight='evt.generatorFilter.filterEfficiency',
 )
 
-
+tauSpinner = PSet(
+    tauSpinnerWeight = 'evt.weight("tauSpinnerWeight")'
+)
 
 

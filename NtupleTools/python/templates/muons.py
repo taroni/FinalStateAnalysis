@@ -30,8 +30,15 @@ id = PSet(
     objectPFNeutralIso = cms.string('{object}.userIsolation("PfNeutralHadronIso")'),
     objectPFPhotonIso  = cms.string('{object}.userIsolation("PfGammaIso")'),
     objectPFPUChargedIso = cms.string('{object}.userIsolation("PfPUChargedHadronIso")'),
-    objectRelPFIsoDB = cms.string(
+    objectRelPFIsoDBHtt = cms.string(
         "({object}.userIso(0)"
+        "+max({object}.photonIso()"
+        "+{object}.neutralHadronIso()"
+        "-0.5*{object}.puChargedHadronIso,0.0))"
+        "/{object}.pt()"
+    ),
+    objectRelPFIsoDBDefault = cms.string(
+        "({object}.chargedHadronIso()"
         "+max({object}.photonIso()"
         "+{object}.neutralHadronIso()"
         "-0.5*{object}.puChargedHadronIso,0.0))"
@@ -64,6 +71,11 @@ id = PSet(
     objectIsTracker = '{object}.isTrackerMuon',
     objectTypeCode = cms.vstring('{object}.type','I'),
     objectGenMotherPdgId = '? (getDaughterGenParticleMotherSmart({object_idx}, 13, 1).isAvailable && getDaughterGenParticleMotherSmart({object_idx}, 13, 1).isNonnull) ? getDaughterGenParticleMotherSmart({object_idx}, 13, 1).pdgId() : -999',
+   objectGenMotherPt =  '? (getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isAvailable && getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticleMotherSmart({object_idx}, 13, 0).pt() : -999', 
+    objectGenMotherEnergy =  '? (getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isAvailable && getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticleMotherSmart({object_idx}, 13, 0).energy() : -999', 
+    objectGenMotherEta =  '? (getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isAvailable && getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticleMotherSmart({object_idx}, 13, 0).eta() : -999', 
+    objectGenMotherPhi =  '? (getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isAvailable && getDaughterGenParticleMotherSmart({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticleMotherSmart({object_idx}, 13, 0).phi() : -999', 
+
     objectComesFromHiggs = 'comesFromHiggs({object_idx}, 13, 1)',
 
     objectGenPdgId       = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).pdgId() : -999',
@@ -71,6 +83,11 @@ id = PSet(
     objectGenEnergy      = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).energy() : -999',
     objectGenEta         = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).eta()   : -999',
     objectGenPhi         = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).phi()   : -999',
+    objectGenPt     = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).pt() : -999',
+    objectGenPx     = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).px() : -999',
+    objectGenPy     = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).py() : -999',
+    objectGenPz     = '? (getDaughterGenParticle({object_idx}, 13, 0).isAvailable && getDaughterGenParticle({object_idx}, 13, 0).isNonnull) ? getDaughterGenParticle({object_idx}, 13, 0).pz() : -999',
+
 )
 
 energyCorrections = PSet(

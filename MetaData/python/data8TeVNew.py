@@ -1,3 +1,4 @@
+
 '''
 
 Dataset definitions for 8TeV
@@ -39,122 +40,6 @@ except:
 data_name_map = {}
 
 datadefs = {
-   'WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v3/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 11.1,
-   'pu' : 'S10',
-   },
-
-   'T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 11.1,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/Tbar_t-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 30.7,
-   'pu' : 'S10',
-   },
-
-   'T_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/T_t-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 56.4,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-   'Zjets_M50' : {
-   'analyses': ['ET'],
-   'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-   'pu': 'S10',
-   'calibrationTarget': 'Summer12',
-   'xsec': -999,
-   },
-    'Z2jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY2JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z3jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY3JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z4jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY4JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z1jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY1JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-
-
-
-
    'Tbar_s-channel_TuneZ2star_8TeV-powheg-tauola' : {
    'analyses': ['HTT'],
    'datasetpath' : "/Tbar_s-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
@@ -169,21 +54,6 @@ datadefs = {
    'pu' : 'S10',
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
-
-   'TTJetsFullLepMGDecays' : {
-         'analyses': ["ET"],
-         'datasetpath' : "/TTJets_FullLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v2/AODSIM",
-         'x_sec' : -999,
-         'pu' : 'S10',
-         'calibrationTarget' : 'Summer12_DR53X',
-   },
-   'TTJetsSemiLepMGDecays' : {
-         'analyses': ["ET"],
-         'datasetpath' : "/TTJets_SemiLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM",
-         'x_sec' : -999,
-         'pu' : 'S10',
-         'calibrationTarget' : 'Summer12_DR53X',
-   },
    'TTTo2L2Nu2B_8TeV-powheg-pythia6' : {
    'analyses': ['4L'],
    'datasetpath' : "/TTTo2L2Nu2B_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
@@ -191,24 +61,7 @@ datadefs = {
    'pu' : 'S10',
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
-
-   'WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball_v2' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v2/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball_v1' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball' : {
+  'DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball' : {
    'analyses': ['HTT','HZG'],
    'datasetpath' : "/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
    # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat8TeV
@@ -395,7 +248,7 @@ datadefs = {
         'x_sec': 37509, # this is the W xsec in the StandardModelReference twiki
     },
 
-   'WplusJets_madgraph' : {
+   'WplusJets_madgraph_S10' : {
    'analyses': ['HTT'],
    'datasetpath' : "/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
    'x_sec' : -999,
@@ -403,51 +256,6 @@ datadefs = {
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
 
-    'Wplus1Jets_madgraph' : {
-        'analyses': ['HTT'],
-        'datasetpath': '/W1JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'x_sec': 6662.8,
-    },
-    'Wplus1Jets_madgraph_tapas' : {
-        'analyses': ['ET'],
-        'datasetpath': '/W1JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V19-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'x_sec': 6662.8,
-    },
-
-    'Wplus2Jets_madgraph' : {
-        'analyses': ['HTT'],
-        'datasetpath': '/W2JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S7',
-        'calibrationTarget': 'Summer12',
-        'x_sec': 2159.2,
-    },
-      'Wplus2Jets_madgraph_tapas' : {
-            'analyses': ['HTT'],
-            'datasetpath': '/W2JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V19-v1/AODSIM',
-            'pu': 'S10',
-            'calibrationTarget': 'Summer12',
-            'x_sec': 2159.2,
-      },
-
-    'Wplus3Jets_madgraph' : {
-        'analyses': ['HTT'],
-        'datasetpath': '/W3JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S7',
-        'calibrationTarget': 'Summer12',
-        'x_sec': 640.4,
-    },
-
-    'Wplus4Jets_madgraph' : {
-        'analyses': ['HTT'],
-        'datasetpath': '/W4JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S7',
-        'calibrationTarget': 'Summer12',
-        'x_sec': 264.,
-    },
 
 
 }
@@ -503,22 +311,6 @@ datadefs['SUSYBBHToTauTau_M-300_8TeV-pythia6-tauola'] = {
    'x_sec' : -999,
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    }
-
-for mass in range(110, 165, 5) :
-   datadefs['GluGluToHToTauTau_M-%i_8TeV-powheg-pythia6' % mass] = {
-      'analyses': ['HTT'],
-      'datasetpath': "/GluGluToHToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM" % mass,
-      'pu' : 'S10',
-      'x_sec' : -999,
-       'calibrationTarget':'Summer12_DR53X_HCP2012'
-      }
-   datadefs['VBF_HToTauTau_M-%i_8TeV-powheg-pythia6' % mass] = {
-      'analyses': ['HTT'],
-      'datasetpath': "/VBF_HToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM" % mass,
-      'pu' : 'S10',
-      'x_sec' : -999,
-       'calibrationTarget':'Summer12_DR53X_HCP2012'
-      }
 
 
 # HZZ4L Signal Samples
@@ -663,7 +455,7 @@ for mass in range(110, 150, 10):
 
 
 # We use the same name for the 53X lepdecay only samples (sigh)
-for mass in range(90, 170, 5):
+for mass in range(90, 165, 5):
     datadefs['VH_H2Tau_M-%s' % mass] = {}
     datadefs['VH_H2Tau_M-%s' % mass]['x_sec'] = xsbr(8,mass,'wh','tautau')[0] + xsbr(8,mass,'zh','tautau')[0] + xsbr(8,mass,'tth','tautau')[0]
 
