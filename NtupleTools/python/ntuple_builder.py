@@ -37,10 +37,12 @@ _common_template = PSet(
     templates.trigger.isomu,
     templates.trigger.isomu24eta2p1,
     templates.trigger.singlemu,
-    templates.trigger.singlee,
+     templates.trigger.singlee,
     templates.trigger.singlePho,
     templates.trigger.doublePho,
-    templates.trigger.isoMuTau
+    templates.trigger.isoMuTau,
+    templates.trigger.isoETau
+
 )
 
 # Define the branch templates for different object types.
@@ -52,12 +54,14 @@ _tau_template = PSet(
     templates.taus.info,
     templates.taus.id,
     templates.topology.mtToMET,
+    templates.taus.trigger
 )
 
 _muon_template = PSet(
     templates.candidates.base_jet,
     templates.candidates.kinematics,
     templates.candidates.vertex_info,
+    templates.cleaning.overlaps,
     templates.muons.id,
     templates.muons.energyCorrections,
     templates.muons.tracking,
@@ -75,6 +79,7 @@ _electron_template = PSet(
     templates.candidates.base_jet,
     templates.candidates.kinematics,
     templates.candidates.vertex_info,
+    templates.cleaning.overlaps,
     templates.electrons.id,
     templates.electrons.energyCorrections,
     templates.electrons.tracking,
@@ -340,13 +345,16 @@ def make_ntuple(*legs, **kwargs):
 
     #Apply additional selections
     if 'skimCuts' in kwargs and kwargs['skimCuts']:
-        for cut in kwargs['skimCuts']:
-            output.analysis.selections.append(
-                cms.PSet(
-                    name = cms.string(cut),
-                    cut  = cms.string(cut)
-                ),
-            )
+#        for cut in kwargs['skimCuts']:
+        output.analysis.selections.append(
+            cms.PSet(
+                #name = cms.string(cut),
+                #cut  = cms.string(cut)
+                name = cms.string(kwargs['skimCuts']),
+                cut  = cms.string(kwargs['skimCuts'])
+
+            ),
+        )
 
     # Apply "uniqueness requirements" to reduce final processing/storage.
     # This make sure there is only one ntuple entry per-final state.  The
