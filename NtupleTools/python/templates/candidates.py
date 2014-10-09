@@ -45,19 +45,19 @@ base_jet = PSet(
         '{object}.userCand("patJet").phiphiMoment() : -5',
     objectJetArea = '? {object}.userCand("patJet").isNonnull ? '
         '{object}.userCand("patJet").jetArea() : -5',
-    objectJetptD  =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx}, "ptD") : -100',
-    objectJetaxis1  =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx},"axis1") : -100 ',
-    objectJetaxis2  =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx},"axis2") : -100',
-    objectJetmult  =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx},"mult") : -100',
-    objectJetmultMLPQC  =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx},"mult_MLP_QC") : -100 ',
-    objectJetmultMLP    =   '? {object}.userCand("patJet").isNonnull ? '
-    'jetVariables({object_idx},"mult_MLP") : -100',
-    objectJetPartonFlavour = '? {object}.userCand("patJet").isNonnull ? '
-        '{object}.userCand("patJet").partonFlavour : -100',
+    #objectJetptD  =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx}, "ptD") : -100',
+    #objectJetaxis1  =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx},"axis1") : -100 ',
+    #objectJetaxis2  =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx},"axis2") : -100',
+    #objectJetmult  =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx},"mult") : -100',
+    #objectJetmultMLPQC  =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx},"mult_MLP_QC") : -100 ',
+    #objectJetmultMLP    =   '? {object}.userCand("patJet").isNonnull ? '
+    #'jetVariables({object_idx},"mult_MLP") : -100',
+    #objectJetPartonFlavour = '? {object}.userCand("patJet").isNonnull ? '
+    #    '{object}.userCand("patJet").partonFlavour : -100',
 )
 
