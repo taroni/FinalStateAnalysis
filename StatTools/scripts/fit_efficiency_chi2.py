@@ -17,7 +17,11 @@ from FinalStateAnalysis.PlotTools.RebinView import RebinView
 import rootpy.plotting as plotting
 import logging
 import sys
-from rootpy.utils import asrootpy
+try:
+    from rootpy.utils import asrootpy
+except ImportError:
+    from rootpy import asrootpy
+
 
 args = sys.argv[:]
 sys.argv = [sys.argv[0]]
@@ -106,8 +110,12 @@ if __name__ == "__main__":
     log.info("Getting histograms")
     pass_histo = input_view.Get(args.num)
     all_histo = input_view.Get(args.denom)
-
-    #make slice if necessary
+    #canvas = ROOT.TCanvas("asdf", "asdf", 800, 600)
+    #pass_histo.Draw()
+    #canvas.SaveAs( args.output.replace(".root", "numerator.root"))
+    #all_histo.Draw()
+    #canvas.SaveAs(args.output.replace(".root", "denominator.root"))
+    ##make slice if necessary
     if args.slice: #maybe a check if is 2d would be a good thing
         log.info("Slicing! Slice #%s" % args.slice)
         #project
@@ -231,7 +239,7 @@ if __name__ == "__main__":
             else:
                 frame.GetXaxis().SetTitle(args.xtitle)
             frame.Draw()
-            canvas.SetLogy(True)
+            #canvas.SetLogy(True)
             if args.grid:
                 canvas.SetGrid()
             canvas.Draw()
@@ -239,6 +247,7 @@ if __name__ == "__main__":
             log.info("Saving fit plot in %s", plot_name)
             canvas.SaveAs(plot_name)
             canvas.SaveAs(plot_name.replace('.png', '.pdf'))
+            canvas.SaveAs(plot_name.replace('.png', '_plot.root'))
         finally:
             # If we don't explicitly delete this, we get a segfault in the dtor
             frame.Delete()
