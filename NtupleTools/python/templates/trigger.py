@@ -48,7 +48,12 @@ singlee = PSet(
     _trig_template.replace(
     name='singleEPFMT',
     paths=r'HLT_Ele27_WP80_PFMET_MT50_v\\d+,HLT_Ele32_WP70_PFMT50_v\\d+'
-    )
+    ),
+    _trig_template.replace(
+    name='singleE27WP80',
+    paths=r'HLT_Ele27_WP80_v\\d+'
+    ),
+
 )
 
 doublee = PSet(
