@@ -19,10 +19,21 @@ mtToMET = PSet(
     objectMtToPFMET      = 'mtMET({object_idx}, "", "pfmet", ""     , 1)',#1, apply phi correction
     objectMtToPfMet_Ty1  = 'mtMET({object_idx}, "", "pfmet", "type1", 1)',
     objectMtToPfMet_mes  = 'mtMET({object_idx}, "", "pfmet", "mes+" , 1)',
+    objectMtToPfMet_ees  = 'mtMET({object_idx}, "", "pfmet", "ees+" , 1)',
     objectMtToPfMet_tes  = 'mtMET({object_idx}, "", "pfmet", "tes+" , 1)',
     objectMtToPfMet_jes  = 'mtMET({object_idx}, "", "pfmet", "jes+" , 1)',
     objectMtToPfMet_ues  = 'mtMET({object_idx}, "", "pfmet", "ues+" , 1)',
-
+    #objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "ues+", 1)',
+    #objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "ues-", 1)',
+    objectMtToPfMet_mes_plus  = 'mtMET({object_idx}, "", "pfmet", "mes+" , 1)',
+    objectMtToPfMet_tes_plus  = 'mtMET({object_idx}, "", "pfmet", "tes+" , 1)',
+    objectMtToPfMet_jes_plus  = 'mtMET({object_idx}, "", "pfmet", "jes+" , 1)',
+    objectMtToPfMet_ues_plus  = 'mtMET({object_idx}, "", "pfmet", "ues+" , 1)',
+    objectMtToPfMet_mes_minus  = 'mtMET({object_idx}, "", "pfmet", "mes-" , 1)',
+    objectMtToPfMet_tes_minus  = 'mtMET({object_idx}, "", "pfmet", "tes-" , 1)',
+    objectMtToPfMet_jes_minus  = 'mtMET({object_idx}, "", "pfmet", "jes-" , 1)',
+    objectMtToPfMet_ues_minus  = 'mtMET({object_idx}, "", "pfmet", "ues-" , 1)',
+ 
     #MVA MET
     objectMtToMVAMET     = 'mtMET({object_idx}, "", "mvamet", "", 0)',
 
@@ -42,6 +53,9 @@ pairs = PSet(
 
     #Pairs + MET
     object1_object2_ToMETDPhi_Ty1 = 'deltaPhi(subcand({object1_idx}, {object2_idx}).get.phi, evt.met("pfmet").userCand("type1").phi)',
+    object1_object2_ToMETDPhi_jes_plus = 'deltaPhi(subcand({object1_idx}, {object2_idx}).get.phi, evt.met("pfmet").userCand("jes+").phi)',
+    object1_object2_ToMETDPhi_jes_minus = 'deltaPhi(subcand({object1_idx}, {object2_idx}).get.phi, evt.met("pfmet").userCand("jes-").phi)', 
+
 )
 
 svfit = PSet(
@@ -98,6 +112,8 @@ vbf = PSet(
    vbfJetVetoTight30 = 'vbfVariables("pt >30& userInt(\'fullIdTight\') & userFloat(\'idLoose\')").jets30',
    vbfJetVetoTight20 = 'vbfVariables("pt >30& userInt(\'fullIdTight\')  & userFloat(\'idLoose\')").jets20',
    vbfMVA = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\') ").mva',
+   vbfMass_jes_plus = 'vbfVariables("userCand(\'jes+\').pt() >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
+   vbfMass_jes_minus = 'vbfVariables("userCand(\'jes-\').pt() >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
    vbfMass = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
    vbfDeta = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").deta',
    vbfDphi = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").dphi',
