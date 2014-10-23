@@ -13,6 +13,7 @@ import logging
 import multiprocessing
 import os
 import sys
+from pdb import set_trace
 
 from FinalStateAnalysis.PlotTools.ChainProcessor import ChainProcessor
 from FinalStateAnalysis.PlotTools.Dispatcher import MegaDispatcher
@@ -62,6 +63,9 @@ if __name__ == "__main__":
     parser.add_argument('--single-mode', action='store_true', dest='single',
                         help="Run as a single job.")
 
+    parser.add_argument('--no-xrd', action='store_true', dest='noxrd',
+                        help="Does not use Xrd to fetch files.")
+
     parser.add_argument('--verbose', action='store_const', const=True,
                         default=False, help='Print debug output')
 
@@ -77,8 +81,11 @@ if __name__ == "__main__":
     else:
         log.info("Creating mega session with 1 workers - single mode")
 
-    file_list = list(xrootify(find_input_files(args.inputs)))
-
+    if args.noxrd:
+        file_list = list(find_input_files(args.inputs))
+    else:
+        file_list = list(xrootify(find_input_files(args.inputs)))
+        
     if not file_list:
         log.error("Dataset %s has no files!  Skipping..." % file_list)
         sys.exit(1)
