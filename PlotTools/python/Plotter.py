@@ -248,7 +248,6 @@ class Plotter(object):
             err_histo  = mc_hist.Clone() 
             err_histo.SetMarkerStyle(0)
             err_histo.SetLineColor(1)
-            err_histo.SetFillStyle('x')# was 'x'
             err_histo.SetFillColor(1)
 
             for ibin in range(1, nbins+1):

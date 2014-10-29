@@ -15,6 +15,7 @@ import array
 from RecoLuminosity.LumiDB import argparse
 from FinalStateAnalysis.PlotTools.RebinView import RebinView
 import rootpy.plotting as plotting
+from pdb import set_trace
 import logging
 import sys
 try:
@@ -208,6 +209,7 @@ if __name__ == "__main__":
     ws.writeToFile(args.output)
 
     if args.plot:
+        log.info("Plotting")
         canvas = ROOT.TCanvas("asdf", "asdf", 800, 600)
         try:
             frame = None
@@ -222,7 +224,8 @@ if __name__ == "__main__":
                     frame,
                     ROOT.RooFit.LineColor(ROOT.EColor.kBlack),
                     ROOT.RooFit.VisualizeError(fit_result, 1.0),
-                    ROOT.RooFit.FillColor(ROOT.EColor.kAzure - 9)
+                    ROOT.RooFit.FillColor(ROOT.EColor.kAzure - 9),
+                    ROOT.RooFit.Name('errorband')
                 )
             else:
                 function.plotOn(
@@ -244,6 +247,44 @@ if __name__ == "__main__":
             else:
                 frame.GetXaxis().SetTitle(args.xtitle)
             frame.Draw()
+
+            #create errorbands histos
+            errorband = ROOT.errorband
+            npoints= errorband.GetN()
+            #get pointer to graph xs and ys
+            buf_xs = errorband.GetX()
+            buf_ys = errorband.GetY()
+            #translate into lists, cut off the first 
+            #and last elements (are meaningless)
+            xs = [buf_xs[i] for i in xrange(1, npoints -1)]
+            ys = [buf_ys[i] for i in xrange(1, npoints -1)]
+            #split into half and revert second half
+            half = int( len(xs)/2 )
+            xlow  = (xs[: half])[:-1] #remove last because "reasons"
+            xhigh = (xs[half :][::-1])[:-1] #remove last because "reasons"
+            assert(xlow == xhigh) #magic!
+            ylow  = (ys[: half])[:-1] #remove last because "reasons"
+            yhigh = (ys[half :][::-1])[:-1] #remove last because "reasons"            
+
+            gap = xlow[1] - xlow[0]
+            x_range = xlow[-1] - xlow[0]
+            xmin = xlow[0] - gap/2
+            xmax = xlow[-1] + gap/2
+            nbins = ROOT.TMath.Nint(x_range/gap + 1)
+            up_shift = ROOT.TH1F("efficiency_up", "", nbins, xmin, xmax)
+            dw_shift = ROOT.TH1F("efficiency_dw", "", nbins, xmin, xmax)
+            for idx, shifts in enumerate(zip(ylow, yhigh)):
+                low, high = shifts
+                up_shift.SetBinContent( idx+1, high)
+                dw_shift.SetBinContent( idx+1, low)
+
+            tfile = ROOT.TFile.Open(args.output.replace('.root', '_2.root'), 'recreate')
+            tfile.cd()
+            up_shift.Write()
+            dw_shift.Write()
+            tfile.Close()
+
+            #set_trace()
             #canvas.SetLogy(True)
             if args.grid:
                 canvas.SetGrid()
@@ -252,6 +293,7 @@ if __name__ == "__main__":
             log.info("Saving fit plot in %s", plot_name)
             canvas.SaveAs(plot_name)
             canvas.SaveAs(plot_name.replace('.png', '.pdf'))
+            #canvas.SaveAs(plot_name.replace('.png', '.C'))
             canvas.SaveAs(plot_name.replace('.png', '_plot.root'))
         finally:
             # If we don't explicitly delete this, we get a segfault in the dtor
