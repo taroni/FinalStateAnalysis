@@ -64,12 +64,17 @@ namespace :meta do
           maxbin = 60
           nbins = 600
           minbias = 69400
+	  minbiasp1s = minbias*1.05
+	  minbiasm1s = minbias*0.95
         end
         if sqrts == "7" then
           pu_file = ENV["pu2011JSON"]
         end
         # Find the newest PU json file
         sh "pileupCalc.py -i #{t.prerequisites[0]} --inputLumiJSON #{pu_file} --calcMode true --minBiasXsec #{minbias} --maxPileupBin #{maxbin} --numPileupBins #{nbins} #{t.name}"
+      	sh "pileupCalc.py -i #{t.prerequisites[0]} --inputLumiJSON #{pu_file} --calcMode true --minBiasXsec #{minbiasp1s} --maxPileupBin #{maxbin} --numPileupBins #{nbins} #{sample+'.pu_up.root'}"
+        sh "pileupCalc.py -i #{t.prerequisites[0]} --inputLumiJSON #{pu_file} --calcMode true --minBiasXsec #{minbiasm1s} --maxPileupBin #{maxbin} --numPileupBins #{nbins} #{sample+'.pu_down.root'}"
+	
       end
       # Put the lumicalc result in a readable format.  Make it dependent
       # on the PU .root file as well, so it gets built.
