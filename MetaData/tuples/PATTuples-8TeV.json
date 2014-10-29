@@ -1,9 +1,11 @@
 
 {
+  "ZetauEmbedded_Run2012A" : "/hdfs/store/user/taroni/DoubleMu/StoreResults-Run2012A_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
 
-  "data_ZetauEmbedded_Run2012B" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
-  "data_ZetauEmbedded_Run2012C" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
-  "data_ZetauEmbedded_Run2012D" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012D_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
+  "ZetauEmbedded_Run2012B" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
+
+  "ZetauEmbedded_Run2012C" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
+  "ZetauEmbedded_Run2012D" : "/hdfs/store/user/taroni/DoubleMuParked/StoreResults-Run2012D_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/",
 
   "data_SingleElectron_Run2012A_22Jan2013_v1" : "/hdfs/store/user/tperry/SingleElectron/Run2012A-22Jan2013-v1/AOD/Spring2014PATTuples_v2c",
   "data_SingleElectron_Run2012B_22Jan2013_v1" : "/hdfs/store/user/tperry/SingleElectron/Run2012B-22Jan2013-v1/AOD/Spring2014PATTuples_v2c",

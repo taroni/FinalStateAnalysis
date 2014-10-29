@@ -1,4 +1,5 @@
 
+
 '''
 
 Dataset definitions for 8TeV
@@ -97,7 +98,7 @@ datadefs = {
             'calibrationTarget': 'Summer12',
             'x_sec': 666,
       },
-      'Zjets_M50_skimmedTT' : {
+      'Z0jets_M50_skimmedTT' : {
             'analyses': ['ET'],
             'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
             'pu': 'S10',
@@ -132,7 +133,7 @@ datadefs = {
             'calibrationTarget': 'Summer12',
             'x_sec': 666,
       },
-      'Zjets_M50_skimmedLL' : {
+      'Z0jets_M50_skimmedLL' : {
             'analyses': ['ET'],
             'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
             'pu': 'S10',
@@ -789,34 +790,37 @@ datadefs['data_DoubleMu_Run2012B_13Jul2012_v4'] = {
     'calibrationTarget':'Moriond2013'
    }
 
+datadefs['ZetauEmbedded_Run2012A']=  {
+      'datasetpath' : "/DoubleMu/StoreResults-Run2012A_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'analyses' : ['ET'],
+      'x_sec' : 3503,
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+
 datadefs['ZetauEmbedded_Run2012B']=  {
       'datasetpath' : "/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau116_ptmu1_16had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
-      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
-      'firstRun' : 193833,
-      'lastRun' : 196531,
       'analyses' : ['ET'],
+      'x_sec' : 3503,
       'pu' : 'data',
       'calibrationTarget':'Moriond2013'
 }
 
 datadefs['ZetauEmbedded_Run2012C']=  {
       'datasetpath' : "/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
-      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
-      'firstRun' : 198022,
-      'lastRun' : 203742,
       'analyses' : ['ET'],
+      'x_sec' : 3503,
       'pu' : 'data',
       'calibrationTarget':'Moriond2013'
 }
 datadefs['ZetauEmbedded_Run2012D']=  {
       'datasetpath' : "/DoubleMuParked/StoreResults-Run2012D_22Jan2013_v1_RHembedded_trans1_tau115_ptelec1_20had1_18_v1-f456bdbb960236e5c696adfe9b04eaae/USER",
-      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
-      'firstRun' : 193833,
-      'lastRun' : 196531,
       'analyses' : ['ET'],
+      'x_sec' : 3503,
       'pu' : 'data',
       'calibrationTarget':'Moriond2013'
-   },
+}
+
 datadefs['ZetauEmbedded_Run2012B_noEmbeddedPat']=  {
       'datasetpath' : "/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau116_ptmu1_16had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
       'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
@@ -829,9 +833,6 @@ datadefs['ZetauEmbedded_Run2012B_noEmbeddedPat']=  {
 
 datadefs['ZetauEmbedded_Run2012C_noEmbeddedPat']=  {
       'datasetpath' : "/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
-      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
-      'firstRun' : 198022,
-      'lastRun' : 203742,
       'analyses' : ['ET'],
       'pu' : 'data',
       'calibrationTarget':'Moriond2013'
@@ -976,9 +977,9 @@ data_DoubleMu, list_DoubleMu = build_data_set('DoubleMu', ['VH', 'Mu','4L','HZG'
 datadefs.update(data_DoubleMu)
 data_name_map.update(list_DoubleMu)
 
-data_ZetauEmbedded, list_ZetauEmbedded = build_data_set('ZetauEmbedded', ['ET'])
-datadefs.update(data_ZetauEmbedded)
-data_name_map.update(list_ZetauEmbedded)
+#data_ZetauEmbedded, list_ZetauEmbedded = build_data_set('ZetauEmbedded', ['ET'])
+#datadefs.update(data_ZetauEmbedded)
+#data_name_map.update(list_ZetauEmbedded)
 
 data_DoubleMuParked, list_DoubleMuParked = build_data_set('DoubleMuParked', ['VH', 'Mu','4L','HZG'])
 datadefs.update(data_DoubleMuParked)

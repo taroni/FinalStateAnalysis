@@ -77,16 +77,17 @@ options = TauVarParsing.TauVarParsing(
     rerunJets=0,
     dblhMode=False, # For double-charged Higgs analysis
     runTauSpinner=0,
-    GlobalTag=""
+    GlobalTag="",
+    skimCuts=""
 )
 
-options.register(
-    'skimCuts',
-    '',
-    TauVarParsing.TauVarParsing.multiplicity.list,
-    TauVarParsing.TauVarParsing.varType.string,
-    'additional cuts to impose on the NTuple'
-)
+#options.register(
+#    'skimCuts',
+#    '',
+#    TauVarParsing.TauVarParsing.multiplicity.list,
+#    TauVarParsing.TauVarParsing.varType.string,
+#    'additional cuts to impose on the NTuple'
+#)
 
 
 options.outputFile = "ntuplize.root"

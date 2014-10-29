@@ -137,6 +137,11 @@ if __name__ == "__main__":
         log.info("pass/all = %0.0f/%0.0f = %0.2f%%",
                  pass_histo.Integral(), all_histo.Integral(),
                  pass_histo.Integral() / all_histo.Integral())
+        i=1
+        while i <=  pass_histo.GetXaxis().GetNbins():
+            log.info("bin %d: content %d, %d", i, pass_histo.GetBinContent(i), all_histo.GetBinContent(i))
+            i+=1
+
     # Fill the data.
     graph = ROOT.TGraphAsymmErrors(pass_histo, all_histo)
 
