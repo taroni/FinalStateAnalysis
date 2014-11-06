@@ -16,7 +16,7 @@ mtToMET = PSet(
     objectMtToMET = 'mtMET({object_idx}, "raw")',
 
     #PF Type1 MET (and systematics)
-    objectMtToPFMET      = 'mtMET({object_idx}, "", "pfmet", ""     , 1)',#1, apply phi correction
+    objectMtToPfMet      = 'mtMET({object_idx}, "", "pfmet", ""     , 1)',#1, apply phi correction
     objectMtToPfMet_Ty1  = 'mtMET({object_idx}, "", "pfmet", "type1", 1)',
     objectMtToPfMet_mes  = 'mtMET({object_idx}, "", "pfmet", "mes+" , 1)',
     objectMtToPfMet_ees  = 'mtMET({object_idx}, "", "pfmet", "ees+" , 1)',
@@ -35,6 +35,12 @@ mtToMET = PSet(
     objectMtToPfMet_tes_minus  = 'mtMET({object_idx}, "", "pfmet", "tes-" , 1)',
     objectMtToPfMet_jes_minus  = 'mtMET({object_idx}, "", "pfmet", "jes-" , 1)',
     objectMtToPfMet_ues_minus  = 'mtMET({object_idx}, "", "pfmet", "ues-" , 1)',
+    
+#    objectMtToPfMet_object_ees_plus  = '? {object_idx}.userCand(\'ees+\').isNonnull() ? mtMET({object_idx}.userCand(\'ees+\'), "", "", "" , 1) : 0',
+#    objectMtToPfMet_object_tes_plus  = '? {object_idx}.userCand(\'tes+\').isNonnull() ? mtMET({object_idx}.userCand(\'tes+\'), "", "", "" , 1) : 0',
+#    objectMtToPfMet_object_ees_minus  = '? {object_idx}.userCand(\'ees-\').isNonnull() ? mtMET({object_idx}.userCand(\'ees-\'), "", "", "" , 1): 0',
+#    objectMtToPfMet_object_tes_minus  = '? {object_idx}.userCand(\'tes-\').isNonnull() ? mtMET({object_idx}.userCand(\'tes-\'), "", "", "" , 1): 0',
+   
  
     #MVA MET
     objectMtToMVAMET     = 'mtMET({object_idx}, "", "mvamet", "", 0)',
@@ -45,6 +51,15 @@ mtToMET = PSet(
 # Variables based on pairs of objects
 pairs = PSet(
     object1_object2_Mass = 'subcand({object1_idx}, {object2_idx}).get.mass',
+    object1_object2_Mass_tes_plus =  '? daughter(1).userCand("tes+").isNonnull() ? subcand("@,tes+").get.mass : -1',
+    object1_object2_Mass_ees_plus =  '? daughter(0).userCand("ees+").isNonnull() ? subcand("ees+,@").get.mass : -1',
+    object1_object2_Mass_tes_minus = '? daughter(1).userCand("tes-").isNonnull() ? subcand("@,tes-").get.mass : -1',
+    object1_object2_Mass_ees_minus = '? daughter(0).userCand("ees-").isNonnull() ? subcand("ees-,@").get.mass : -1',
+    ## object1_object2_Mass_tes_plus =  '? {object2}.userCand("tes+").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_ees_plus =  '? {object1}.userCand("ees+").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_tes_minus = '? {object2}.userCand("tes-").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_ees_minus = '? {object1}.userCand("ees-").isNonnull() ? 1 : -1',
+
     object1_object2_Pt = 'subcand({object1_idx}, {object2_idx}).get.pt',
     object1_object2_DR = 'dR({object1_idx}, {object2_idx})',
     object1_object2_DPhi = 'dPhi({object1_idx}, {object2_idx})',
