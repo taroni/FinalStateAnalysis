@@ -220,7 +220,7 @@ class Plotter(object):
 
             m_cont = mc_hist.GetBinContent(ibin)
 
-            d_cont = d_cont/ m_cont if m_cont else 0.
+            d_cont = (d_cont-m_cont)/ m_cont if m_cont else -10.
             d_err  = d_err / m_cont if m_cont else 0.
             
             data_clone.SetBinContent( ibin, d_cont )
@@ -229,7 +229,7 @@ class Plotter(object):
         data_clone.Draw('ep')
         self.keep.append(data_clone)
         if ratio_range:
-            data_clone.GetYaxis().SetRangeUser(1-ratio_range, 1+ratio_range)
+            data_clone.GetYaxis().SetRangeUser(-ratio_range, ratio_range)
 
         #reference line
         if not x_range:
@@ -238,7 +238,7 @@ class Plotter(object):
                        data_clone.GetBinLowEdge(nbins)+data_clone.GetBinWidth(nbins))
         else:
             data_clone.GetXaxis().SetRangeUser(*x_range)
-        ref_function = ROOT.TF1('f', "1.", *x_range)
+        ref_function = ROOT.TF1('f', "0.", *x_range)
         ref_function.SetLineWidth(3)
         ref_function.SetLineStyle(2)
         ref_function.Draw('same')
@@ -248,7 +248,6 @@ class Plotter(object):
             err_histo  = mc_hist.Clone() 
             err_histo.SetMarkerStyle(0)
             err_histo.SetLineColor(1)
-            err_histo.SetFillStyle('x')
             err_histo.SetFillColor(1)
 
             for ibin in range(1, nbins+1):
@@ -256,10 +255,10 @@ class Plotter(object):
                 err  = err_histo.GetBinError(ibin)
                 err  = err/cont if cont else 0.
 
-                err_histo.SetBinContent(ibin, 1)
+                err_histo.SetBinContent(ibin, 0)
                 err_histo.SetBinError(  ibin, err)
 
-            err_histo.Draw('pe2 same')
+            err_histo.Draw('pe2 same') #was pe
             self.keep.append(err_histo)
 
         self.pad.cd()

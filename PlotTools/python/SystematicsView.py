@@ -13,7 +13,7 @@ class SystematicsView(views._FolderView):
     @staticmethod
     def add_error(histo, sys_error):
         clone = histo.Clone()
-        for hbin in zipBins(histo):
+        for hbin in zipBins(clone):
             hbin.error = quad(
                 hbin.error, 
                 hbin.content * sys_error

@@ -16,6 +16,7 @@ http://ndawe.github.com/rootpy/reference/rootpy.plotting.html#rootpy.plotting.co
 from FinalStateAnalysis.Utilities.solarized import colors
 
 data_styles = {
+
     'Z*jets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
@@ -38,6 +39,14 @@ data_styles = {
         'fillcolor' : '#fa8795',
         'linecolor' : '#fa8795',
         'name' : "DY (#rightarrow #tau#tau)  + jets",
+        'fillstyle': 'solid',
+        },
+    'ZetauEmbedded' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#fa8795',
+        'linecolor' : '#fa8795',
+        'name' : " Z #rightarrow #tau#tau (embedded)",
         'fillstyle': 'solid',
         },
     'Wplus*Jets*' : {
