@@ -176,7 +176,7 @@ def make_corrector_from_histo(filename, path, dimensions='2D'):
     #print hist
     binsx = hist.GetNbinsX()
     binsy = hist.GetNbinsY() if is2d else None
-    def refFun(xval,yval):
+    def refFun(xval,yval=None):
         #print hist
         #FindFixBin is faster than FindBin
         #Compute underflow and overflow as first and last bin
