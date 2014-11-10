@@ -21,6 +21,6 @@ else
     mv higgsCombineTest.ProfileLikelihood.mH$INPUT_DIR.root higgsCombine-sig.ProfileLikelihood.mH$INPUT_DIR.root
     rm tmp.root
 fi
-exit 0
-
 popd
+
+exit 0
