@@ -89,4 +89,5 @@ overlaps = PSet(
     objectMuOverlap = 'overlapMuons({object_idx}, 0.4, "pt > 5").size()',
     objectElecOverlap = 'overlapElectrons({object_idx}, 0.4, "pt > 10").size()',
     objectCiCTightElecOverlap = 'overlapElectrons({object_idx}, 0.4, "pt > 10 & test_bit(electronID(\'cicTight\'), 0)").size()',
+    objectCiCLooseElecOverlap = 'overlapElectrons({object_idx}, 0.4, "pt > 10 & test_bit(electronID(\'cicLoose\'), 0)").size()',
 )

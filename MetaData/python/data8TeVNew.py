@@ -577,14 +577,14 @@ datadefs['GluGluToHToTauTau_M-125_8TeV-powheg-pythia6'] = {
       'analyses': ['HTT'],
       'datasetpath': "/GluGluToHToTauTau_M-125_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
       'pu' : 'S10',
-      'x_sec' : xsbr(8,mass,'ggf','tautau')[0],# 19.27 ,
+      'x_sec' : xsbr(8,125,'ggf','tautau')[0],# 19.27 ,
       'calibrationTarget':'Summer12_DR53X_HCP2012'
 }
 datadefs['VBF_HToTauTau_M-125_8TeV-powheg-pythia6'] = {
       'analyses': ['HTT'],
       'datasetpath': "/VBF_HToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
       'pu' : 'S10',
-      'x_sec' :  xsbr(8,mass,'vbf','tautau')[0],#1.578, # to be checked
+      'x_sec' :  xsbr(8,125,'vbf','tautau')[0],#1.578, # to be checked
       'calibrationTarget':'Summer12_DR53X_HCP2012'
 }
 

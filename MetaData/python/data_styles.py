@@ -73,6 +73,22 @@ data_styles = {
         'name' : "Fakes",
         'fillstyle': 'solid',
         },
+    'eFakes*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#ff5900',
+        'linecolor' : '#ff5900',
+        'name' : "eFakes",
+        'fillstyle': 'solid',
+        },
+    'etFakes*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#cc4700',
+        'linecolor' : '#cc4700',
+        'name' : "etFakes",
+        'fillstyle': 'solid',
+        },
     'TTJets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
@@ -136,7 +152,7 @@ data_styles = {
         'drawstyle' : 'hist',
         'linecolor' : colors['red'],
         'fillcolor' : colors['red'],
-        'name' : "ZZ",
+        'name' : "Diboson",
         'fillstyle': 'solid',
     },
     'VBF_HToTauTau*' : {
