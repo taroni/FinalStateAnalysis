@@ -69,6 +69,9 @@ single_ele_wp80 = CorrectionLoader(
 single_ele_mva = CorrectionLoader(
     os.path.join(os.environ['fsa'], 'TagAndProbe/data/ScaleFactors_MySelToHLT_efficiency.txt')
 )
+correct_eEmb = CorrectionLoader(
+    os.path.join(os.environ['fsa'], 'TagAndProbe/data/electronEmbeddedScaleFactor.txt')
+)
 single_ele_eff_mva = CorrectionLoader(
     os.path.join(os.environ['fsa'], 'TagAndProbe/data/EfficiencySingleElectron_MySelToHLT_efficiency.txt')
 )

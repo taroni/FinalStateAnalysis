@@ -103,7 +103,7 @@ if __name__ == "__main__":
     if args.rebin and args.rebin > 1:
         binning = None
         if ',' in args.rebin:
-            binning = tuple(int(x) for x in args.rebin.split(','))
+            binning = tuple(float(x) for x in args.rebin.split(','))
         else:
             binning = int(args.rebin)
         input_view = RebinView(input_view, binning)

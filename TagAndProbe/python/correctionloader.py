@@ -31,5 +31,5 @@ class CorrectionLoader(object):
                     etamin, etamax = eta_thrs
                     if etamin <= eta < etamax:
                         return correction
-        raise ValueError("pt or eta out of boundaries for correction range")
+        raise ValueError("pt or eta out of boundaries for correction range: %s %s" %(pt, eta))
                     
