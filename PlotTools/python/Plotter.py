@@ -128,7 +128,12 @@ class Plotter(object):
         
         if matching:
             logging.debug("Merging %s into a single view. Asked: %s" % (' '.join(samples), sample_pattern) )
-            return views.SumView(*matching)
+            if 'view' in key_name:
+                return views.SumView(*matching)
+            elif 'weight' in key_name:
+                return sum(matching)/len(matching)
+            else:
+                return matching
         else:
             raise KeyError("I can't find a view that matches %s, I have: %s" % (
                 sample_pattern, " ".join(self.views.keys())))
