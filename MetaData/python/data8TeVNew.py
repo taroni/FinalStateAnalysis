@@ -568,8 +568,8 @@ datadefs['ZGToLLG']= {
 #### Signal datasets ####################################
 ############################################################################
 
-datadefs['ggHiggsToETau'] = {'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_GG_H2ETau-MuTauMC', 'pu': 'S10', 'calibrationTarget': 'Summer12_DR53X_HCP2012', 'x_sec': 0.1927 } #if BR=1
-datadefs['vbfHiggsToETau'] = { 'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_VBF_H2ETau-MuTauMC','pu': 'S10','calibrationTarget': 'Summer12_DR53X_HCP2012','x_sec': 0.01579} #if BR=1
+datadefs['ggHiggsToETau'] = {'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_GG_H2ETau-MuTauMC', 'pu': 'S10', 'calibrationTarget': 'Summer12_DR53X_HCP2012', 'x_sec': 0.1927 } #if BR=1%, 0.171503 if BR 0.89%
+datadefs['vbfHiggsToETau'] = { 'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_VBF_H2ETau-MuTauMC','pu': 'S10','calibrationTarget': 'Summer12_DR53X_HCP2012','x_sec': 0.01579} #if BR=1%, 0.0140531 if BR0.89%
 datadefs['ggHiggsToMuTau'] = {'analyses': ['MuTau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_GG_H2MuTau_LONG-MuTauMC', 'pu': 'S10', 'calibrationTarget': 'Summer12_DR53X_HCP2012', 'x_sec':  0.1927 }
 datadefs['vbfHiggsToMuTau'] = { 'analyses': ['MuTau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_VBF_H2MuTau_LONG-MuTauMC','pu': 'S10','calibrationTarget': 'Summer12_DR53X_HCP2012','x_sec':0.01579}
 
