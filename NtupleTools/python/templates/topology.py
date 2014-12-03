@@ -16,23 +16,42 @@ mtToMET = PSet(
     objectMtToMET = 'mtMET({object_idx}, "raw")',
 
     #PF Type1 MET (and systematics)
-    objectMtToPFMET      = 'mtMET({object_idx}, "", "pfmet", ""     , 1)',#1, apply phi correction
+    objectMtToPfMet      = 'mtMET({object_idx}, "", "pfmet", ""     , 1)',#1, apply phi correction
     objectMtToPfMet_Ty1  = 'mtMET({object_idx}, "", "pfmet", "type1", 1)',
     objectMtToPfMet_mes  = 'mtMET({object_idx}, "", "pfmet", "mes+" , 1)',
+    objectMtToPfMet_ees  = 'mtMET({object_idx}, "", "pfmet", "ees+" , 1)',
     objectMtToPfMet_tes  = 'mtMET({object_idx}, "", "pfmet", "tes+" , 1)',
     objectMtToPfMet_jes  = 'mtMET({object_idx}, "", "pfmet", "jes+" , 1)',
     objectMtToPfMet_ues  = 'mtMET({object_idx}, "", "pfmet", "ues+" , 1)',
+
     objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "ues+", 1)',
     objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "ues-", 1)',
+    objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "ees+", 1)',
+    objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "ees-", 1)',
+    objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "mes+", 1)',
+    objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "mes-", 1)',
+    objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "tes+", 1)',
+    objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "tes-", 1)',
+    objectMtToPfMet_Ty1_ues_plus = 'mtMET({object_idx}, "", "pfmet", "type1", "jes+", 1)',
+    objectMtToPfMet_Ty1_ues_minus = 'mtMET({object_idx}, "", "pfmet", "type1", "jes-", 1)',
+
     objectMtToPfMet_mes_plus  = 'mtMET({object_idx}, "", "pfmet", "mes+" , 1)',
+    objectMtToPfMet_ees_plus  = 'mtMET({object_idx}, "", "pfmet", "ees+" , 1)',
     objectMtToPfMet_tes_plus  = 'mtMET({object_idx}, "", "pfmet", "tes+" , 1)',
     objectMtToPfMet_jes_plus  = 'mtMET({object_idx}, "", "pfmet", "jes+" , 1)',
     objectMtToPfMet_ues_plus  = 'mtMET({object_idx}, "", "pfmet", "ues+" , 1)',
+
     objectMtToPfMet_mes_minus  = 'mtMET({object_idx}, "", "pfmet", "mes-" , 1)',
+    objectMtToPfMet_ees_minus  = 'mtMET({object_idx}, "", "pfmet", "ees-" , 1)',
     objectMtToPfMet_tes_minus  = 'mtMET({object_idx}, "", "pfmet", "tes-" , 1)',
     objectMtToPfMet_jes_minus  = 'mtMET({object_idx}, "", "pfmet", "jes-" , 1)',
     objectMtToPfMet_ues_minus  = 'mtMET({object_idx}, "", "pfmet", "ues-" , 1)',
 
+    
+#    objectMtToPfMet_object_ees_plus  = '? {object_idx}.userCand(\'ees+\').isNonnull() ? mtMET({object_idx}.userCand(\'ees+\'), "", "", "" , 1) : 0',
+#    objectMtToPfMet_object_tes_plus  = '? {object_idx}.userCand(\'tes+\').isNonnull() ? mtMET({object_idx}.userCand(\'tes+\'), "", "", "" , 1) : 0',
+#    objectMtToPfMet_object_ees_minus  = '? {object_idx}.userCand(\'ees-\').isNonnull() ? mtMET({object_idx}.userCand(\'ees-\'), "", "", "" , 1): 0',
+#    objectMtToPfMet_object_tes_minus  = '? {object_idx}.userCand(\'tes-\').isNonnull() ? mtMET({object_idx}.userCand(\'tes-\'), "", "", "" , 1): 0',
     #MVA MET
     objectMtToMVAMET     = 'mtMET({object_idx}, "", "mvamet", "", 0)',
 
@@ -42,6 +61,15 @@ mtToMET = PSet(
 # Variables based on pairs of objects
 pairs = PSet(
     object1_object2_Mass = 'subcand({object1_idx}, {object2_idx}).get.mass',
+    object1_object2_Mass_tes_plus =  '? daughter(1).userCand("tes+").isNonnull() ? subcand("@,tes+").get.mass : -1',
+    object1_object2_Mass_ees_plus =  '? daughter(0).userCand("ees+").isNonnull() ? subcand("ees+,@").get.mass : -1',
+    object1_object2_Mass_tes_minus = '? daughter(1).userCand("tes-").isNonnull() ? subcand("@,tes-").get.mass : -1',
+    object1_object2_Mass_ees_minus = '? daughter(0).userCand("ees-").isNonnull() ? subcand("ees-,@").get.mass : -1',
+    ## object1_object2_Mass_tes_plus =  '? {object2}.userCand("tes+").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_ees_plus =  '? {object1}.userCand("ees+").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_tes_minus = '? {object2}.userCand("tes-").isNonnull() ? 1 : -1',
+    ## object1_object2_Mass_ees_minus = '? {object1}.userCand("ees-").isNonnull() ? 1 : -1',
+
     object1_object2_Pt = 'subcand({object1_idx}, {object2_idx}).get.pt',
     object1_object2_DR = 'dR({object1_idx}, {object2_idx})',
     object1_object2_DPhi = 'dPhi({object1_idx}, {object2_idx})',
@@ -110,6 +138,8 @@ vbf = PSet(
    vbfJetVetoTight30 = 'vbfVariables("pt >30& userInt(\'fullIdTight\') & userFloat(\'idLoose\')").jets30',
    vbfJetVetoTight20 = 'vbfVariables("pt >30& userInt(\'fullIdTight\')  & userFloat(\'idLoose\')").jets20',
    vbfMVA = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\') ").mva',
+   vbfMass_jes_plus = 'vbfVariables("userCand(\'jes+\').pt() >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
+   vbfMass_jes_minus = 'vbfVariables("userCand(\'jes-\').pt() >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
    vbfMass = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").mass',
    vbfDeta = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").deta',
    vbfDphi = 'vbfVariables("pt >30& userInt(\'fullIdTight\') &  userFloat(\'idLoose\')").dphi',

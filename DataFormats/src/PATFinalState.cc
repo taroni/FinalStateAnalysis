@@ -128,16 +128,19 @@ PATFinalState::daughterPtrs(const std::string& tags) const {
   std::string cleanSysTags = boost::algorithm::erase_all_copy(tags, " ");
   boost::split(tokens, cleanSysTags, boost::is_any_of(","));
 
-  if (tokens.size() != numberOfDaughters()) {
-    throw cms::Exception("BadTokens") <<
-      "PATFinalState::daughterPtrs(tags) The number of parsed tokens ("
-      << tokens.size() << ") from the token string: " << tags
-      << " does not match the number of daughters (" << numberOfDaughters()
-      << ")" << std::endl;
-  }
+  // if (tokens.size() != numberOfDaughters()) {
+  //   throw cms::Exception("BadTokens") <<
+  //     "PATFinalState::daughterPtrs(tags) The number of parsed tokens ("
+  //     << tokens.size() << ") from the token string: " << tags
+  //     << " does not match the number of daughters (" << numberOfDaughters()
+  //     << ")" << std::endl;
+  // }
 
+  // size_t daughters = numberOfDaughters();
+  // size_t num_tokens = tokens.size();
+  size_t sub_candidate_daughters = std::min(numberOfDaughters(), tokens.size());
   std::vector<reco::CandidatePtr> output;
-  for (size_t i = 0; i < numberOfDaughters(); ++i) {
+  for (size_t i = 0; i < sub_candidate_daughters; ++i) {
     const std::string& token = tokens[i];
     if (token == "#") // skip daughter
       continue;

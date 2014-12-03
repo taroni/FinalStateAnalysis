@@ -1,3 +1,5 @@
+
+
 '''
 
 Dataset definitions for 8TeV
@@ -15,7 +17,7 @@ Author: Evan K. Friis, UW Madison
 '''
 
 from datacommon import square, cube, quad, picobarns, \
-        br_w_leptons, br_z_leptons, query_cli, femtobarns
+        br_w_leptons, br_z_leptons, query_cli
 
 from data8TeV import datadefs as datadefs52
 
@@ -39,120 +41,296 @@ except:
 data_name_map = {}
 
 datadefs = {
-   'WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
+      'WWJets' : {
+            'analyses': ['ET'],
+            'datasetpath' : "WW_TuneZ2star_8TeV_pythia6_tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec': 47,
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12_DR53X_HCP2012',
+      },
+      'WZJets' : {
+            'analyses': ['ET'],
+            'datasetpath' : "WZ_TuneZ2star_8TeV_pythia6_tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12_DR53X_HCP2012',
+            'x_sec': 20.3,
+      },
+      'ZZJets' : {
+            'analyses': ['ET'],
+            'datasetpath' : "ZZ_TuneZ2star_8TeV_pythia6_tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'pu': 'S10',
+            'calibrationTarget':' Summer12_DR53X_HCP2012',
+            'x_sec': 6.3,
+      },
+      
+      'Zjets_M50' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 3504,
+      },
+      'Z2jets_M50' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY2JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 215,
+      },
+      'Z3jets_M50' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY3JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 61,
+      },
+      'Z4jets_M50' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY4JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 27,
+      },
+      'Z1jets_M50' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY1JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 666,
+      },
+      'Z0jets_M50_skimmedTT' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 3504,
+      },
+      'Z2jets_M50_skimmedTT' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY2JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 215,
+      },
+      'Z3jets_M50_skimmedTT' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY3JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 61,
+      },
+      'Z4jets_M50_skimmedTT' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY4JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 27,
+      },
+      'Z1jets_M50_skimmedTT' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY1JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 666,
+      },
+      'Z0jets_M50_skimmedLL' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 3504,
+      },
+      'Z2jets_M50_skimmedLL' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY2JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 215,
+      },
+      'Z3jets_M50_skimmedLL' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY3JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 61,
+      },
+      'Z4jets_M50_skimmedLL' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY4JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 27,
+      },
+      'Z1jets_M50_skimmedLL' : {
+            'analyses': ['ET'],
+            'datasetpath': '/DY1JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 666,
+      },
+      'WplusJets_madgraph' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v2/AODSIM',#'/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12-PU_S7_START52_V9-v1/AODSIM',
+            'pu': 'S10',# 'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 37509,
+      },
+      'WplusJets_madgraph_skimmed' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v2/AODSIM',#'/WJetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12-PU_S7_START52_V9-v1/AODSIM',
+            'pu': 'S10',#'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 37509,
+      },
+      'Wplus1Jets_madgraph' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/W1JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V19-v1/AODSIM',#'/W1JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 6381,
+      },
+      'Wplus1Jets_madgraph_tapas' : {
+            'analyses': ['ET'],
+            'datasetpath': '/W1JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V19-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 6381,
+      },
 
-   'ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 0.91*picobarns,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
+      'Wplus2Jets_madgraph' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/W2JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',#'/W2JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',#'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 2030,
+      },
+      'Wplus2Jets_madgraph_tapas' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/W2JetsToLNu_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V19-v1/AODSIM',
+            'pu': 'S10',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 2030,
+      },
+      
+      'Wplus3Jets_madgraph' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/W3JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',#'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 634,
+      },
+      'Wplus4Jets_madgraph' : {
+            'analyses': ['HTT'],
+            'datasetpath': '/W4JetsToLNu_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
+            'pu': 'S10',#'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec': 260.,
+      },
+      'TTJetsFullLepMGDecays' : {
+            'analyses': ["ET"],
+            'datasetpath' : "/TTJets_FullLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v2/AODSIM",
+            'x_sec' : 24.56,#26.1975,
+            'pu' : 'S10',
+            'calibrationTarget' : 'Summer12_DR53X',
+      },
+      'TTJetsSemiLepMGDecays' : {
+            'analyses': ["ET"],
+            'datasetpath' : "/TTJets_SemiLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM",
+            'x_sec' : 102.5,#109.281,
+            'pu' : 'S10',
+            'calibrationTarget' : 'Summer12_DR53X',
+      },
+      'Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 11.1,
+            'pu' : 'S10',
+      },
+      
+      'T_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/T_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 11.1,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      'Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 30.7,
+            'pu' : 'S10',
+      },
 
-   'ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v3/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
+      'T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 56.4,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      'WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/WZJetsTo3LNu_TuneZ2_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 1.058,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      
+      'ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/ZZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 2.45,#2.502,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      
+      'ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/ZZJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v3/AODSIM",
+            'x_sec' : 0.716,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      
+      'WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 2.207,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      
+      'ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 0.181,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      
+      
+      
+      'WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
+            'analyses': ['HTT'],
+            'datasetpath' : "/WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+            'x_sec' : 5.76,#5.824,
+            'pu' : 'S10',
+            'calibrationTarget':'Summer12_DR53X_HCP2012'
+      },
+      'T_t_powheg_tauola' :{
+            'analyses': [''],
+            'datasetpath': '/T_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12-START50_V13-v3/GEN',
+            'pu':'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec':11.1,
+      },
+      'Tbar_t_powheg_tauola' :{
+            'analyses': [''],
+            'datasetpath': '/Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola/Summer12-START50_V13-v1/GEN',
+            'pu':'S7',
+            'calibrationTarget': 'Summer12',
+            'x_sec':11.1,
    },
-
-   'WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WZJetsTo2L2Q_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/ZZJetsTo4L_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 0.1296*picobarns,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/WWJetsTo2L2Nu_TuneZ2star_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : -999,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/Tbar_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 11.1,
-   'pu' : 'S10',
-   },
-
-   'T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/T_tW-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 11.1,
-   'pu' : 'S10',
-    'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'Tbar_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/Tbar_t-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 30.7,
-   'pu' : 'S10',
-   },
-
-   'T_t-channel_TuneZ2star_8TeV-powheg-tauola' : {
-   'analyses': ['HTT'],
-   'datasetpath' : "/T_t-channel-DR_TuneZ2star_8TeV-powheg-tauola/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 56.4,
-   'pu' : 'S10',
-   'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-   'Zjets_M50_S10' : {
-   'analyses': ['ET'],
-   'datasetpath': '/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-   'pu': 'S10',
-   'calibrationTarget': 'Summer12',
-   'xsec': -999,
-   },
-    'Z2jets_M50_S10' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY2JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z3jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY3JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z4jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY4JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-    'Z1jets_M50' : {
-        'analyses': ['ET'],
-        'datasetpath': '/DY1JetsToLL_M-50_TuneZ2Star_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM',
-        'pu': 'S10',
-        'calibrationTarget': 'Summer12',
-        'xsec': -999,
-    },
-
-
 
 
    'Tbar_s-channel_TuneZ2star_8TeV-powheg-tauola' : {
@@ -168,21 +346,6 @@ datadefs = {
    'x_sec' : 3.79,
    'pu' : 'S10',
     'calibrationTarget':'Summer12_DR53X_HCP2012'
-   },
-
-   'TTJetsFullLepMGDecays' : {
-         'analyses': ["ET"],
-         'datasetpath' : "/TTJets_FullLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v2/AODSIM",
-         'x_sec' : -999,
-         'pu' : 'S10',
-         'calibrationTarget' : 'Summer12_DR53X',
-   },
-   'TTJetsSemiLepMGDecays' : {
-         'analyses': ["ET"],
-         'datasetpath' : "/TTJets_SemiLeptMGDecays_8TeV-madgraph-tauola/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM",
-         'x_sec' : -999,
-         'pu' : 'S10',
-         'calibrationTarget' : 'Summer12_DR53X',
    },
    'TTTo2L2Nu2B_8TeV-powheg-pythia6' : {
    'analyses': ['4L'],
@@ -216,11 +379,11 @@ datadefs = {
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
 
-   'DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball' : {
+  'DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball' : {
    'analyses': ['HTT','HZG'],
    'datasetpath' : "/DYJetsToLL_M-50_TuneZ2Star_8TeV-madgraph-tarball/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
    # https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat8TeV
-   'x_sec' : 3503.71*picobarns,
+   'x_sec' : 3503.71,
    'pu' : 'S10',
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
@@ -228,7 +391,7 @@ datadefs = {
    'DYJetsToLL_M-10To50filter_8TeV-madgraph' : {
    'analyses': ['ZZ'],
    'datasetpath' : "/DYJetsToLL_M-10To50filter_8TeV-madgraph/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
-   'x_sec' : 915.0*picobarns,
+   'x_sec' : -999,
    'pu' : 'S10',
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    },
@@ -547,6 +710,28 @@ datadefs['ZGToLLG']= {
 ############################################################################
 #### Signal datasets ####################################
 ############################################################################
+
+datadefs['ggHiggsToETau'] = {'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_GG_H2ETau-MuTauMC', 'pu': 'S10', 'calibrationTarget': 'Summer12_DR53X_HCP2012', 'x_sec': 0.1927 } #if BR=1%, 0.171503 if BR 0.89%
+datadefs['vbfHiggsToETau'] = { 'analyses': ['ETau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_VBF_H2ETau-MuTauMC','pu': 'S10','calibrationTarget': 'Summer12_DR53X_HCP2012','x_sec': 0.01579} #if BR=1%, 0.0140531 if BR0.89%
+datadefs['ggHiggsToMuTau'] = {'analyses': ['MuTau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_GG_H2MuTau_LONG-MuTauMC', 'pu': 'S10', 'calibrationTarget': 'Summer12_DR53X_HCP2012', 'x_sec':  0.1927 }
+datadefs['vbfHiggsToMuTau'] = { 'analyses': ['MuTau'],'datasetpath': '/hdfs/store/user/mcepeda/LFV_VBF_H2MuTau_LONG-MuTauMC','pu': 'S10','calibrationTarget': 'Summer12_DR53X_HCP2012','x_sec':0.01579}
+
+datadefs['GluGluToHToTauTau_M-125_8TeV-powheg-pythia6'] = {
+      'analyses': ['HTT'],
+      'datasetpath': "/GluGluToHToTauTau_M-125_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+      'pu' : 'S10',
+      'x_sec' : xsbr(8,125,'ggf','tautau')[0],# 19.27 ,
+      'calibrationTarget':'Summer12_DR53X_HCP2012'
+}
+datadefs['VBF_HToTauTau_M-125_8TeV-powheg-pythia6'] = {
+      'analyses': ['HTT'],
+      'datasetpath': "/VBF_HToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM",
+      'pu' : 'S10',
+      'x_sec' :  xsbr(8,125,'vbf','tautau')[0],#1.578, # to be checked
+      'calibrationTarget':'Summer12_DR53X_HCP2012'
+}
+
+
 for mass in range(80,150, 10) + range(160, 220, 20) + range(250, 550, 50) + range(600, 1100, 100) :
    datadefs['SUSYGluGluToHToTauTau_M-%i_8TeV-pythia6-tauola' % mass] = {
       'analyses': ['HTT'],
@@ -584,47 +769,6 @@ datadefs['SUSYBBHToTauTau_M-300_8TeV-pythia6-tauola'] = {
    'x_sec' : -999,
     'calibrationTarget':'Summer12_DR53X_HCP2012'
    }
-
-for mass in range(110, 165, 5) :
-   datadefs['GluGluToHToTauTau_M-%i_8TeV-powheg-pythia6' % mass] = {
-      'analyses': ['HTT'],
-      'datasetpath': "/GluGluToHToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM" % mass,
-      'pu' : 'S10',
-      'x_sec' : -999,
-       'calibrationTarget':'Summer12_DR53X_HCP2012'
-      }
-   datadefs['VBF_HToTauTau_M-%i_8TeV-powheg-pythia6' % mass] = {
-      'analyses': ['HTT'],
-      'datasetpath': "/VBF_HToTauTau_M-%i_8TeV-powheg-pythia6/Summer12_DR53X-PU_S10_START53_V7A-v1/AODSIM" % mass,
-      'pu' : 'S10',
-      'x_sec' : -999,
-       'calibrationTarget':'Summer12_DR53X_HCP2012'
-      }
-
-# Double Charged Higgs Signal Samples
-dblh_4l_xsec = {110: 8730.9,  130: 186.21,  150: 106.55,
-                170: 64.641,  200: 33.209,  250: 12.724,
-                300: 5.5458,  350: 2.6413,  400: 1.3414,
-                450: 0.71531, 500: 0.39604, 600: 0.13271,
-                700: 0.48382e-1}
-
-for mass in [110, 130, 150, 170, 200, 250, 300, 350, 400, 450, 500, 600, 700]:
-    if mass >= 170:
-        datadefs['HPlusPlusHMinusHTo3L_M-%i_8TeV-calchep-pythia6' % mass] = {
-            'analyses' : ['HPP'],
-            'datasetpath' : '/HPlusPlusHMinusHTo3L_M-%i_8TeV-calchep-pythia6/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM' % mass,
-            'pu' : 'S10',
-            'x_sec' : -999,
-            'calibrationTarget' : 'Summer12_DR53X_HCP2012'
-            }
-
-    datadefs['HPlusPlusHMinusMinusHTo4L_M-%i_8TeV-pythia6' % mass] = {
-        'analyses' : ['HPP'],
-        'datasetpath' : '/HPlusPlusHMinusMinusHTo4L_M-%i_8TeV-pythia6/Summer12_DR53X-PU_S10_START53_V7C-v1/AODSIM' % mass,
-        'pu' : 'S10',
-        'x_sec' : dblh_4l_xsec[mass]*femtobarns,
-        'calibrationTarget' : 'Summer12_DR53X_HCP2012'
-        }
 
 
 # HZZ4L Signal Samples
@@ -785,8 +929,63 @@ datadefs['data_DoubleMu_Run2012B_13Jul2012_v4'] = {
    'firstRun' : 193834,
    'lastRun' : 196531,
    'analyses' : ['HZZ'],
+   'pu' : 'data',
     'calibrationTarget':'Moriond2013'
    }
+
+datadefs['ZetauEmbedded_Run2012A']=  {
+      'datasetpath' : "/DoubleMu/StoreResults-Run2012A_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'analyses' : ['ET'],
+      'x_sec' : 3503,
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+
+datadefs['ZetauEmbedded_Run2012B']=  {
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau116_ptmu1_16had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'analyses' : ['ET'],
+      'x_sec' : 3503,
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+
+datadefs['ZetauEmbedded_Run2012C']=  {
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'analyses' : ['ET'],
+      'x_sec' : 3503,
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+datadefs['ZetauEmbedded_Run2012D']=  {
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012D_22Jan2013_v1_RHembedded_trans1_tau115_ptelec1_20had1_18_v1-f456bdbb960236e5c696adfe9b04eaae/USER",
+      'analyses' : ['ET'],
+      'x_sec' : 3503,
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+
+datadefs['ZetauEmbedded_Run2012B_noEmbeddedPat']=  {
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012B_22Jan2013_v1_PFembedded_trans1_tau116_ptmu1_16had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
+      'firstRun' : 193833,
+      'lastRun' : 196531,
+      'analyses' : ['ET'],
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+
+datadefs['ZetauEmbedded_Run2012C_noEmbeddedPat']=  {
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012C_22Jan2013_v1_PFembedded_trans1_tau115_ptelec1_20had1_18_v1-5ef1c0fd428eb740081f19333520fdc8/USER",
+      'analyses' : ['ET'],
+      'pu' : 'data',
+      'calibrationTarget':'Moriond2013'
+}
+datadefs['ZetauEmbedded_Run2012D_noEmbeddedPat']=  {
+      'analyses': ['ET'],
+      'datasetpath' : "/DoubleMuParked/StoreResults-Run2012D_22Jan2013_v1_RHembedded_trans1_tau115_ptelec1_20had1_18_v1-f456bdbb960236e5c696adfe9b04eaae/USER",
+      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_190456-208686_8TeV_22Jan2013ReReco_Collisions12_JSON.txt",
+      'calibrationTarget':'Moriond2013'
+   },
 
 def build_data_set(pd, analyses):
    subsample_dict = {
@@ -920,6 +1119,10 @@ def build_data_set(pd, analyses):
 data_DoubleMu, list_DoubleMu = build_data_set('DoubleMu', ['VH', 'Mu','4L','HZG'])
 datadefs.update(data_DoubleMu)
 data_name_map.update(list_DoubleMu)
+
+#data_ZetauEmbedded, list_ZetauEmbedded = build_data_set('ZetauEmbedded', ['ET'])
+#datadefs.update(data_ZetauEmbedded)
+#data_name_map.update(list_ZetauEmbedded)
 
 data_DoubleMuParked, list_DoubleMuParked = build_data_set('DoubleMuParked', ['VH', 'Mu','4L','HZG'])
 datadefs.update(data_DoubleMuParked)

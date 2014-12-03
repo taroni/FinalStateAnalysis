@@ -46,6 +46,7 @@ cdef extern from "TTree.h":
         int GetEntry(long, int)
         long LoadTree(long)
         long GetEntries()
+        TFile* GetCurrentFile()
         TTree* GetTree()
         int GetTreeNumber()
         TBranch* GetBranch(char*)
@@ -54,6 +55,7 @@ cdef extern from "TFile.h":
     cdef cppclass TFile:
         TFile(char*, char*, char*, int)
         TObject* Get(char*)
+        char* GetName()
 
 # Used for filtering with a string
 cdef extern from "TTreeFormula.h":
@@ -138,6 +140,12 @@ cdef class {TreeName}:
                 yield self
             self.ientry += 1
         del formula
+
+
+    # Getting/setting the Tree entry number
+    property inputfilename:
+        def __get__(self):
+            return self.tree.GetCurrentFile().GetName()
 
     # Getting/setting the Tree entry number
     property entry:
