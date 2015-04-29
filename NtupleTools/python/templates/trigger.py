@@ -54,6 +54,27 @@ tripleLepton = PSet(
     # other trilepton paths don't seem to exist in PHYS14...
     )
 
+singlee = PSet(
+    _trig_template.replace(
+    name='singleE',
+    paths=r'HLT_Ele27_eta2p1_WP85\\d+,HLT_Ele20WP60_Ele8_Mass55_v1\\d+,HLT_Ele25WP60_SC4_Mass55_v1\\d+'
+    ),
+    _trig_template.replace(
+    name='singleE27etaWP85',
+    paths=r'HLT_Ele27_eta2p1_WP85\\d+'
+    ),
+    _trig_template.replace(
+    name='singleE20WP60Mass55',
+    paths=r'HLT_Ele20WP60_Ele8_Mass55_v1\\d+',
+    ),
+    _trig_template.replace(
+    name='singleE25WP60Mass55',
+    paths=r'HLT_Ele25WP60_SC4_Mass55_v1\\d+',
+    ),
+
+)
+
+
 # isomu = _trig_template.replace(name='isoMu',
 #     paths=r'HLT_IsoMu17_v\\d+, HLT_IsoMu20_v\\d+, '
 #           r'HLT_IsoMu24_v\\d+, HLT_IsoMu24_eta2p1_v\\d+, '
@@ -75,16 +96,6 @@ tripleLepton = PSet(
 #         paths=r'HLT_Mu17_Mu8_v\\d+')
 # )
 # 
-# singlee = PSet(
-#     _trig_template.replace(
-#     name='singleE',
-#     paths=r'HLT_Ele27_WP80_v\\d+,HLT_Ele27_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+,HLT_Ele32_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_v\\d+'
-#     ),
-#     _trig_template.replace(
-#     name='singleEPFMT',
-#     paths=r'HLT_Ele27_WP80_PFMET_MT50_v\\d+,HLT_Ele32_WP70_PFMT50_v\\d+'
-#     )
-# )
 # 
 # doublee = PSet(
 #     _trig_template.replace(
