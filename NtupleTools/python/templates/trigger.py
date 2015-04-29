@@ -25,6 +25,19 @@ singleLepton = PSet(
         name='singleE',
         paths=r'HLT_Ele27_eta2p1_WP85_Gsf_v\\d+,HLT_Ele32_eta2p1_WP85_Gsf_v\\d+,HLT_Ele95_CaloIdVT_GsfTrkIdT_v\\d+'
         ),
+    _trig_template.replace(
+    name='singleE27etaWP85',
+    paths=r'HLT_Ele27_eta2p1_WP85\\d+'
+    ),
+    _trig_template.replace(
+    name='singleE20WP60Mass55',
+    paths=r'HLT_Ele20WP60_Ele8_Mass55_v1\\d+',
+    ),
+    _trig_template.replace(
+    name='singleE25WP60Mass55',
+    paths=r'HLT_Ele25WP60_SC4_Mass55_v1\\d+',
+    ),
+
     )
 
 doubleLepton = PSet(
@@ -53,26 +66,6 @@ tripleLepton = PSet(
         ),
     # other trilepton paths don't seem to exist in PHYS14...
     )
-
-singlee = PSet(
-    _trig_template.replace(
-    name='singleE',
-    paths=r'HLT_Ele27_eta2p1_WP85\\d+,HLT_Ele20WP60_Ele8_Mass55_v1\\d+,HLT_Ele25WP60_SC4_Mass55_v1\\d+'
-    ),
-    _trig_template.replace(
-    name='singleE27etaWP85',
-    paths=r'HLT_Ele27_eta2p1_WP85\\d+'
-    ),
-    _trig_template.replace(
-    name='singleE20WP60Mass55',
-    paths=r'HLT_Ele20WP60_Ele8_Mass55_v1\\d+',
-    ),
-    _trig_template.replace(
-    name='singleE25WP60Mass55',
-    paths=r'HLT_Ele25WP60_SC4_Mass55_v1\\d+',
-    ),
-
-)
 
 
 # isomu = _trig_template.replace(name='isoMu',
