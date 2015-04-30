@@ -57,6 +57,9 @@ from FinalStateAnalysis.NtupleTools.rerun_matchers import rerun_matchers
 from FinalStateAnalysis.NtupleTools.rerun_QGJetID import rerun_QGJetID
 from FinalStateAnalysis.NtupleTools.rerun_Jets import rerun_jets
 import PhysicsTools.PatAlgos.tools.helpers as helpers
+from FinalStateAnalysis.Utilities.version import fsa_version, get_user
+import time
+
 
 process = cms.Process("Ntuples")
 
@@ -204,6 +207,26 @@ if options.rerunFSA:
         process.schedule.append(process.mvaMetPath)
         print "rerunning MVA MET sequence, output collection will be {n}"\
             .format(n=mvamet_collection)
+
+
+    process.load("FinalStateAnalysis.RecoTools.eventCount_cfi")
+    process.load("FinalStateAnalysis.RecoTools.dqmEventCount_cfi")
+    
+    # Hack meta information about this PAT tuple in the provenance.
+    process.eventCount.uwMeta = cms.PSet(
+        # The git commit
+        commit=cms.string(fsa_version()),
+        user=cms.string(get_user()),
+        date=cms.string(time.strftime("%d %b %Y %H:%M:%S +0000", time.gmtime())),
+    )
+    process.eventCountPath=cms.Path(process.eventCount)
+    process.schedule.append(process.eventCountPath)
+
+    process.load("FinalStateAnalysis.PatTools.finalStates.patFinalStateLSProducer_cfi")
+    #if isMC:
+    #    process.finalStateLS.xSec = kwargs['xSec']
+    process.buildFSLSPath= cms.Path(process.finalStateLS)
+    process.schedule.append(process.buildFSLSPath)
 
     # Drop the input ones, just to make sure we aren't screwing anything up
     process.buildFSASeq = cms.Sequence()
@@ -602,6 +625,8 @@ if options.rerunFSA:
 
     # Eventually, set buildFSAEvent to False, currently working around bug
     # in pat tuples.
+    
+
     produce_final_states(process, fs_daughter_inputs, output_commands, process.buildFSASeq,
                          'puTagDoesntMatter', buildFSAEvent=True,
                          noTracks=True, noPhotons=options.noPhotons,
@@ -616,7 +641,8 @@ if options.rerunFSA:
     process.source.inputCommands = cms.untracked.vstring(
         'keep *',
         'drop PATFinalStatesOwned_finalState*_*_*',
-        'drop *_patFinalStateEvent*_*_*'
+        'drop *_patFinalStateEvent*_*_*',
+
     )
 
 

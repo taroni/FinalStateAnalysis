@@ -22,14 +22,14 @@ class PATFinalStateAnalysisFilter : public edm::EDFilter {
   public:
     PATFinalStateAnalysisFilter(const edm::ParameterSet& pset);
     virtual ~PATFinalStateAnalysisFilter(){}
-    void beginJob();
-    void endJob();
-    bool filter(edm::Event& evt, const edm::EventSetup& es);
-    bool beginLuminosityBlock(
-        edm::LuminosityBlock& ls, const edm::EventSetup & es);
-    bool endLuminosityBlock(
-        edm::LuminosityBlock& ls, const edm::EventSetup & es);
   private:
+    virtual void beginJob() override;
+    virtual void endJob() override;
+    virtual bool filter(edm::Event& evt, const edm::EventSetup& es) override;
+    virtual void beginLuminosityBlock(
+        edm::LuminosityBlock const& ls, edm::EventSetup const& es) override;
+    virtual void endLuminosityBlock(
+        edm::LuminosityBlock const& ls, edm::EventSetup const& es) ;
     std::auto_ptr<PATFinalStateAnalysis> analysis_;
 };
 
@@ -46,18 +46,19 @@ bool PATFinalStateAnalysisFilter::filter(
   return analysis_->filter(evtBase);
 }
 
-bool PATFinalStateAnalysisFilter::beginLuminosityBlock(
-    edm::LuminosityBlock& ls, const edm::EventSetup& es) {
+void PATFinalStateAnalysisFilter::beginLuminosityBlock(
+    edm::LuminosityBlock const& ls, edm::EventSetup const& es) {
   const edm::LuminosityBlockBase& lsBase = ls;
   analysis_->beginLuminosityBlock(lsBase);
-  return true;
+  //return true;
 }
 
-bool PATFinalStateAnalysisFilter::endLuminosityBlock(
-    edm::LuminosityBlock& ls, const edm::EventSetup& es) {
+void PATFinalStateAnalysisFilter::endLuminosityBlock(
+    edm::LuminosityBlock const& ls, edm::EventSetup const& es) {
+  std::cout << "PATFinalStateAnalysisFilter::endLuminosityBlock" << std::endl;
   const edm::LuminosityBlockBase& lsBase = ls;
   analysis_->endLuminosityBlock(lsBase);
-  return true;
+  //return true;
 }
 
 void PATFinalStateAnalysisFilter::beginJob() {

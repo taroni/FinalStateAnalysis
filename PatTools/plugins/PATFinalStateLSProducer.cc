@@ -21,8 +21,10 @@ class PATFinalStateLSProducer : public edm::EDProducer {
     PATFinalStateLSProducer(const edm::ParameterSet& pset);
     virtual ~PATFinalStateLSProducer(){}
     void produce(edm::Event& evt, const edm::EventSetup& es);
-    void endLuminosityBlock(
-        edm::LuminosityBlock& ls, const edm::EventSetup& es);
+    void endLuminosityBlock( 
+			    edm::LuminosityBlock  const & ls,  edm::EventSetup const& es) ;
+    
+
   private:
     const edm::InputTag trigSrc_;
     // For MC
@@ -45,15 +47,17 @@ PATFinalStateLSProducer::PATFinalStateLSProducer(
 
 void
 PATFinalStateLSProducer::produce(edm::Event& evt, const edm::EventSetup& es) {
+  std::cout << "producing PATFinalStateLSProducer" << std::endl;
   eventCount_ += 1;
+
 }
 
 void PATFinalStateLSProducer::endLuminosityBlock(
-    edm::LuminosityBlock& ls, const edm::EventSetup& es) {
+					        edm::LuminosityBlock const & ls,  edm::EventSetup const& es) {
 
   double intgRecLumi = -999;
   double instLumi = -999;
-
+  std::cout << __PRETTY_FUNCTION__<< " " << __LINE__ << std::endl;
   edm::Handle<LumiSummary> summary;
   ls.getByLabel(src_, summary);
 
@@ -70,10 +74,10 @@ void PATFinalStateLSProducer::endLuminosityBlock(
   }
 
   std::auto_ptr<PATFinalStateLS> output(new PATFinalStateLS(
-        ls.id(), intgRecLumi, instLumi));
+							    ls.id(), intgRecLumi, instLumi));
 
   ls.put(output);
-
+  
   eventCount_ = 0;
 }
 

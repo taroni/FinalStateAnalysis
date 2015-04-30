@@ -9,7 +9,7 @@ class struct:
     def __init__(self, **entries): 
         self.__dict__.update(entries)
 
-        def clone(self, **subs):
+    def clone(self, **subs):
         newd = deepcopy(self.__dict__)
         newd.update(subs)
         return struct(**newd)

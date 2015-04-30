@@ -88,12 +88,19 @@ def produce_final_states(process, collections, output_commands,
             process.patFinalStateEventProducer.mets = cms.PSet(
                 pfmet = cms.InputTag(pfmetsrc),
             )
+
         else:
             process.patFinalStateEventProducer.mets.pfmet = pfmetsrc
             process.patFinalStateEventProducer.mets.mvamet = mvametsrc
+        #from FinalStateAnalysis.PatTools.finalStates.patFinalStateLSProducer_cfi import finalStateLS
+        #if isMC:
+        #    process.finalStateLS.xSec = kwargs['xSec']
+        ##sequence += process.finalStateLS
+
         sequence += process.patFinalStateEventProducer
 
     # Always keep
+    output_commands.append('*_finalStateLS_*_*')
     output_commands.append('*_patFinalStateEventProducer_*_*')
 
     # Apply some loose PT cuts on the objects we use to create the final states

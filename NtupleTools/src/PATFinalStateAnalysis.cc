@@ -65,7 +65,7 @@ PATFinalStateAnalysis::~PATFinalStateAnalysis() { }
 
 void PATFinalStateAnalysis::endLuminosityBlock(
     const edm::LuminosityBlockBase& ls) {
-  //std::cout << "Analyzing lumisec: " << ls.id() << std::endl;
+  std::cout << "Analyzing lumisec: " << ls.id() << std::endl;
 
   edm::Handle<edm::MergeableCounter> skimmedEvents;
   ls.getByLabel(skimCounter_, skimmedEvents);
@@ -77,6 +77,7 @@ void PATFinalStateAnalysis::endLuminosityBlock(
   treeIntLumi_ = lumiSummary->intLumi();
 
   // Fill the meta info tree
+  std::cout << "Fill the meta info tree" << std::endl;
   treeRunBranch_ = ls.run();
   treeLumiBranch_ = ls.luminosityBlock();
   treeEventsProcessedBranch_ = skimmedEvents->value;
