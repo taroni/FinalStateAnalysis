@@ -7,16 +7,27 @@ Base class with convenience functions for python selectors.
 import json
 import os
 import multiprocessing
+from rootpy.plotting import Hist, Hist2D
 import ROOT
+
+
+debug=False
 
 def make_dirs(base_dir, subdirs):
     ''' Make the directory structure.  Subdirs is a list. '''
     if not subdirs:
         return base_dir
     next_folder = subdirs.pop(0)
-    if base_dir.Get(next_folder):
-        return make_dirs(base_dir.Get(next_folder), subdirs)
-    else:
+    #print 'base_dir', base_dir, next_folder
+
+    try :
+        directory=base_dir.Get(next_folder)
+        if debug: print next_folder
+        if debug: print ''
+        return make_dirs(directory, subdirs)
+    except:
+        if debug: print 'making', next_folder
+        if debug: print ''
         new_dir = base_dir.mkdir(next_folder)
         return make_dirs(new_dir, subdirs)
 
@@ -29,7 +40,7 @@ class MegaBase(object):
         self.histograms = {}
         # Always store sum of weights for histograms, so the errors make sense
         # later.
-        ROOT.TH1.SetDefaultSumw2(True)
+        Hist.SetDefaultSumw2(True)
 
     def book(self, location, name, *args, **kwargs):
         ''' Book an object at location
@@ -43,9 +54,10 @@ class MegaBase(object):
 
         '''
         self.log.debug("booking %s at %s", name, location)
-
+        
+        if debug: print os.path.normpath(location).split('/')
+        
         directory = make_dirs(self.output, os.path.normpath(location).split('/'))
-
         if not directory:
             raise IOError("Couldn't create directory %s in file %s" %
                           (location, self.output))
@@ -53,7 +65,7 @@ class MegaBase(object):
         directory.cd()
         the_type = kwargs.get('type', ROOT.TH1F)
         object = the_type(name, *args)
-        if isinstance(the_type, ROOT.TH1):
+        if isinstance(the_type, Hist):
             # Check if we've specified an xaxis, otherwise use the title.
             xaxis = kwargs.get('xaxis', args[1])
             object.GetXaxis().SetTitle(xaxis)

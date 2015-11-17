@@ -13,8 +13,10 @@ Author: Evan K. Friis, UW
 import array
 from FinalStateAnalysis.Utilities.FileInPath import FileInPath
 import ROOT
-
+from rootpy.io import root_open
 # MC distributions (built at bottom of file)
+from pdb import set_trace
+
 _MC_PU_DISTRIBUTIONS = {}
 
 class PileupWeight(object):
@@ -34,8 +36,10 @@ class PileupWeight(object):
 
         '''
         self.data = None
+        self.mc = None
         for filename in datafiles:
-            file = ROOT.TFile.Open(filename)
+            #file = ROOT.TFile.Open(filename)
+            file = root_open(filename)
             pu = file.Get('pileup')
             if self.data is None:
                 self.data = pu.Clone()
@@ -51,13 +55,16 @@ class PileupWeight(object):
             raise KeyError("Unknown PU distribution %s, allowed: %s" %
                            (mctag, " ".join(_MC_PU_DISTRIBUTIONS.keys())))
 
-        mc_file = ROOT.TFile.Open(_MC_PU_DISTRIBUTIONS[mctag])
+        #mc_file = ROOT.TFile.Open(_MC_PU_DISTRIBUTIONS[mctag])
+        mc_file = root_open(_MC_PU_DISTRIBUTIONS[mctag])
+        ###print 'mc name', mc_file.GetName()
         if not mc_file:
             raise IOError("Can't open %s MC file: %s" % (mctag, _MC_PU_DISTRIBUTIONS[mctag]))
 
         mc_base = mc_file.Get('pileup')
-        self.mc = mc_base.Clone()
 
+        self.mc = mc_base.Clone()
+        self.mc.SetName('pileup_mc')
         # Make sure bins are consistent
         if not ROOT.TEfficiency.CheckBinning(self.mc, self.data):
             error = "Data and MC PU histograms do not have the same binning!\n"
@@ -72,13 +79,17 @@ class PileupWeight(object):
 
         # Normalize MC
         self.mc.Scale(1./self.mc.Integral())
+        #print self.mc.GetName(), self.mc.GetEntries(), self.data.GetBinContent(17), self.mc.GetBinContent(17)
 
     def __call__(self, ntruepu):
         '''
         Get the PU weight given the true number of interactions
         '''
-        bin = self.data.FindBin(ntruepu)
+        set_trace()
+        bin = self.data.FindFixBin(ntruepu)
+        #print ntruepu, bin
         data = self.data.GetBinContent(bin)
+        #print data, self.mc
         mc = self.mc.GetBinContent(bin)
         if mc:
             return data/mc
@@ -90,3 +101,4 @@ _MC_PU_DISTRIBUTIONS['S7'] = 'fixme'
 _MC_PU_DISTRIBUTIONS['S6'] = FileInPath("FinalStateAnalysis/TagAndProbe/data/MC_Fall11_PU_S6-500bins.root").full_path()
 # Version of the S6 with 600 bins, for compatibility
 _MC_PU_DISTRIBUTIONS['S6_600bins'] = FileInPath("FinalStateAnalysis/TagAndProbe/data/MC_Fall11_PU_S6-600bins.root").full_path()
+_MC_PU_DISTRIBUTIONS['Asympt25ns'] = FileInPath("FinalStateAnalysis/TagAndProbe/data/MC_PU_RunIISpring15DR74_Asympt.root").full_path()
