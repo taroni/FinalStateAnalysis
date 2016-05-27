@@ -195,7 +195,9 @@ def datasets_from_das(args):
                         tuple_info = json.load(tuple_file)
                         matching_datasets = []
                         for shorthand, fullname in tuple_info.iteritems():
-                            if fullname in dataset_name:
+                            #print fullname, dataset_name
+                            if fullname in dataset:
+                                print fullname
                                 if fnmatch.fnmatchcase(shorthand, pattern):
                                     passes_wildcard = True
                 else: # check das directly
