@@ -82,13 +82,15 @@ class RebinView(views._FolderView):
             histogram.Rebin(binning)
             return histogram
         # Fancy variable size bins
+        
         if isinstance(histogram, ROOT.TH2):
-            if not isinstance(binning[0], (list, tuple)):
+        
+            if not isinstance(binning[0], (list, tuple)) and not isinstance(binning[1], (list, tuple)):
                 return histogram
-            #print binning[0], ' ' , binning[1] 
             bin_arrayx = binning[0] #array.array('d',binning[0])
             bin_arrayy = binning[1] #array.array('d',binning[1])
-            if len(binning[0]) ==1 and len(binning[1])==1 :                
+            
+            if len(binning[0]) ==1 and len(binning[1])==1 :
                 return  histogram.Rebin2D(int(binning[0][0]),int(binning[1][0]), histogram.GetName() + 'rebin')
             else:
                 return self.newRebin2D(histogram, bin_arrayx, bin_arrayy)

@@ -57,6 +57,7 @@ class GraphReader(object):
             xevalp = gr3.GetErrorXhigh(n)
             xevalm = gr3.GetErrorXlow(n)
             yeval = gr3.GetErrorY(n)
+            pt_thrs = xval-xevalm, xval+xevalp
             if pt_thrs not in self.table:
                 self.table[pt_thrs] = {}
             self.table[pt_thrs][eta_thrs] = yval, yval-yeval
@@ -65,6 +66,7 @@ class GraphReader(object):
     def __call__(self, pt, abseta):
         """Return correction given pt and eta, 
         raise error if out of boundaries"""
+        if pt > 999. : pt=999.
         for pt_thrs, pt_vals in self.table.iteritems():
             ptmin, ptmax = pt_thrs
             if ptmin <= pt < ptmax:
@@ -131,8 +133,7 @@ class GraphReaderSF(object):
             err2=yeval*yeval/(yvalMC*yvalMC)+yevalMC*yevalMC*yval*yval/pow(yvalMC,4)
             self.table[pt_thrs][eta_thrs] = yval/yvalMC, sqrt(err2)
 
-
-        eta_thrs =  2.1, 3.0
+        eta_thrs = 2.1, 3.0
         npoint3=gr3.GetN()
         eff3 = []
         for n in range(0, npoint3):
@@ -146,6 +147,7 @@ class GraphReaderSF(object):
             xevalm = gr3.GetErrorXlow(n)
             yeval = gr3.GetErrorY(n)
             yevalMC = grMC3.GetErrorY(n)
+            pt_thrs = xval-xevalm, xval+xevalp
             if pt_thrs not in self.table:
                 self.table[pt_thrs] = {}
             err2=yeval*yeval/(yvalMC*yvalMC)+yevalMC*yevalMC*yval*yval/pow(yvalMC,4)
@@ -155,6 +157,7 @@ class GraphReaderSF(object):
     def __call__(self, pt, abseta):
         """Return correction given pt and eta, 
         raise error if out of boundaries"""
+        if pt >999. : pt =999.
         for pt_thrs, pt_vals in self.table.iteritems():
             ptmin, ptmax = pt_thrs
             if ptmin <= pt < ptmax:

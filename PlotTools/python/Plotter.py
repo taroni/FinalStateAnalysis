@@ -63,6 +63,7 @@ class Plotter(object):
         if not file_to_map: #no data here!
             file_to_map = self.views.keys()[0]
         #from pdb import set_trace; set_trace()
+        
         self.file_dir_structure = Plotter.map_dir_structure( self.views[file_to_map]['file'] )
 
     @staticmethod
@@ -71,6 +72,7 @@ class Plotter(object):
         ret     = []
         for keyname, keyclass in objects:
             if keyclass.startswith('TDirectory'):
+                if keyname=='.' : continue
                 subdirName = os.path.join(dirName,keyname)
                 ret.append(subdirName)
                 ret.extend(Plotter.map_dir_structure(directory.Get(keyname), subdirName))
@@ -190,6 +192,7 @@ class Plotter(object):
         else:
             mc_hist = mc_stack
         data_clone = data_hist.Clone()
+        data_clone.Add(mc_hist, -1)
         data_clone.Divide(mc_hist)
         if not x_range:
             nbins = data_clone.GetNbinsX()
@@ -197,13 +200,13 @@ class Plotter(object):
                        data_clone.GetBinLowEdge(nbins)+data_clone.GetBinWidth(nbins))
         else:
             data_clone.GetXaxis().SetRangeUser(*x_range)
-        ref_function = ROOT.TF1('f', "1.", *x_range)
+        ref_function = ROOT.TF1('f', "0.", *x_range)
         ref_function.SetLineWidth(3)
         ref_function.SetLineStyle(2)
         
         data_clone.Draw('ep')
         if ratio_range:
-            data_clone.GetYaxis().SetRangeUser(1-ratio_range, 1+ratio_range)
+            data_clone.GetYaxis().SetRangeUser(-1.*ratio_range, ratio_range)
         ref_function.Draw('same')
         self.keep.append(data_clone)
         self.keep.append(ref_function)
@@ -385,6 +388,8 @@ class Plotter(object):
         #path = os.path.join(folder, variable)
         mc_stack_view = self.make_stack(rebin, preprocess, folder, sort)
         mc_stack = mc_stack_view.Get(variable)
+        mc_stack.SetTitle("")
+        
         mc_stack.Draw()
         mc_stack.GetHistogram().GetXaxis().SetTitle(xaxis)
         if xrange:
@@ -407,5 +412,6 @@ class Plotter(object):
             mc_stack.SetMaximum(1.2*data.GetMaximum())
         # Add legend
         self.add_legend([data, mc_stack], leftside, entries=len(mc_stack.GetHists())+1)
+        
         if show_ratio:
-            self.add_ratio_plot(data, mc_stack, xrange, ratio_range=0.2)
+            self.add_ratio_plot(data, mc_stack, xrange, ratio_range)

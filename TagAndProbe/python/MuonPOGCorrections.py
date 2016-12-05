@@ -34,9 +34,9 @@ from correctionloader import CorrectionLoader
 mu_trackingEta_2016 = GraphReaderTrackingEta(
     os.path.join(os.environ['fsa'], 'TagAndProbe/data/muon_ratios_tracking.root')
 )
-mu_trigger_2016 = GraphReaderTrackingEta(
-    os.path.join(os.environ['fsa'], 'TagAndProbe/data/muon_ratios_tracking.root')
-)
+#mu_trigger_2016 = GraphReaderTrackingEta(
+#    os.path.join(os.environ['fsa'], 'TagAndProbe/data/muon_ratios_tracking.root')
+#)
 
 
 

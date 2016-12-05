@@ -39,6 +39,7 @@ class PileupWeight(object):
         
         for filename in datafiles:
             file = root_open(filename)
+            
             pu = file.Get('pileup')
             if self.data is None:
                 self.data = pu.Clone()
@@ -82,6 +83,7 @@ class PileupWeight(object):
         bin = self.data.FindBin(ntruepu)
         data = self.data.GetBinContent(bin)
         mc = self.mc.GetBinContent(bin)
+        
         if mc:
             return data/mc
         else:

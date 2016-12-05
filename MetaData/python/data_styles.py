@@ -20,14 +20,15 @@ data_styles = {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
         'fillcolor' : '#FFCC66',
-        'linecolor' : '#000000',
-        'name' : "Z + jets",
+        'linecolor' : '#FFCC66',
+        'name' : "DY + jets",
         'fillstyle': 'solid',
         },
     'WplusJets*' : {
         'legendstyle' : 'f',
         'drawstyle' : 'hist',
         'fillcolor' : '#990000',
+        'linecolor' : '#990000',
         'name' : "W + jets",
         'fillstyle': 'solid',
     },
@@ -45,6 +46,14 @@ data_styles = {
         'fillcolor' : '#9999CC',
         'linecolor' : '#9999CC',
         'name' : "ttbar",
+        'fillstyle': 'solid',
+    },
+    'ST*' : {
+        'legendstyle' : 'f',
+        'drawstyle' : 'hist',
+        'fillcolor' : '#222244',
+        'linecolor' : '#222244',
+        'name' : "single t",
         'fillstyle': 'solid',
     },
     'VH*HWW' : {
@@ -86,7 +95,7 @@ data_styles = {
         'drawstyle' : 'hist',
         'fillcolor' : colors['red'],
         'linecolor' : colors['red'],
-        'name' : "WW",
+        'name' : "Dibosons",
         'fillstyle': 'solid',
     },
     'ZZ*' : {
@@ -107,6 +116,8 @@ data_styles = {
 }
 
 #makes life easier when converting shape files
+data_styles['DY*'] = data_styles['Zjets*']
+data_styles['W*JetsToLNu*'] = data_styles['WplusJets*']
 data_styles['fakes'] = data_styles['Zjets*']
 data_styles['zz'] = data_styles['ZZ*']
 data_styles['wz'] = data_styles['WZ*']
