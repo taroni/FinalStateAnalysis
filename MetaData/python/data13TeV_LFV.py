@@ -303,6 +303,13 @@ datadefs["WWTo2L2Nu_13TeV-powheg_v6-v1"] = {
     'calibrationTarget': 'ICHEP2016',
     'x_sec':  12.178, #from https://cmsweb.cern.ch/das/request?input=mcm%20prepid=TOP-RunIISummer15GS-00001
 }
+datadefs["WWTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8"] = {
+    'analyses': ['4L'],
+    'datasetpath': '/WWTo2L2Nu_13TeV-powheg/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
+    'pu': 'Asympt25ns',
+    'calibrationTarget': 'ICHEP2016',
+    'x_sec':  49.997, #from https://cmsweb.cern.ch/das/request?input=mcm%20prepid=TOP-RunIISummer15GS-00001
+}
 
 datadefs["VVTo2L2Nu_13TeV_amcatnloFXFX_madspin_pythia8_v6-v1"] = {
     'analyses': ['4L'],
@@ -361,14 +368,14 @@ datadefs["W4JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"] = {
 
 
 
-datadefs["TT_TuneCUETP8M1_13TeV-amcatnlo-pythia8"] = {
+datadefs["TT_TuneCUETP8M2T4_13TeV-powheg-pythia8_v6-v1"] = {
     'analyses': ['4L'],
     'datasetpath': '',
     'pu': 'Asympt25ns',
     'calibrationTarget': 'RunIISpring15DR7',
     'x_sec': 809
 }
-datadefs["TT_TuneCUETP8M1_13TeV-powheg-pythia8-evtgen"] = {
+datadefs["TT_TuneCUETP8M2T4_13TeV-powheg-pythia8-evtgen_v6-v1"] = {
     'analyses': ['4L'],
     'datasetpath': '/TT_TuneCUETP8M1_13TeV-powheg-pythia8-evtgen/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
     'pu': 'Asympt25ns',
@@ -417,6 +424,13 @@ datadefs["WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"] = {
     'pu': 'Asympt25ns',
     'calibrationTarget': 'ICHEP2016',
     'x_sec': 495.36,# needs to be cross checked
+}
+datadefs["WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8"] = {
+    'analyses': ['4L'],
+    'datasetpath': '/WGJets_MonoPhoton_PtG-130_TuneCUETP8M1_13TeV-madgraph/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
+    'pu': 'Asympt25ns',
+    'calibrationTarget': 'ICHEP2016',
+    'x_sec': 489.,# needs to be cross checked
 }
 
 datadefs["WGstarToLNuEE_012Jets_13TeV-madgraph"] = {
@@ -662,62 +676,76 @@ datadefs["WZTo3LNu-PU20bx25"] = {
     'x_sec': -999,
 }
 
-datadefs["ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_s-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1_v6-1_v6-1"] = {
     'analyses': ['mutau'],
     'datasetpath': '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
     'x_sec': 0.1, ##put the correctnumber
 }
-datadefs["ST_t-channel_4f_leptonDecays_13TeV-amcatnlo-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1_v6-v1"] = {
     'analyses': ['mutau'],
     'datasetpath': '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
     'x_sec': 216.99, ##put the correctnumber
 }
-datadefs["ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1_v6-v1"] = {
     'analyses': ['mutau'],
     'datasetpath': '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
-    'x_sec': 80.95, ##put the correctnumber
+    'x_sec': 80.95*0.322, ##put the correctnumber
 }
-datadefs["ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_t-channel_top_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
     'analyses': ['mutau'],
     'datasetpath': '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
-    'x_sec': 103.2, ##put the correctnumber
+    'x_sec': 136.82*0.322, ##put the correctnumber
 }
 
-datadefs["ST_tW_antitop_5f_DS_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_tW_antitop_5f_DS_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
       'analyses': ['mutau'],
       'datasetpath': '/ST_t-channel_antitop_4f_leptonDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring15DR74-Asympt25ns_MCRUN2_74_V9-v1/MINIAODSIM',
       'pu': '20bx25',
       'calibrationTarget': 'Phys14DR',
       'x_sec': 38.09, ##put the correctnumber
 }
-datadefs["ST_tW_top_5f_DS_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_tW_top_5f_DS_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
     'analyses': ['mutau'],
     'datasetpath': '/WZJetsTo3LNu_Tune4C_13TeV-madgraph-tauola/Phys14DR-PU20bx25_PHYS14_25_V1-v1/MINIAODSIM',
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
-    'x_sec': 35.6, ##put the correctnumber
+    'x_sec': 38.09, ##put the correctnumber
 }
-datadefs["ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
       'analyses': ['mutau'],
       'datasetpath': '/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
       'pu': 'asymptotic_2016',
       'calibrationTarget': 'Phys14DR',
-      'x_sec': 35.6 , ##put the correctnumber
+      'x_sec': 35.85 , ##put the correctnumber
 }
-datadefs["ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1"] = {
+datadefs["ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6_ext1-v1"] = {
+      'analyses': ['mutau'],
+      'datasetpath': '/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
+      'pu': 'asymptotic_2016',
+      'calibrationTarget': 'Phys14DR',
+      'x_sec': 35.85 , ##put the correctnumber
+}
+datadefs["ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
       'analyses': ['mutau'],
       'datasetpath': '/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
       'pu': 'asymptotic_2016',
       'calibrationTarget': 'Phys14DR',
-      'x_sec': 35.6 , ##put the correctnumber
+      'x_sec': 35.85 , ##put the correctnumber
+}
+datadefs["ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6_ext1-v1"] = {
+      'analyses': ['mutau'],
+      'datasetpath': '/ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
+      'pu': 'asymptotic_2016',
+      'calibrationTarget': 'Phys14DR',
+      'x_sec': 35.85 , ##put the correctnumber
 }
 
 if __name__=="__main__":
