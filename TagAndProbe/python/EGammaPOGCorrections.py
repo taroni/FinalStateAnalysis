@@ -36,6 +36,12 @@ def make_egamma_pog_electronID_ICHEP2016(wp):
         "EGamma_SF2D"
     )
 
+def make_egamma_pog_electronID_MORIOND2017(wp):
+    ''' Make PFTight DATA/MC corrector for 2016 BCD '''
+    return EGammaPOGCorrection2D(
+        _DATA_FILES['MORIOND2017'][wp],    
+        "EGamma_SF2D"
+    )
 
 def make_egamma_pog_electronID_MORIOND2017(wp):
     ''' Make PFTight DATA/MC corrector for 2016 BCD '''
@@ -61,6 +67,13 @@ def make_egamma_pog_recon_MORIOND17():
         _DATA_FILES['MORIOND2017']['recon'],    
         "EGamma_SF2D"
     )
+def make_egamma_pog_recon_MORIOND17():
+    ''' Make PFTight DATA/MC corrector for 2016 BCD '''
+    return EGammaPOGCorrection2Dtrk(
+        _DATA_FILES['MORIOND2017']['recon'],    
+        "EGamma_SF2D"
+    )
+
 
 
 class EGammaPOGCorrection2D(object):

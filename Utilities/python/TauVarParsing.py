@@ -151,6 +151,7 @@ class TauVarParsing(VarParsing.VarParsing):
 
     # Override the default argument parse command, with better error reporting
     def parseArguments(self):
+        print sys.argv
         try:
             super(TauVarParsing, self).parseArguments()
         except:

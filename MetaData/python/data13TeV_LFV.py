@@ -557,6 +557,7 @@ datadefs["WGToLNuG_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_v6-v1"] = {
     'calibrationTarget': 'ICHEP2016',
     'x_sec': 495.36,# needs to be cross checked
 }
+<<<<<<< HEAD
 datadefs["WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8_v6-v1"] = {
     'analyses': ['4L'],
     'datasetpath': '/WGJets_MonoPhoton_PtG-130_TuneCUETP8M1_13TeV-madgraph/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
@@ -864,8 +865,16 @@ datadefs["ST_tW_top_5f_DS_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1
     'pu': '20bx25',
     'calibrationTarget': 'Phys14DR',
     'x_sec': 38.09, ##put the correctnumber
+
 }
 datadefs["ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6-1"] = {
+      'analyses': ['mutau'],
+      'datasetpath': '/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
+      'pu': 'asymptotic_2016',
+      'calibrationTarget': 'Phys14DR',
+      'x_sec': 35.85 , ##put the correctnumber
+}
+datadefs["ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1_v6_ext1-v1"] = {
       'analyses': ['mutau'],
       'datasetpath': '/ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM',
       'pu': 'asymptotic_2016',
