@@ -69,18 +69,19 @@ def data_views(files, lumifiles, forceLumi=-1):
     '''
 
     files = list(files)
-
+    print files
     log.info("Creating views from %i files", len(files))
 
     # Map sample_name => root file
     for x in files: print x
     histo_files = dict((extract_sample(x), io.root_open(x)) for x in files)
-    
+    print histo_files
     # Map sample_name => lumi file
     lumi_files = dict((extract_sample(x), read_lumi(x)) for x in lumifiles)
 
     # Identify data files
     datafiles = set([name for name in histo_files.keys() if 'data' in name])
+    print datafiles
 
     log.info("Found the following data samples:")
     log.info(" ".join(datafiles))
