@@ -51,17 +51,19 @@ class Plotter(object):
         self.data = self.views['data']['view']
         self.keep = []
         # List of MC sample names to use.  Can be overridden.
+        
         self.mc_samples = [
-            'Zjets_M50',
-            'WplusJets_madgraph',
-            'TTplusJets_madgraph',
-            'WZ*',
-            'ZZ*',
-            'WW*',
+                'GluGluHToTauTau',
+            'VBFHToTauTau',
+            'WminusHToTauTau',
+            'WplusHToTauTau',
+            'ZHToTauTau'
         ]
-        file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())[0]
-        if not file_to_map: #no data here!
-            file_to_map = self.views.keys()[0]
+        file_to_map = self.views.keys()[0]
+        if 'data_' in file_to_map: 
+            file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())[0]
+        #if not file_to_map: #no data here!
+        #    file_to_map = self.views.keys()[0]
         #from pdb import set_trace; set_trace()
         self.file_dir_structure = Plotter.map_dir_structure( self.views[file_to_map]['file'] )
 
