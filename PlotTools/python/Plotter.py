@@ -60,10 +60,8 @@ class Plotter(object):
             'ZHToTauTau'
         ]
         file_to_map = self.views.keys()[0]
-        if 'data_' in file_to_map: 
+        if 'data_' in self.views.keys(): 
             file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())[0]
-        #if not file_to_map: #no data here!
-        #    file_to_map = self.views.keys()[0]
         #from pdb import set_trace; set_trace()
         self.file_dir_structure = Plotter.map_dir_structure( self.views[file_to_map]['file'] )
 
