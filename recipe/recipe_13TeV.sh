@@ -39,17 +39,18 @@ git cms-addpkg PhysicsTools/PatAlgos
 git cms-addpkg RecoTauTag/Configuration
 git cms-addpkg RecoTauTag/RecoTau
 
-cd RecoTauTag/RecoTau
-git remote add tau-pog git@github.com:cms-tau-pog/cmssw.git
-git fetch tau-pog
-git merge tau-pog/CMSSW_8_0_X_tau-pog_miniAOD-backport-tauID
-popd
+##waiting CMSSW9XY directions
+#cd RecoTauTag/RecoTau
+#git remote add tau-pog git@github.com:cms-tau-pog/cmssw.git
+#git fetch tau-pog
+#git merge tau-pog/CMSSW_8_0_X_tau-pog_miniAOD-backport-tauID
+#popd
 
-echo "Checking out MET Filters"
-git cms-merge-topic -u cms-met:fromCMSSW_8_0_20_postICHEPfilter
+#echo "Checking out MET Filters"
+#git cms-merge-topic -u cms-met:fromCMSSW_8_0_20_postICHEPfilter
 
-echo "Checking out bad muon filter stuff"
-git cms-merge-topic gpetruc:badMuonFilters_80X_v2
+#echo "Checking out bad muon filter stuff"
+#git cms-merge-topic gpetruc:badMuonFilters_80X_v2
 
 echo "Checking out mva met and svFit material:"
 # svFit packaged checked out for everyone so that svFit code in FSA compiles
@@ -58,28 +59,21 @@ pushd TauAnalysis/SVfitStandalone
 git checkout svFit_2015Apr03
 popd
 
-git cms-merge-topic cms-met:METRecipe_8020
-git cms-merge-topic ikrav:egm_id_80X_v2
-git cms-merge-topic rafaellopesdesa:RegressionCheckNegEnergy
-git cms-merge-topic cms-egamma:EGM_gain_v1
+#git cms-merge-topic cms-met:METRecipe_8020
+#git cms-merge-topic ikrav:egm_id_80X_v2
+#git cms-merge-topic rafaellopesdesa:RegressionCheckNegEnergy
+#git cms-merge-topic cms-egamma:EGM_gain_v1
 
-pushd EgammaAnalysis/ElectronTools/data
-git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git
-popd
+#pushd EgammaAnalysis/ElectronTools/data
+#git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git
+#popd
 
-echo "Checking out Rivet Tools for Higgs Template Cross Section"
-pushd $CMSSW_BASE/src
-git cms-merge-topic -u perrozzi:HTXS_clean
-popd
+#echo "Checking out Rivet Tools for Higgs Template Cross Section"
+#pushd $CMSSW_BASE/src
+#git cms-merge-topic -u perrozzi:HTXS_clean
+#popd
 
-# Checkout mva met code
-#git cms-addpkg RecoMET/METPUSubtraction
-#git cms-addpkg DataFormats/METReco
-#git remote add -f mvamet https://github.com/rfriese/cmssw.git
-#git checkout mvamet/mvamet8020 -b mvamet
-#mkdir RecoMET/METPUSubtraction/data
-#cd RecoMET/METPUSubtraction/data
-#wget https://github.com/rfriese/cmssw/raw/MVAMET2_beta_0.6/RecoMET/METPUSubtraction/data/weightfile.root
+
 cd $CMSSW_BASE/src
 
 
