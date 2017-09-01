@@ -44,10 +44,10 @@ PATElectronSystematicsEmbedder::PATElectronSystematicsEmbedder(
 }
 
 void PATElectronSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::ElectronCollection> output(new pat::ElectronCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutNom(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
+  std::unique_ptr<pat::ElectronCollection> output(new pat::ElectronCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutNom(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
 
   edm::Handle<edm::View<pat::Electron> > electrons;
   evt.getByToken(srcToken_, electrons);
@@ -92,9 +92,9 @@ void PATElectronSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSe
 
   // Put the shifted collections in the event
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-  PutHandle p4OutNomH = evt.put(p4OutNom, "p4OutUncorr");
-  PutHandle p4OutUpH = evt.put(p4OutUp, "p4OutUp");
-  PutHandle p4OutDownH = evt.put(p4OutDown, "p4OutDown");
+  PutHandle p4OutNomH = evt.put(std::move(p4OutNom), std::string("p4OutUncorr"));
+  PutHandle p4OutUpH = evt.put(std::move(p4OutUp), std::string("p4OutUp"));
+  PutHandle p4OutDownH = evt.put(std::move(p4OutDown), std::string("p4OutDown"));
 
   // Now embed the shifted collections into the output electron collection
   for (size_t i = 0; i < electrons->size(); ++i) {
@@ -109,7 +109,7 @@ void PATElectronSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSe
     electron.addUserCand("ees+", upPtr);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

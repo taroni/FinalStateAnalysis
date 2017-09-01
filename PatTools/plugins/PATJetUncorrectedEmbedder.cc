@@ -38,13 +38,13 @@ PATJetUncorrectedEmbedder::PATJetUncorrectedEmbedder(const edm::ParameterSet& ps
 }
 
 void PATJetUncorrectedEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > jets;
   evt.getByLabel(src_, jets);
   size_t nJets = jets->size();
 
-  std::auto_ptr<ShiftedCandCollection> uncorrected(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> uncorrected(new ShiftedCandCollection);
   uncorrected->reserve(nJets);
 
   for (size_t i = 0; i < nJets; ++i) {
@@ -56,14 +56,14 @@ void PATJetUncorrectedEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
     uncorrected->push_back(uncorr);
   }
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-  PutHandle uncorrectedH = evt.put(uncorrected, "uncorrected");
+  PutHandle uncorrectedH = evt.put(std::move(uncorrected), std::string("uncorrected"));
 
   for (size_t i = 0; i < output->size(); ++i) {
     pat::Jet& jet = output->at(i);
     jet.addUserCand("uncorr", CandidatePtr(uncorrectedH, i));
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

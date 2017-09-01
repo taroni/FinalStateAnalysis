@@ -48,7 +48,7 @@ bool CandViewOverlapSubtraction::filter(edm::Event& evt, const edm::EventSetup& 
   edm::Handle<edm::View<reco::Candidate> > candsToSubtract;
   evt.getByLabel(subtractSrc_, candsToSubtract);
 
-  std::auto_ptr<reco::CandidateBaseRefVector> output(
+  std::unique_ptr<reco::CandidateBaseRefVector> output(
       new reco::CandidateBaseRefVector());
 
   for (size_t i = 0; i < candsToFilter->size(); ++i) {
@@ -67,7 +67,7 @@ bool CandViewOverlapSubtraction::filter(edm::Event& evt, const edm::EventSetup& 
   }
 
   size_t outputSize = output->size();
-  evt.put(output);
+  evt.put(std::move(output));
   return ( !filter_ || outputSize );
 }
 

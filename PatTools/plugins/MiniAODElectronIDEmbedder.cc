@@ -57,7 +57,7 @@ private:
   std::vector<std::string> nMinusOneNames_;
   std::vector<std::string> nMinusOneLabels_;
   std::vector<edm::EDGetTokenT<edm::ValueMap<int> > > categoryTokens_;
-  std::auto_ptr<std::vector<pat::Electron> > out; // Collection we'll output at the end
+  std::unique_ptr<std::vector<pat::Electron> > out; // Collection we'll output at the end
 };
 
 
@@ -124,7 +124,7 @@ MiniAODElectronIDEmbedder::MiniAODElectronIDEmbedder(const edm::ParameterSet& iC
 
 void MiniAODElectronIDEmbedder::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-  out = std::auto_ptr<std::vector<pat::Electron> >(new std::vector<pat::Electron>);
+  out = std::unique_ptr<std::vector<pat::Electron> >(new std::vector<pat::Electron>);
 
   edm::Handle<edm::View<pat::Electron> > electronsIn;
   std::vector<edm::Handle<edm::ValueMap<bool> > > ids(idMapTokens_.size(), edm::Handle<edm::ValueMap<bool> >() );
@@ -212,7 +212,7 @@ void MiniAODElectronIDEmbedder::produce(edm::Event& iEvent, const edm::EventSetu
 
     }
 
-  iEvent.put(out);
+  iEvent.put(std::move(out));
 }
 
 

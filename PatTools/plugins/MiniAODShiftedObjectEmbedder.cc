@@ -46,7 +46,7 @@ MiniAODShiftedObjectEmbedder<T>::MiniAODShiftedObjectEmbedder(const edm::Paramet
 template<typename T>
 void MiniAODShiftedObjectEmbedder<T>::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-  std::auto_ptr<std::vector<T> > out = std::auto_ptr<std::vector<T> >(new std::vector<T>);
+  std::unique_ptr<std::vector<T> > out = std::unique_ptr<std::vector<T> >(new std::vector<T>);
 
   edm::Handle<edm::View<T> > src;
   iEvent.getByToken(srcToken_, src);
@@ -86,7 +86,7 @@ void MiniAODShiftedObjectEmbedder<T>::produce(edm::Event& iEvent, const edm::Eve
   //  }
   //}
 
-  iEvent.put(out);
+  iEvent.put(std::move(out));
 }
 
 #include "DataFormats/PatCandidates/interface/Muon.h"

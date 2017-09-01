@@ -40,7 +40,7 @@ class PATRankEmbedder : public edm::EDProducer {
 
 template<typename T>
 void PATRankEmbedder< T>::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<TCollection >output(new TCollection);
+  std::unique_ptr<TCollection >output(new TCollection);
 
   edm::Handle< edm::View<T> > candidates;
   evt.getByToken(src_, candidates);
@@ -52,7 +52,7 @@ void PATRankEmbedder< T>::produce(edm::Event& evt, const edm::EventSetup& es) {
     embedInto.addUserFloat("rankByPt",float(i));
     output->push_back(embedInto); // takes ownership
   }
-  evt.put(output);
+  evt.put(std::move(output));
 
 }
 

@@ -78,7 +78,7 @@ PATObjectWorkingPointEmbedder<T>::PATObjectWorkingPointEmbedder(const edm::Param
 
 template<typename T>
 void PATObjectWorkingPointEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<OutputCollection> output(new OutputCollection);
+  std::unique_ptr<OutputCollection> output(new OutputCollection);
 
   edm::Handle<edm::View<T> > input;
   evt.getByLabel(src_, input);
@@ -111,7 +111,7 @@ void PATObjectWorkingPointEmbedder<T>::produce(edm::Event& evt, const edm::Event
     //std::cout << "wtf: " << owned.hasUserInt(userIntLabel_) << std::endl;
     output->push_back(owned);
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "DataFormats/PatCandidates/interface/Electron.h"

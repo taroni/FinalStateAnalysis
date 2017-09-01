@@ -129,7 +129,7 @@ MiniAODJetFullSystematicsEmbedder::MiniAODJetFullSystematicsEmbedder(const edm::
 void MiniAODJetFullSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
 
 
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > jets;
   evt.getByToken(srcToken_, jets);
@@ -148,8 +148,8 @@ void MiniAODJetFullSystematicsEmbedder::produce(edm::Event& evt, const edm::Even
   std::vector<double> factorizedTotalUp(nJets, 0.0);
 
   for (auto const& name : uncertNames) {
-    std::auto_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
-    std::auto_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
+    std::unique_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
+    std::unique_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
 
     p4OutJESUpJets->reserve(nJets);
     p4OutJESDownJets->reserve(nJets);
@@ -189,8 +189,8 @@ void MiniAODJetFullSystematicsEmbedder::produce(edm::Event& evt, const edm::Even
       p4OutJESDownJets->push_back(candUncDown);
     }
  
-    PutHandle p4OutJESUpJetsH = evt.put(p4OutJESUpJets, "p4OutJESUpJetsUncor"+name);
-    PutHandle p4OutJESDownJetsH = evt.put(p4OutJESDownJets, "p4OutJESDownJetsUncor"+name);
+    PutHandle p4OutJESUpJetsH = evt.put(std::move(p4OutJESUpJets), std::string("p4OutJESUpJetsUncor"+name));
+    PutHandle p4OutJESDownJetsH = evt.put(std::move(p4OutJESDownJets), std::string("p4OutJESDownJetsUncor"+name));
   
     // Now embed the shifted collections into our output pat jets
     for (size_t i = 0; i < output->size(); ++i) {
@@ -202,7 +202,7 @@ void MiniAODJetFullSystematicsEmbedder::produce(edm::Event& evt, const edm::Even
 
   } // end cycle over all uncertainties
 
-  evt.put(output);
+  evt.put(std::move(output));
 
 
 

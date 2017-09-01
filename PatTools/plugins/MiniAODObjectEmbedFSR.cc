@@ -25,13 +25,13 @@ void MiniAODObjectEmbedFSR<T,U>::produce(edm::Event& iEvent, const edm::EventSet
   edm::Handle<std::vector<pat::Electron> > srcVetoTemp;
 
   // Get stuff
-  src = std::auto_ptr<std::vector<T> >(new std::vector<T>);
+  src = std::unique_ptr<std::vector<T> >(new std::vector<T>);
   iEvent.getByToken(srcToken_,srcTemp);
   src->assign(srcTemp->begin(),srcTemp->end());
-  srcAlt = std::auto_ptr<std::vector<U> >(new std::vector<U>);
+  srcAlt = std::unique_ptr<std::vector<U> >(new std::vector<U>);
   iEvent.getByToken(srcAltToken_,srcAltTemp);
   srcAlt->assign(srcAltTemp->begin(),srcAltTemp->end());
-  srcVeto = std::auto_ptr<pat::ElectronCollection>(new pat::ElectronCollection);
+  srcVeto = std::unique_ptr<pat::ElectronCollection>(new pat::ElectronCollection);
   iEvent.getByToken(srcVetoToken_,srcVetoTemp);
   srcVeto->assign(srcVetoTemp->begin(),srcVetoTemp->end());
   iEvent.getByToken(srcVtxToken_,srcVtx);
@@ -77,7 +77,7 @@ void MiniAODObjectEmbedFSR<T,U>::produce(edm::Event& iEvent, const edm::EventSet
       iLep->addUserInt("n"+label_, nFSR);
     }
 
-  iEvent.put(src);
+  iEvent.put(std::move(src));
 }
 
 

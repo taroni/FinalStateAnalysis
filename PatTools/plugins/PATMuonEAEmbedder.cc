@@ -57,7 +57,7 @@ void PATMuonEAEmbedder::produce(Event& evt,
 				const EventSetup& es) {
     
 
-  std::auto_ptr<MuonCollection> output(new MuonCollection());
+  std::unique_ptr<MuonCollection> output(new MuonCollection());
 
   edm::Handle<MuonCollection> handle;
   evt.getByToken(_srcToken, handle);
@@ -81,7 +81,7 @@ void PATMuonEAEmbedder::produce(Event& evt,
     output->push_back(newMuon);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

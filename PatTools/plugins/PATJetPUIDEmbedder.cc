@@ -40,7 +40,7 @@ PATJetPUIDEmbedder::PATJetPUIDEmbedder(const edm::ParameterSet& pset) {
   produces<pat::JetCollection>();
 }
 void PATJetPUIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > inputs;
   evt.getByLabel(src_, inputs);
@@ -98,7 +98,7 @@ void PATJetPUIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
   }
 
   // Store the jets in the event
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

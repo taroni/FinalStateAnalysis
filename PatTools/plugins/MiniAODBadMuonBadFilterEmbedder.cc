@@ -98,7 +98,7 @@ MiniAODBadMuonBadFilterEmbedder::~MiniAODBadMuonBadFilterEmbedder()
 void
 MiniAODBadMuonBadFilterEmbedder::produce(edm::Event& evt, const edm::EventSetup& iSetup)
 {
-  std::auto_ptr< filterFiredMapType > output(new filterFiredMapType);
+  std::unique_ptr< filterFiredMapType > output(new filterFiredMapType);
   // Add Bad Muon Filters
   for( std::string filter : filtersToCheck ) {
     output->insert( std::make_pair(filter, false) );
@@ -159,7 +159,7 @@ MiniAODBadMuonBadFilterEmbedder::produce(edm::Event& evt, const edm::EventSetup&
   } // end verbose
 
 
-  evt.put(output);
+    evt.put(std::move(output));
  
 }
 

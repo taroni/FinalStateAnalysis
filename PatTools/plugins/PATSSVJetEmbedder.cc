@@ -34,7 +34,7 @@ class PATSSVJetEmbedder : public edm::EDProducer {
       using namespace edm;
       using namespace reco;
 
-      std::auto_ptr<pat::JetCollection > out(new pat::JetCollection);
+      std::unique_ptr<pat::JetCollection > out(new pat::JetCollection);
       Handle<pat::JetCollection > cands;
 
       if(iEvent.getByLabel(src_,cands))
@@ -314,7 +314,7 @@ class PATSSVJetEmbedder : public edm::EDProducer {
 
 
 
-      iEvent.put(out);
+      iEvent.put(std::move(out));
 
     }
 

@@ -96,12 +96,12 @@ MiniAODEventListProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSe
   }
 
   // store in the event
-  std::auto_ptr<bool> pOut;
+  std::unique_ptr<bool> pOut;
   for (std::map<std::string, bool>::const_iterator it = decisionMap_.begin();
        it != decisionMap_.end(); ++it)
   {
-      pOut = std::auto_ptr<bool>(new bool(!it->second));
-      iEvent.put(pOut, it->first);
+      pOut = std::unique_ptr<bool>(new bool(!it->second));
+      iEvent.put(std::move(pOut), it->first);
   }
 
   return;

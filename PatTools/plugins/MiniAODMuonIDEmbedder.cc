@@ -56,7 +56,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
 
   unsigned int nbMuon =  muons->size();
 
-  std::auto_ptr<pat::MuonCollection> output(new pat::MuonCollection);
+  std::unique_ptr<pat::MuonCollection> output(new pat::MuonCollection);
   output->reserve(nbMuon);
 
   for(unsigned i = 0 ; i < nbMuon; i++){
@@ -67,7 +67,7 @@ void MiniAODMuonIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
     output->push_back(muon);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 // define plugin

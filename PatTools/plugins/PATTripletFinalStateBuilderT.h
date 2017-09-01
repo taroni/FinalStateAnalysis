@@ -45,7 +45,7 @@ PATTripletFinalStateBuilderT<FinalState>::produce(
   edm::Ptr<PATFinalStateEvent> evtPtr = fsEvent->ptrAt(0);
   assert(evtPtr.isNonnull());
 
-  std::auto_ptr<FinalStateCollection> output(new FinalStateCollection);
+  std::unique_ptr<FinalStateCollection> output(new FinalStateCollection);
 
   edm::Handle<edm::View<typename FinalState::daughter1_type> > leg1s;
   evt.getByToken(leg1SrcToken_, leg1s);
@@ -84,5 +84,5 @@ PATTripletFinalStateBuilderT<FinalState>::produce(
       }
     }
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }

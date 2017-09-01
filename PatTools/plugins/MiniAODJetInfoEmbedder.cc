@@ -67,7 +67,7 @@ MiniAODObjectJetInfoEmbedder<T>::MiniAODObjectJetInfoEmbedder(
 template<class T>
 void MiniAODObjectJetInfoEmbedder<T>::produce(
     edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<TCollection> output(new TCollection);
+  std::unique_ptr<TCollection> output(new TCollection);
 
   edm::Handle<edm::View<T> > objects;
   evt.getByToken(srcToken_, objects);
@@ -124,7 +124,7 @@ void MiniAODObjectJetInfoEmbedder<T>::produce(
     }
     output->push_back(object);
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

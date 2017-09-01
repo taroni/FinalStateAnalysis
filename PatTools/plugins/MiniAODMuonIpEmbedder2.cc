@@ -45,7 +45,7 @@ MiniAODMuonIpEmbedder2::MiniAODMuonIpEmbedder2(const edm::ParameterSet& pset) {
 
 void MiniAODMuonIpEmbedder2::produce(edm::Event& evt, const edm::EventSetup& es) {
 
-  std::auto_ptr<pat::MuonCollection> output(new pat::MuonCollection());
+  std::unique_ptr<pat::MuonCollection> output(new pat::MuonCollection());
 
   edm::Handle<pat::MuonCollection> handle;
   evt.getByToken(srcToken_, handle);
@@ -66,7 +66,7 @@ void MiniAODMuonIpEmbedder2::produce(edm::Event& evt, const edm::EventSetup& es)
     output->push_back(newObject);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 

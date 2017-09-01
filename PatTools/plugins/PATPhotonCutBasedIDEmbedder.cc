@@ -102,7 +102,7 @@ void PATPhotonCutBasedIDEmbedder::produce(Event& evt,
   _hcalHelper->checkSetup(es);
   _hcalHelper->readEvent(evt);    
 
-  std::auto_ptr<PhotonCollection> out(new PhotonCollection);
+  std::unique_ptr<PhotonCollection> out(new PhotonCollection);
 
   edm::Handle<PhotonCollection> phos;
   evt.getByLabel(_src,phos);
@@ -154,7 +154,7 @@ void PATPhotonCutBasedIDEmbedder::produce(Event& evt,
     out->push_back(aPho);
   }
   
-  evt.put(out);
+  evt.put(std::move(out));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

@@ -70,7 +70,7 @@ void PATPhotonPFIsolationEmbedder::produce(Event& evt,
 					   const EventSetup& es) {
   
 
-  std::auto_ptr<PhotonCollection> output(new PhotonCollection());
+  std::unique_ptr<PhotonCollection> output(new PhotonCollection());
 
   edm::Handle<PhotonCollection> handle;
   evt.getByLabel(_src, handle);
@@ -126,7 +126,7 @@ void PATPhotonPFIsolationEmbedder::produce(Event& evt,
     output->push_back(newPhoton);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

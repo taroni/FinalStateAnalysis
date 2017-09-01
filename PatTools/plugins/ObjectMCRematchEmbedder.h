@@ -46,7 +46,7 @@ class MCRematchEmbedder : public edm::EDProducer {
 template<typename Collection>
 void MCRematchEmbedder<Collection>::produce(edm::Event& iEvent, 
 					    const edm::EventSetup& iSetup) {
-  std::auto_ptr<Collection> out(new Collection);
+  std::unique_ptr<Collection> out(new Collection);
 
   edm::Handle<Collection> in;
   edm::Handle<GenMatchMap> match;
@@ -67,7 +67,7 @@ void MCRematchEmbedder<Collection>::produce(edm::Event& iEvent,
     out->push_back(temp);
   }
 
-  iEvent.put(out);
+  iEvent.put(std::move(out));
 }
 
 
@@ -97,8 +97,8 @@ class MCRematchEmbedder<pat::JetCollection> : public edm::EDProducer {
 void 
 MCRematchEmbedder<pat::JetCollection>::produce(edm::Event& iEvent, 
 					       const edm::EventSetup& iSetup) {
-  std::auto_ptr<pat::JetCollection> out(new pat::JetCollection);
-  std::auto_ptr<reco::GenJetCollection> genjetsout(new reco::GenJetCollection);
+  std::unique_ptr<pat::JetCollection> out(new pat::JetCollection);
+  std::unique_ptr<reco::GenJetCollection> genjetsout(new reco::GenJetCollection);
 
   edm::RefProd<reco::GenJetCollection > h_genJetsOut = 
     iEvent.getRefBeforePut<reco::GenJetCollection >( );
@@ -141,8 +141,8 @@ MCRematchEmbedder<pat::JetCollection>::produce(edm::Event& iEvent,
     out->push_back(temp);
   }
 
-  iEvent.put(genjetsout);
-  iEvent.put(out);
+  iEvent.put(std::move(genjetsout));
+  iEvent.put(std::move(out));
 }
 
 

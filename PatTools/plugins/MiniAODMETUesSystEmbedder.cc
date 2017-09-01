@@ -65,7 +65,7 @@ void MiniAODMETUesSystEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   edm::Handle<edm::View<reco::Candidate>> candidateParticles;
   evt.getByToken(srcPFUnclustered_, candidateParticles);
 
-  std::auto_ptr<pat::METCollection> outputMET(new pat::METCollection);
+  std::unique_ptr<pat::METCollection> outputMET(new pat::METCollection);
 
  edm::Handle<edm::View<pat::MET> > mets;
  evt.getByToken(srcMETToken_, mets);
@@ -128,85 +128,85 @@ void MiniAODMETUesSystEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
 
   }    
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpUes(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownUes(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpUes(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownUes(new ShiftedCandCollection);
 
   ShiftedCand newCandUP =  extendedMET;
   newCandUP.setP4(NEWMETUP);
   p4OutMETUpUes->push_back(newCandUP);
-  PutHandle p4OutMETUpUesH = evt.put(p4OutMETUpUes, "p4OutMETUesUP");
+    PutHandle p4OutMETUpUesH = evt.put(std::move(p4OutMETUpUes), "p4OutMETUesUP");
   extendedMET.addUserCand("metSystUesRunI+", CandidatePtr(p4OutMETUpUesH, 0));
 
   ShiftedCand newCandDOWN =  extendedMET;
   newCandDOWN.setP4(NEWMETDOWN);
   p4OutMETDownUes->push_back(newCandDOWN);
-  PutHandle p4OutMETDownUesH = evt.put(p4OutMETDownUes, "p4OutMETUesDOWN");
+  PutHandle p4OutMETDownUesH = evt.put(std::move(p4OutMETDownUes), "p4OutMETUesDOWN");
   extendedMET.addUserCand("metSystUesRunI-", CandidatePtr(p4OutMETDownUesH, 0));
 
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpUesHCAL(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownUesHCAL(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpUesHCAL(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownUesHCAL(new ShiftedCandCollection);
 
   ShiftedCand newCandUPHCAL =  extendedMET;
   newCandUPHCAL.setP4(NEWMETUPHCAL);
   p4OutMETUpUesHCAL->push_back(newCandUPHCAL);
-  PutHandle p4OutMETUpUesHCALH = evt.put(p4OutMETUpUesHCAL, "p4OutMETUesHCALUP");
+  PutHandle p4OutMETUpUesHCALH = evt.put(std::move(p4OutMETUpUesHCAL), "p4OutMETUesHCALUP");
   extendedMET.addUserCand("metSystUesHCAL+", CandidatePtr(p4OutMETUpUesHCALH, 0));
 
   ShiftedCand newCandDOWNHCAL =  extendedMET;
   newCandDOWNHCAL.setP4(NEWMETDOWNHCAL);
   p4OutMETDownUesHCAL->push_back(newCandDOWNHCAL);
-  PutHandle p4OutMETDownUesHCALH = evt.put(p4OutMETDownUesHCAL, "p4OutMETUesHCALDOWN");
+  PutHandle p4OutMETDownUesHCALH = evt.put(std::move(p4OutMETDownUesHCAL), "p4OutMETUesHCALDOWN");
   extendedMET.addUserCand("metSystUesHCAL-", CandidatePtr(p4OutMETDownUesHCALH, 0));
 
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpUesHF(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownUesHF(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpUesHF(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownUesHF(new ShiftedCandCollection);
 
   ShiftedCand newCandUPHF =  extendedMET;
   newCandUPHF.setP4(NEWMETUPHF);
   p4OutMETUpUesHF->push_back(newCandUPHF);
-  PutHandle p4OutMETUpUesHFH = evt.put(p4OutMETUpUesHF, "p4OutMETUesHFUP");
+  PutHandle p4OutMETUpUesHFH = evt.put(std::move(p4OutMETUpUesHF), "p4OutMETUesHFUP");
   extendedMET.addUserCand("metSystUesHF+", CandidatePtr(p4OutMETUpUesHFH, 0));
 
   ShiftedCand newCandDOWNHF =  extendedMET;
   newCandDOWNHF.setP4(NEWMETDOWNHF);
   p4OutMETDownUesHF->push_back(newCandDOWNHF);
-  PutHandle p4OutMETDownUesHFH = evt.put(p4OutMETDownUesHF, "p4OutMETUesHFDOWN");
+  PutHandle p4OutMETDownUesHFH = evt.put(std::move(p4OutMETDownUesHF), "p4OutMETUesHFDOWN");
   extendedMET.addUserCand("metSystUesHF-", CandidatePtr(p4OutMETDownUesHFH, 0));
 
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpUesECAL(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownUesECAL(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpUesECAL(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownUesECAL(new ShiftedCandCollection);
 
   ShiftedCand newCandUPECAL =  extendedMET;
   newCandUPECAL.setP4(NEWMETUPECAL);
   p4OutMETUpUesECAL->push_back(newCandUPECAL);
-  PutHandle p4OutMETUpUesECALH = evt.put(p4OutMETUpUesECAL, "p4OutMETUesECALUP");
+  PutHandle p4OutMETUpUesECALH = evt.put(std::move(p4OutMETUpUesECAL), "p4OutMETUesECALUP");
   extendedMET.addUserCand("metSystUesECAL+", CandidatePtr(p4OutMETUpUesECALH, 0));
 
   ShiftedCand newCandDOWNECAL =  extendedMET;
   newCandDOWNECAL.setP4(NEWMETDOWNECAL);
   p4OutMETDownUesECAL->push_back(newCandDOWNECAL);
-  PutHandle p4OutMETDownUesECALH = evt.put(p4OutMETDownUesECAL, "p4OutMETUesECALDOWN");
+  PutHandle p4OutMETDownUesECALH = evt.put(std::move(p4OutMETDownUesECAL), "p4OutMETUesECALDOWN");
   extendedMET.addUserCand("metSystUesECAL-", CandidatePtr(p4OutMETDownUesECALH, 0));
 
 
 
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpUesCHARGED(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownUesCHARGED(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpUesCHARGED(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownUesCHARGED(new ShiftedCandCollection);
 
   ShiftedCand newCandUPCHARGED =  extendedMET;
   newCandUPCHARGED.setP4(NEWMETUPCHARGED);
   p4OutMETUpUesCHARGED->push_back(newCandUPCHARGED);
-  PutHandle p4OutMETUpUesCHARGEDH = evt.put(p4OutMETUpUesCHARGED, "p4OutMETUesCHARGEDUP");
+  PutHandle p4OutMETUpUesCHARGEDH = evt.put(std::move(p4OutMETUpUesCHARGED), "p4OutMETUesCHARGEDUP");
   extendedMET.addUserCand("metSystUesCHARGED+", CandidatePtr(p4OutMETUpUesCHARGEDH, 0));
 
   ShiftedCand newCandDOWNCHARGED =  extendedMET;
   newCandDOWNCHARGED.setP4(NEWMETDOWNCHARGED);
   p4OutMETDownUesCHARGED->push_back(newCandDOWNCHARGED);
-  PutHandle p4OutMETDownUesCHARGEDH = evt.put(p4OutMETDownUesCHARGED, "p4OutMETUesCHARGEDDOWN");
+  PutHandle p4OutMETDownUesCHARGEDH = evt.put(std::move(p4OutMETDownUesCHARGED), "p4OutMETUesCHARGEDDOWN");
   extendedMET.addUserCand("metSystUesCHARGED-", CandidatePtr(p4OutMETDownUesCHARGEDH, 0));
 
 
@@ -226,7 +226,7 @@ void MiniAODMETUesSystEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
 */
 
 
-  evt.put(outputMET);//,"METMETJesSystematics");
+    evt.put(std::move(outputMET));//,"METMETJesSystematics");
 
 
 

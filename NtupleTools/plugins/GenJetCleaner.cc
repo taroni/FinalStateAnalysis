@@ -76,7 +76,7 @@ void GenJetCleaner::produce (Event & iEvent, const EventSetup &) {
      double NUP=lheeventinfo->hepeup().NUP;
 
 
-      std::auto_ptr<reco::GenJetCollection > out(new reco::GenJetCollection);
+      std::unique_ptr<reco::GenJetCollection > out(new reco::GenJetCollection);
       Handle<reco::GenJetCollection > cands;
 
       edm::Handle< vector<reco::GenParticle> >pGenPart;
@@ -102,7 +102,7 @@ void GenJetCleaner::produce (Event & iEvent, const EventSetup &) {
           if (skip==false) {out->push_back(jet); nJetsClean++;}
         }
 //      if(nJets>0) std::cout<<nJets<<"  "<<nJetsClean<<std::endl;
-      iEvent.put(out);
+	iEvent.put(std::move(out));
 
       h1_["Jets"]->Fill(nJets); h1_["CleanJets"]->Fill(nJetsClean);
       h2_["Jets_LHENUP"]->Fill(nJetsClean,NUP);

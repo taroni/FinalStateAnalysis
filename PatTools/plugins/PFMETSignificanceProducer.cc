@@ -46,7 +46,7 @@ void PFMETSignificanceProducer::produce(edm::Event& evt, const edm::EventSetup& 
     }
   }
 
-  std::auto_ptr<Matrix> output(new Matrix());
+  std::unique_ptr<Matrix> output(new Matrix());
 
   // Very rarely there can be a singularity error which throws
   // and exception.
@@ -67,7 +67,7 @@ void PFMETSignificanceProducer::produce(edm::Event& evt, const edm::EventSetup& 
     (*output)(1,1) = -999;
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

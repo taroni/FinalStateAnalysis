@@ -54,7 +54,7 @@ class PATMuonInJetEmbedder : public edm::EDProducer {
       using namespace edm;
       using namespace reco;
 
-      std::auto_ptr<pat::JetCollection > out(new pat::JetCollection);
+      std::unique_ptr<pat::JetCollection > out(new pat::JetCollection);
       Handle<pat::JetCollection > cands;
 
       edm::Handle<reco::VertexCollection> vertexHandle;
@@ -159,7 +159,7 @@ class PATMuonInJetEmbedder : public edm::EDProducer {
           out->push_back(jet);
         }
 
-      iEvent.put(out);
+      iEvent.put(std::move(out));
 
     }
 

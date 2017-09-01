@@ -17,6 +17,8 @@
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
+#include <string>
+
 class MiniAODMETJesSystematicsEmbedder : public edm::EDProducer {
  public:
   typedef reco::LeafCandidate ShiftedCand;
@@ -135,7 +137,7 @@ MiniAODMETJesSystematicsEmbedder::MiniAODMETJesSystematicsEmbedder(const edm::Pa
 void MiniAODMETJesSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
 
 
- std::auto_ptr<pat::METCollection> outputMET(new pat::METCollection);
+ std::unique_ptr<pat::METCollection> outputMET(new pat::METCollection);
 
  edm::Handle<edm::View<pat::Jet> > jets;
  evt.getByToken(srcToken_, jets);
@@ -156,8 +158,8 @@ void MiniAODMETJesSystematicsEmbedder::produce(edm::Event& evt, const edm::Event
  std::vector<double> factorizedTotalUp(nJets, 0.0);
 
  for (auto const& name : uncertNames) {
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownJets(new ShiftedCandCollection);
 
   LorentzVector nominalJetP4(0,0,0,0);
   LorentzVector jesUpJetP4(0,0,0,0);
@@ -245,13 +247,13 @@ void MiniAODMETJesSystematicsEmbedder::produce(edm::Event& evt, const edm::Event
   ShiftedCand newCandUP =  extendedMET;
   newCandUP.setP4(NEWMETUP);
   p4OutMETUpJets->push_back(newCandUP);
-  PutHandle p4OutMETUpJetsH = evt.put(p4OutMETUpJets, "p4OutMETUpJetsUncor"+name);
+  PutHandle p4OutMETUpJetsH = evt.put(std::move(p4OutMETUpJets), std::string("p4OutMETUpJetsUncor"+name));
   extendedMET.addUserCand("jes"+name+"+", CandidatePtr(p4OutMETUpJetsH, 0));
 
   ShiftedCand newCandDOWN =  extendedMET;
   newCandDOWN.setP4(NEWMETDOWN);
   p4OutMETDownJets->push_back(newCandDOWN);
-  PutHandle p4OutMETDownJetsH = evt.put(p4OutMETDownJets, "p4OutMETDownJetsUncor"+name);
+  PutHandle p4OutMETDownJetsH = evt.put(std::move(p4OutMETDownJets), std::string("p4OutMETDownJetsUncor"+name));
   extendedMET.addUserCand("jes"+name+"-", CandidatePtr(p4OutMETDownJetsH, 0));
   //
 
@@ -271,19 +273,19 @@ void MiniAODMETJesSystematicsEmbedder::produce(edm::Event& evt, const edm::Event
   LorentzVector NEWMETDOWN=METNOJETS*0.9-transverseVEC(nominalJetP4);
   //std::cout<<"check UES"<<"   "<<inputMET.pt()<<"   "<<NEWMETUP.pt()<<"   "<<NEWMETDOWN.pt()<<std::endl;
 
-  std::auto_ptr<ShiftedCandCollection> p4OutMETUpJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutMETDownJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETUpJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutMETDownJets(new ShiftedCandCollection);
 
   ShiftedCand newCandUP =  extendedMET;
   newCandUP.setP4(NEWMETUP);
   p4OutMETUpJets->push_back(newCandUP);
-  PutHandle p4OutMETUpJetsH = evt.put(p4OutMETUpJets, "p4OutMETUpJetsUncorUESUP");
+  PutHandle p4OutMETUpJetsH = evt.put(std::move(p4OutMETUpJets), std::string("p4OutMETUpJetsUncorUESUP"));
   extendedMET.addUserCand("checkUES+", CandidatePtr(p4OutMETUpJetsH, 0));
 
   ShiftedCand newCandDOWN =  extendedMET;
   newCandDOWN.setP4(NEWMETDOWN);
   p4OutMETDownJets->push_back(newCandDOWN);
-  PutHandle p4OutMETDownJetsH = evt.put(p4OutMETDownJets, "p4OutMETDownJetsUncorUESDOWN");
+  PutHandle p4OutMETDownJetsH = evt.put(std::move(p4OutMETDownJets), std::string("p4OutMETDownJetsUncorUESDOWN"));
   extendedMET.addUserCand("checkUES-", CandidatePtr(p4OutMETDownJetsH, 0));
 
 
@@ -295,7 +297,7 @@ void MiniAODMETJesSystematicsEmbedder::produce(edm::Event& evt, const edm::Event
   //    pat::MET&  test= outputMET->at(0);
   //    std::cout<<test.pt()<<"  "<<test.userCand("jesTotal+")->p4().pt()<<std::endl;
 
-  evt.put(outputMET);//,"METMETJesSystematics");
+    evt.put(std::move(outputMET));//,"METMETJesSystematics");
 
 
 

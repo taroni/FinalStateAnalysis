@@ -47,7 +47,7 @@ private:
   edm::EDGetTokenT<edm::View<pat::Electron> > electronCollectionToken_;
   const std::string label_; // label for the embedded userfloat
   const std::string filename_; //filename for effective area
-  std::auto_ptr<std::vector<pat::Electron> > out; // Collection we'll output at the end
+  std::unique_ptr<std::vector<pat::Electron> > out; // Collection we'll output at the end
   EffectiveAreas effectiveAreas_;
 };
 
@@ -69,7 +69,7 @@ MiniAODElectronEffectiveAreaEmbedder::MiniAODElectronEffectiveAreaEmbedder(const
 
 void MiniAODElectronEffectiveAreaEmbedder::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-  out = std::auto_ptr<std::vector<pat::Electron> >(new std::vector<pat::Electron>);
+  out = std::unique_ptr<std::vector<pat::Electron> >(new std::vector<pat::Electron>);
 
   edm::Handle<edm::View<pat::Electron> > electronsIn;
 
@@ -88,7 +88,7 @@ void MiniAODElectronEffectiveAreaEmbedder::produce(edm::Event& iEvent, const edm
       out->back().addUserFloat(label_, ea);
     }
 
-  iEvent.put(out);
+  iEvent.put(std::move(out));
 }
 
 float MiniAODElectronEffectiveAreaEmbedder::getEA(const edm::Ptr<pat::Electron>& elec) const

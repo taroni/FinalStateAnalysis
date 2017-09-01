@@ -73,7 +73,7 @@ void PhotonPFIsoCalculator::produce(edm::Event& iEvent, const edm::EventSetup& i
   iEvent.getByToken(pfLabel_,pfcands);
 
   std::vector<float> isoV;
-  std::auto_ptr<edm::ValueMap<float> > isoM(new edm::ValueMap<float> ());
+  std::unique_ptr<edm::ValueMap<float> > isoM(new edm::ValueMap<float> ());
   edm::ValueMap<float>::Filler isoF(*isoM);
 
   if (debug_) std::cout << "Run " << iEvent.id().run() << ", Event " << iEvent.id().event() << std::endl;
@@ -131,7 +131,7 @@ void PhotonPFIsoCalculator::produce(edm::Event& iEvent, const edm::EventSetup& i
 
   isoF.insert(photons,isoV.begin(),isoV.end());
   isoF.fill();
-  iEvent.put(isoM);
+  iEvent.put(std::move(isoM));
 }
 
 PhotonPFIsoCalculator::~PhotonPFIsoCalculator() { }

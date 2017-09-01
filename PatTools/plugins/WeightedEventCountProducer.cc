@@ -91,9 +91,9 @@ void
 WeightedEventCountProducer::endLuminosityBlockProduce(LuminosityBlock & theLuminosityBlock, const EventSetup & theSetup) {
   LogTrace("WeightedEventCounting") << "endLumi: adding " << summedWeightsInLumi_ << " weights" << endl;
 
-  auto_ptr<edm::MergeableCounter> summedWeightsPtr(new edm::MergeableCounter);
+  unique_ptr<edm::MergeableCounter> summedWeightsPtr(new edm::MergeableCounter);
   summedWeightsPtr->value = summedWeightsInLumi_;
-  theLuminosityBlock.put(summedWeightsPtr);
+  theLuminosityBlock.put(std::move(summedWeightsPtr));
 
   return;
 }

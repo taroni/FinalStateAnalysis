@@ -42,7 +42,7 @@ PATFinalStateMassResolutionEmbedder(const edm::ParameterSet& pset):
 void 
 PATFinalStateMassResolutionEmbedder::
 produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
+  std::unique_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
 
   resoCalc_->init(es);
 
@@ -77,7 +77,7 @@ produce(edm::Event& evt, const edm::EventSetup& es) {
     
     output->push_back(embedInto); // takes ownership
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

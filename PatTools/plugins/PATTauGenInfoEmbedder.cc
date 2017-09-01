@@ -35,7 +35,7 @@ PATTauGenInfoEmbedder::PATTauGenInfoEmbedder(const edm::ParameterSet& pset) {
 }
 
 void PATTauGenInfoEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::TauCollection> output(new pat::TauCollection);
+  std::unique_ptr<pat::TauCollection> output(new pat::TauCollection);
   edm::Handle<edm::View<pat::Tau> > taus;
   evt.getByToken(srcToken_, taus);
   output->reserve(taus->size());
@@ -65,7 +65,7 @@ void PATTauGenInfoEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) 
     output->push_back(copy);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

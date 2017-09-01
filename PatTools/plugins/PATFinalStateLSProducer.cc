@@ -70,10 +70,10 @@ void PATFinalStateLSProducer::endLuminosityBlockProduce(
     intgRecLumi *= 1e6;
   }
 
-  std::auto_ptr<PATFinalStateLS> output(new PATFinalStateLS(
+  std::unique_ptr<PATFinalStateLS> output(new PATFinalStateLS(
         ls.id(), intgRecLumi, instLumi));
 
-  ls.put(output);
+  ls.put(std::move(output));
 
   eventCount_ = 0;
 }

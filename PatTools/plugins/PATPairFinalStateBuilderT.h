@@ -43,7 +43,7 @@ PATPairFinalStateBuilderT<FinalStatePair>::produce(
   edm::Ptr<PATFinalStateEvent> evtPtr = fsEvent->ptrAt(0);
   assert(evtPtr.isNonnull());
 
-  std::auto_ptr<FinalStatePairCollection> output(new FinalStatePairCollection);
+  std::unique_ptr<FinalStatePairCollection> output(new FinalStatePairCollection);
 
   edm::Handle<edm::View<typename FinalStatePair::daughter1_type> > leg1s;
   evt.getByToken(leg1SrcToken_, leg1s);
@@ -67,5 +67,5 @@ PATPairFinalStateBuilderT<FinalStatePair>::produce(
         output->push_back(outputCand);
     }
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }

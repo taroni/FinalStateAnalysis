@@ -114,9 +114,9 @@ class MiniAODObjectEmbedFSR : public edm::EDProducer {
   int embedFSRCand(typename std::vector<T>::iterator& lept, const std::vector<pat::PFParticle>::const_iterator& pho);
   
 
-  std::auto_ptr<std::vector<T> > src;
-  std::auto_ptr<std::vector<U> > srcAlt;
-  std::auto_ptr<pat::ElectronCollection> srcVeto;
+  std::unique_ptr<std::vector<T> > src;
+  std::unique_ptr<std::vector<U> > srcAlt;
+  std::unique_ptr<pat::ElectronCollection> srcVeto;
   edm::Handle<reco::VertexCollection> srcVtx;
   edm::Handle<std::vector<pat::PFParticle> > srcPho;
 

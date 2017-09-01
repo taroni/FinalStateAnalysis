@@ -144,7 +144,7 @@ MiniAODJetBTagSFLooseEmbedder::MiniAODJetBTagSFLooseEmbedder(const edm::Paramete
 }
 
 void MiniAODJetBTagSFLooseEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > input;
   evt.getByToken(srcToken_, input);
@@ -273,7 +273,7 @@ void MiniAODJetBTagSFLooseEmbedder::produce(edm::Event& evt, const edm::EventSet
       }
   } // end jet loop
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 

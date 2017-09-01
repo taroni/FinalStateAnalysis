@@ -85,11 +85,11 @@ void PATMuonSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup&
   assert(correctorUp_.get());
   assert(correctorDown_.get());
 
-  std::auto_ptr<pat::MuonCollection> output(new pat::MuonCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutCorr(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutUncorr(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
+  std::unique_ptr<pat::MuonCollection> output(new pat::MuonCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutCorr(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutUncorr(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
 
   edm::Handle<edm::View<pat::Muon> > muons;
   evt.getByLabel(src_, muons);
@@ -136,10 +136,10 @@ void PATMuonSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup&
 
   // Put the shifted collections in the event
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-  PutHandle p4OutUncorrH = evt.put(p4OutUncorr, "p4OutUncorr");
-  PutHandle p4OutCorrH = evt.put(p4OutCorr, "p4OutCorr");
-  PutHandle p4OutUpH = evt.put(p4OutUp, "p4OutUp");
-  PutHandle p4OutDownH = evt.put(p4OutDown, "p4OutDown");
+  PutHandle p4OutUncorrH = evt.put(std::move(p4OutUncorr), std::string("p4OutUncorr"));
+  PutHandle p4OutCorrH = evt.put(std::move(p4OutCorr), std::string("p4OutCorr"));
+  PutHandle p4OutUpH = evt.put(std::move(p4OutUp), std::string("p4OutUp"));
+  PutHandle p4OutDownH = evt.put(std::move(p4OutDown), std::string("p4OutDown"));
 
   // Now embed the shifted collections into the output muon collection
   for (size_t i = 0; i < muons->size(); ++i) {
@@ -156,7 +156,7 @@ void PATMuonSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup&
     muon.addUserCand("mes+", upPtr);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

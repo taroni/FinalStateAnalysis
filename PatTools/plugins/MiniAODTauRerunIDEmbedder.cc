@@ -63,7 +63,7 @@ MiniAODTauRerunIDEmbedder::MiniAODTauRerunIDEmbedder(const edm::ParameterSet& ps
 }
 
 void MiniAODTauRerunIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::TauCollection> output(new pat::TauCollection);
+  std::unique_ptr<pat::TauCollection> output(new pat::TauCollection);
 
   edm::Handle<pat::PATTauDiscriminator> mvaIsoRaw;
   evt.getByToken(mvaIsolationToken_,mvaIsoRaw);
@@ -128,7 +128,7 @@ void MiniAODTauRerunIDEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
       output->push_back(tau);
   } // end tau loop
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 

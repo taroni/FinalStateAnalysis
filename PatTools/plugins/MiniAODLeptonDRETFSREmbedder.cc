@@ -123,8 +123,8 @@ MiniAODLeptonDRETFSREmbedder::~MiniAODLeptonDRETFSREmbedder()
 
 void MiniAODLeptonDRETFSREmbedder::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-  std::auto_ptr<std::vector<Muon> > mOut( new std::vector<Muon> );
-  std::auto_ptr<std::vector<Elec> > eOut( new std::vector<Elec> );
+  std::unique_ptr<std::vector<Muon> > mOut( new std::vector<Muon> );
+  std::unique_ptr<std::vector<Elec> > eOut( new std::vector<Elec> );
   edm::Handle<CandView> phos;
   iEvent.getByToken(photons_, phos);
   edm::Handle<edm::View<Elec> > elecs;
@@ -254,8 +254,8 @@ void MiniAODLeptonDRETFSREmbedder::produce(edm::Event& iEvent, const edm::EventS
       mOut->push_back(m);
     }
 
-  iEvent.put( eOut );
-  iEvent.put( mOut );
+  iEvent.put( std::move(eOut) );
+  iEvent.put( std::move(mOut) );
 }
 
 

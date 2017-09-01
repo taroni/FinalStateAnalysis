@@ -63,7 +63,7 @@ PATFinalStateSelector::PATFinalStateSelector(const edm::ParameterSet& iConfig) :
 
 void PATFinalStateSelector::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
 {
-  std::auto_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
+  std::unique_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
 
   edm::Handle<edm::View<PATFinalState> > finalStatesIn;
   iEvent.getByToken(srcToken_, finalStatesIn);
@@ -85,7 +85,7 @@ void PATFinalStateSelector::produce(edm::Event& iEvent, const edm::EventSetup& i
         output->push_back(fs); // takes ownership
     }
 
-  iEvent.put(output);
+  iEvent.put(std::move(output));
 }
 
 void PATFinalStateSelector::beginJob(){}

@@ -116,7 +116,7 @@ PATPhotonPHOSPHOREmbedder(const ParameterSet& pset) {
 void PATPhotonPHOSPHOREmbedder::produce(Event& evt, 
 						 const EventSetup& es) {
 
-  std::auto_ptr<PhotonCollection> out(new PhotonCollection);
+  std::unique_ptr<PhotonCollection> out(new PhotonCollection);
 
   edm::Handle<PhotonCollection> phos;
   evt.getByLabel(_src,phos);
@@ -138,7 +138,7 @@ void PATPhotonPHOSPHOREmbedder::produce(Event& evt,
     out->push_back(cPho);
   }
   
-  evt.put(out);
+  evt.put(std::move(out));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

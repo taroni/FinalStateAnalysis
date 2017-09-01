@@ -49,7 +49,7 @@ PATFinalStateOverlapEmbedder::PATFinalStateOverlapEmbedder(
   produces<PATFinalStateCollection>();
 }
 void PATFinalStateOverlapEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
+  std::unique_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
 
   edm::Handle<edm::View<PATFinalState> > finalStatesH;
   evt.getByToken(srcToken_, finalStatesH);
@@ -79,7 +79,7 @@ void PATFinalStateOverlapEmbedder::produce(edm::Event& evt, const edm::EventSetu
     embedInto->setOverlaps(name_, overlaps);
     output->push_back(embedInto); // takes ownership
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

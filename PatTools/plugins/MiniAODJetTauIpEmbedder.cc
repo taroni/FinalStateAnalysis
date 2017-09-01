@@ -46,7 +46,7 @@ MiniAODJetTauIpEmbedder<T>::MiniAODJetTauIpEmbedder(const edm::ParameterSet& pse
 template<typename T>
 void MiniAODJetTauIpEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup& es) {
 
-  std::auto_ptr<std::vector<T> > output(new std::vector<T>());
+  std::unique_ptr<std::vector<T> > output(new std::vector<T>());
 
   edm::Handle<edm::View<T> > handle;
   evt.getByToken(srcToken_, handle);
@@ -80,7 +80,7 @@ void MiniAODJetTauIpEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup&
     output->push_back(newObject);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "DataFormats/PatCandidates/interface/Electron.h"

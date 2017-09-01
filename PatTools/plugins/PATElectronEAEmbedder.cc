@@ -57,7 +57,7 @@ void PATElectronEAEmbedder::produce(Event& evt,
 				    const EventSetup& es) {
   
 
-  std::auto_ptr<ElectronCollection> output(new ElectronCollection());
+  std::unique_ptr<ElectronCollection> output(new ElectronCollection());
 
   edm::Handle<ElectronCollection> handle;
   evt.getByToken(_srcToken, handle);
@@ -83,7 +83,7 @@ void PATElectronEAEmbedder::produce(Event& evt,
     output->push_back(newElectron);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

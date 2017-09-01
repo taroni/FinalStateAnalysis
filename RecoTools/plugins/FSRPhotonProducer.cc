@@ -50,7 +50,7 @@ class FSRPhotonProducer : public edm::EDProducer {
 
     virtual void produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
     {
-      std::auto_ptr<reco::PFCandidateCollection> out(new reco::PFCandidateCollection);
+      std::unique_ptr<reco::PFCandidateCollection> out(new reco::PFCandidateCollection);
       //https://twiki.cern.ch/twiki/bin/view/CMS/HiggsZZ4l2012SummerSync#Synchronizations_with_FSR
       //Photon definition:
       //PF photons from the particleFlow collection, plus PF photons created from the ecalEnergy of the muon PF candidates (sample code1, sample code 2, with properly massless photons)
@@ -74,7 +74,7 @@ class FSRPhotonProducer : public edm::EDProducer {
           }
         }
       }
-      iEvent.put(out);
+      iEvent.put(std::move(out));
     }
 
     // ----------member data ---------------------------

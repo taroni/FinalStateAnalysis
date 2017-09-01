@@ -128,11 +128,11 @@ class PATJetSmearEmbedder : public edm::EDProducer
     //std::cout << "<SmearedJetProducer::produce>:" << std::endl;
     //std::cout << " moduleLabel = " << moduleLabel_ << std::endl;
 
-    std::auto_ptr<JetCollection> outputJets(new JetCollection);
+    std::unique_ptr<JetCollection> outputJets(new JetCollection);
 
-    std::auto_ptr<ShiftedCandCollection> smearedCands(new ShiftedCandCollection);
-    std::auto_ptr<ShiftedCandCollection> smearUpCands(new ShiftedCandCollection);
-    std::auto_ptr<ShiftedCandCollection> smearDownCands(new ShiftedCandCollection);
+    std::unique_ptr<ShiftedCandCollection> smearedCands(new ShiftedCandCollection);
+    std::unique_ptr<ShiftedCandCollection> smearUpCands(new ShiftedCandCollection);
+    std::unique_ptr<ShiftedCandCollection> smearDownCands(new ShiftedCandCollection);
 
     edm::Handle<JetCollection> jets;
     evt.getByLabel(src_, jets);
@@ -189,9 +189,9 @@ class PATJetSmearEmbedder : public edm::EDProducer
     }
 
     typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-    PutHandle smearedCandsH = evt.put(smearedCands, "smearedCands");
-    PutHandle smearUpCandsH = evt.put(smearUpCands, "smearUpCands");
-    PutHandle smearDownCandsH = evt.put(smearDownCands, "smearDownCands");
+      PutHandle smearedCandsH = evt.put(std::move(smearedCands), "smearedCands");
+      PutHandle smearUpCandsH = evt.put(std::move(smearUpCands), "smearUpCands");
+      PutHandle smearDownCandsH = evt.put(std::move(smearDownCands), "smearDownCands");
 
     //--- add collection of "smeared" jets to the event
     for (size_t i = 0; i < outputJets->size(); ++i) {
@@ -200,7 +200,7 @@ class PATJetSmearEmbedder : public edm::EDProducer
       jet.addUserCand("smear+", CandidatePtr(smearUpCandsH, i));
       jet.addUserCand("smear-", CandidatePtr(smearDownCandsH, i));
     }
-    evt.put(outputJets);
+      evt.put(std::move(outputJets));
   }
 
   std::string moduleLabel_;

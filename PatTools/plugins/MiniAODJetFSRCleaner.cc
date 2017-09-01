@@ -28,7 +28,7 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "CommonTools/Utils/interface/StringCutObjectSelector.h"
-
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 
 typedef reco::Candidate Cand;
 typedef edm::Ptr<Cand> CandPtr;
@@ -119,8 +119,8 @@ void MiniAODJetFSRCleaner::produce(edm::Event& iEvent, const edm::EventSetup& iS
 
   std::vector<CandPtr> fsr = getFSR(elecsIn, muonsIn);
 
-  std::auto_ptr<std::vector<Jet> > out = 
-    std::auto_ptr<std::vector<Jet> >(new std::vector<Jet>);
+  std::unique_ptr<std::vector<Jet> > out = 
+    std::unique_ptr<std::vector<Jet> >(new std::vector<Jet>);
 
   for(size_t iJ = 0; iJ < jetsIn->size(); ++iJ)
     {
@@ -136,7 +136,7 @@ void MiniAODJetFSRCleaner::produce(edm::Event& iEvent, const edm::EventSetup& iS
         out->push_back(*jet);
     }
 
-  iEvent.put(out);
+  iEvent.put(std::move(out));
 }
     
 

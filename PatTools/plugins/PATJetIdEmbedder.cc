@@ -29,7 +29,7 @@ PATJetIdEmbedder::PATJetIdEmbedder(const edm::ParameterSet& pset) {
 }
 
 void PATJetIdEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > input;
   evt.getByLabel(src_, input);
@@ -83,7 +83,7 @@ void PATJetIdEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
     output->push_back(jet);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

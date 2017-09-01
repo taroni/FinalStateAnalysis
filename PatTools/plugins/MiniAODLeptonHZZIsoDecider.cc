@@ -30,7 +30,7 @@
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "CommonTools/Utils/interface/StringCutObjectSelector.h"
 #include "DataFormats/MuonReco/interface/MuonPFIsolation.h"
-
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 
 typedef reco::Candidate Cand;
 typedef edm::Ptr<Cand> CandPtr;
@@ -102,8 +102,8 @@ private:
   const std::string isoDecisionLabel;
 
   // Collections we'll output at the end
-  std::auto_ptr<std::vector<Elec> > outE; 
-  std::auto_ptr<std::vector<Muon> > outM; 
+    std::unique_ptr<std::vector<Elec> > outE;
+  std::unique_ptr<std::vector<Muon> > outM;
 
   //// Electron WPs
   const double isoCutE;
@@ -196,8 +196,8 @@ void MiniAODLeptonHZZIsoDecider::produce(edm::Event& iEvent, const edm::EventSet
   outE = makeCollection(elecsIn, fsr);
   outM = makeCollection(muonsIn, fsr);
 
-  iEvent.put(outE, "electrons");
-  iEvent.put(outM, "muons");
+    iEvent.put(std::move(outE), "electrons");
+    iEvent.put(std::move(outM), "muons");
 }
     
 

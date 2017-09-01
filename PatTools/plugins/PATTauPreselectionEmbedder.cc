@@ -159,7 +159,7 @@ bool PATTauPreselectionEmbedder::filter(edm::Event& evt, const edm::EventSetup& 
   edm::Handle<PATTauCollection> pfTaus_input;
   evt.getByLabel(src_, pfTaus_input);
 
-  std::auto_ptr<PATTauCollection> pfTaus_output(new PATTauCollection());
+  std::unique_ptr<PATTauCollection> pfTaus_output(new PATTauCollection());
 
   for ( PATTauCollection::const_iterator pfTau_input = pfTaus_input->begin();
 	pfTau_input != pfTaus_input->end(); ++pfTau_input ) {
@@ -323,7 +323,7 @@ bool PATTauPreselectionEmbedder::filter(edm::Event& evt, const edm::EventSetup& 
   size_t numPFTaus_output = pfTaus_output->size();
   if ( verbosity_ ) std::cout << " numPFTaus_output = " << numPFTaus_output << std::endl;
 
-  evt.put(pfTaus_output);
+  evt.put(std::move(pfTaus_output));
 
   return true;
 }

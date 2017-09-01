@@ -58,7 +58,7 @@ PATObjectValueMapEmbedder<T>::PATObjectValueMapEmbedder(const edm::ParameterSet&
 template <typename T>
 void PATObjectValueMapEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup& es) 
 {
-  std::auto_ptr<TCollection> output(new TCollection);
+  std::unique_ptr<TCollection> output(new TCollection);
 
   edm::Handle< edm::View<T> > inputs;
   evt.getByLabel(src_, inputs);
@@ -87,7 +87,7 @@ void PATObjectValueMapEmbedder<T>::produce(edm::Event& evt, const edm::EventSetu
   }
 
   // Store the jets in the event
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

@@ -104,12 +104,12 @@ MiniAODTriggerProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
     }
   }
 
-  std::auto_ptr<bool> pOut;
+  std::unique_ptr<bool> pOut;
   for (std::map<std::string, bool>::const_iterator it = decisionMap_.begin();
        it != decisionMap_.end(); ++it)
   {
       pOut = std::auto_ptr<bool>(new bool(!it->second));
-      iEvent.put(pOut, it->first);
+      iEvent.put(std::move(pOut), it->first);
   }
 
   return;

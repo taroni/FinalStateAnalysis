@@ -39,6 +39,8 @@ git cms-addpkg PhysicsTools/PatAlgos
 git cms-addpkg RecoTauTag/Configuration
 git cms-addpkg RecoTauTag/RecoTau
 
+git cms-addpkg RecoMET/METFilters
+
 ##waiting CMSSW9XY directions
 #cd RecoTauTag/RecoTau
 #git remote add tau-pog git@github.com:cms-tau-pog/cmssw.git
@@ -68,10 +70,13 @@ popd
 #git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git
 #popd
 
-#echo "Checking out Rivet Tools for Higgs Template Cross Section"
-#pushd $CMSSW_BASE/src
+echo "Checking out Rivet Tools for Higgs Template Cross Section"
+pushd $CMSSW_BASE/src
+git remote add perozzi https://github.com/perrozzi/cmssw.git
+git fetch perozzi
+git checkout perozzi/HTXS_clean -- SimDataFormats/HTXS
 #git cms-merge-topic -u perrozzi:HTXS_clean
-#popd
+popd
 
 
 cd $CMSSW_BASE/src

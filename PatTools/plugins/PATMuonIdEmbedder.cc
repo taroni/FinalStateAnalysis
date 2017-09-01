@@ -27,7 +27,7 @@ PATMuonIdEmbedder::PATMuonIdEmbedder(const edm::ParameterSet& pset)
 }
 
 void PATMuonIdEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::MuonCollection> output(new pat::MuonCollection());
+  std::unique_ptr<pat::MuonCollection> output(new pat::MuonCollection());
 
   edm::Handle<pat::MuonCollection> handle;
   evt.getByLabel(src_, handle);
@@ -49,7 +49,7 @@ void PATMuonIdEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
     output->push_back(newMuon);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

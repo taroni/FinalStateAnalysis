@@ -92,7 +92,7 @@ MiniAODHZZCategoryEmbedder::MiniAODHZZCategoryEmbedder(const edm::ParameterSet& 
 
 void MiniAODHZZCategoryEmbedder::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) 
 {
-  std::auto_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
+  std::unique_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
 
   edm::Handle<edm::View<PATFinalState> > finalStatesIn;
   iEvent.getByToken(srcToken_, finalStatesIn);
@@ -108,7 +108,7 @@ void MiniAODHZZCategoryEmbedder::produce(edm::Event& iEvent, const edm::EventSet
       output->push_back(embedInto); // takes ownership
     }
 
-  iEvent.put(output);
+  iEvent.put(std::move(output));
 }
 
 

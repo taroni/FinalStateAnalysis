@@ -90,11 +90,11 @@ void embedShift(pat::MET& met, edm::Event& evt,
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
   typedef reco::CandidatePtr CandidatePtr;
 
-  std::auto_ptr<ShiftedCandCollection> output(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> output(new ShiftedCandCollection);
   ShiftedCand newCand = met;
   newCand.setP4(transverse(newCand.p4() + residual));
   output->push_back(newCand);
-  PutHandle outputH = evt.put(output, branchName);
+    PutHandle outputH = evt.put(std::move(output), branchName);
   met.addUserCand(embedName, CandidatePtr(outputH, 0));
 }
 
@@ -290,10 +290,10 @@ void PATMETSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   embedShift(outputMET, evt, "metsUESDown", "ues-",
       nominalUnclusteredP4 - uesDownUnclusteredP4);
 
-  std::auto_ptr<pat::METCollection> outputColl(new pat::METCollection);
+  std::unique_ptr<pat::METCollection> outputColl(new pat::METCollection);
   outputColl->push_back(outputMET);
 
-  evt.put(outputColl);
+    evt.put(std::move(outputColl));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

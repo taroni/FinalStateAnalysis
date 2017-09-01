@@ -117,13 +117,13 @@ PATElectronSystematicsEmbedderLFV::produce(edm::Event& evt, const edm::EventSetu
    using namespace edm;
    using namespace std;
 
-   std::auto_ptr<pat::ElectronCollection> output(new pat::ElectronCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutUncorr(new ShiftedCandCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutResUp(new ShiftedCandCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutResDown(new ShiftedCandCollection);
-   std::auto_ptr<ShiftedCandCollection> p4OutResPhiDown(new ShiftedCandCollection);
+   std::unique_ptr<pat::ElectronCollection> output(new pat::ElectronCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutUncorr(new ShiftedCandCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutUp(new ShiftedCandCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutDown(new ShiftedCandCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutResUp(new ShiftedCandCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutResDown(new ShiftedCandCollection);
+   std::unique_ptr<ShiftedCandCollection> p4OutResPhiDown(new ShiftedCandCollection);
 
    edm::Handle<edm::View<pat::Electron> > uncalibratedPatElectrons;
    evt.getByToken(srcTokenuncalib_, uncalibratedPatElectrons);
@@ -214,13 +214,13 @@ PATElectronSystematicsEmbedderLFV::produce(edm::Event& evt, const edm::EventSetu
 
      //resolution
 
-     float sigma_up=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,1,0); //corrected sigma ->sigma+/-sigma_err
-     float sigma_down=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,-1,0); //corrected sigma ->sigma+/-sigma_e
+     float sigma_up=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,1.,0.); //corrected sigma ->sigma+/-sigma_err
+     float sigma_down=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,-1.,0.); //corrected sigma ->sigma+/-sigma_e
      
      double ResUp_factor = rgen_->Gaus(1,sigma_up);
      double ResDown_factor = rgen_->Gaus(1,sigma_down);
 
-     float sigma_resphidown=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,0,-1); //corrected sigma ->sigma+/-sigma_e
+     float sigma_resphidown=eScaler_.getSmearingSigma(runnum,isEBEle,full5x5r9,etaSCEle,etEle,gainSeedSC,0.,-1.); //corrected sigma ->sigma+/-sigma_e
 
      double ResPhiDown_factor =rgen_->Gaus(1,sigma_resphidown);
 
@@ -248,14 +248,14 @@ PATElectronSystematicsEmbedderLFV::produce(edm::Event& evt, const edm::EventSetu
 
    // Put the shifted collections in the event
    typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-   PutHandle p4OutUncorrH = evt.put(p4OutUncorr, "p4OutUncorr");
+   PutHandle p4OutUncorrH = evt.put(std::move(p4OutUncorr), "p4OutUncorr");
 
-   PutHandle p4OutUpH = evt.put(p4OutUp, "p4OutUp");
-   PutHandle p4OutDownH = evt.put(p4OutDown, "p4OutDown");
+   PutHandle p4OutUpH = evt.put(std::move(p4OutUp), "p4OutUp");
+   PutHandle p4OutDownH = evt.put(std::move(p4OutDown), "p4OutDown");
 
-   PutHandle p4OutResUpH = evt.put(p4OutResUp, "p4OutResUp");
-   PutHandle p4OutResDownH = evt.put(p4OutResDown, "p4OutResDown");
-   PutHandle p4OutResPhiDownH = evt.put(p4OutResPhiDown, "p4OutResPhiDown");
+   PutHandle p4OutResUpH = evt.put(std::move(p4OutResUp), "p4OutResUp");
+   PutHandle p4OutResDownH = evt.put(std::move(p4OutResDown), "p4OutResDown");
+   PutHandle p4OutResPhiDownH = evt.put(std::move(p4OutResPhiDown), "p4OutResPhiDown");
 
    // Now embed the shifted collections into the output electron collection
    for (size_t i = 0; i < calibratedPatElectrons->size(); ++i) {
@@ -282,7 +282,7 @@ PATElectronSystematicsEmbedderLFV::produce(edm::Event& evt, const edm::EventSetu
 
  }
 
-   evt.put(output);
+   evt.put(std::move(output));
 
  
 }

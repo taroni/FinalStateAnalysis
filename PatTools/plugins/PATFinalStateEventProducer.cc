@@ -207,7 +207,7 @@ PATFinalStateEventProducer::getRefProd(const edm::EDGetTokenT<T>& srcToken,
 
 void PATFinalStateEventProducer::produce(edm::Event& evt,
                                          const edm::EventSetup& es) {
-  std::auto_ptr<PATFinalStateEventCollection> output(
+  std::unique_ptr<PATFinalStateEventCollection> output(
                                                      new PATFinalStateEventCollection);
 
   edm::Handle<double> rho;
@@ -427,7 +427,7 @@ void PATFinalStateEventProducer::produce(edm::Event& evt,
     }
   }
   output->push_back(theEvent);
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

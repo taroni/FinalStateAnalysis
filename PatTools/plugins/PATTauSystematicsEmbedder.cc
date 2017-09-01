@@ -158,12 +158,12 @@ void PATTauSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   evt.getByLabel(src_, taus);
   size_t nTaus = taus->size();
 
-  std::auto_ptr<pat::TauCollection> output(new pat::TauCollection);
+  std::unique_ptr<pat::TauCollection> output(new pat::TauCollection);
   output->reserve(nTaus);
 
-  std::auto_ptr<ShiftedCandCollection> p4OutNomTaus(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutTESUpTaus(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutTESDownTaus(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutNomTaus(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutTESUpTaus(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutTESDownTaus(new ShiftedCandCollection);
 
   p4OutNomTaus->reserve(nTaus);
   p4OutTESUpTaus->reserve(nTaus);
@@ -190,9 +190,9 @@ void PATTauSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   // Put the shifted collections in the event
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
 
-  PutHandle p4OutNomTausH = evt.put(p4OutNomTaus, "p4OutNomTaus");
-  PutHandle p4OutTESUpTausH = evt.put(p4OutTESUpTaus, "p4OutTESUpTaus");
-  PutHandle p4OutTESDownTausH = evt.put(p4OutTESDownTaus, "p4OutTESDownTaus");
+  PutHandle p4OutNomTausH = evt.put(std::move(p4OutNomTaus), std::string("p4OutNomTaus"));
+  PutHandle p4OutTESUpTausH = evt.put(std::move(p4OutTESUpTaus), std::string("p4OutTESUpTaus"));
+  PutHandle p4OutTESDownTausH = evt.put(std::move(p4OutTESDownTaus), std::string("p4OutTESDownTaus"));
 
   // Now embed the shifted collections into our output pat taus
   for (size_t i = 0; i < output->size(); ++i) {
@@ -201,7 +201,7 @@ void PATTauSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
     tau.addUserCand("tes+", CandidatePtr(p4OutTESUpTausH, i));
     tau.addUserCand("tes-", CandidatePtr(p4OutTESDownTausH, i));
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

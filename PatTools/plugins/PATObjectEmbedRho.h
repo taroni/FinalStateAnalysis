@@ -38,7 +38,7 @@ class PATRhoOverloader : public edm::EDProducer {
       virtual void produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	{
 	  //Read the shallow clones of a candidate and save the SECOND Clone
-	  std::auto_ptr<std::vector<T> > out(new std::vector<T> );
+	  std::unique_ptr<std::vector<T> > out(new std::vector<T> );
 	  edm::Handle<std::vector<T> > src;
 
 	  float rho = 0.0;
@@ -55,7 +55,7 @@ class PATRhoOverloader : public edm::EDProducer {
 	      out->push_back(obj);
 	    }
 
-	  iEvent.put(out);
+	  iEvent.put(std::move(out));
 	}
 
       virtual void endJob() { }

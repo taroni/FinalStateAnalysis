@@ -52,7 +52,7 @@ void PATLeptonIpEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup& es)
   es.get<TransientTrackRecord>().get(
       "TransientTrackBuilder", ttrackBuilder);
 
-  std::auto_ptr<std::vector<T> > output(new std::vector<T>());
+  std::unique_ptr<std::vector<T> > output(new std::vector<T>());
 
   edm::Handle<edm::View<T> > handle;
   evt.getByLabel(src_, handle);
@@ -104,7 +104,7 @@ void PATLeptonIpEmbedder<T>::produce(edm::Event& evt, const edm::EventSetup& es)
     output->push_back(newObject);
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "DataFormats/PatCandidates/interface/Electron.h"

@@ -70,7 +70,7 @@ void PATMuonRochesterCorrectionEmbedder::produce(Event& evt,
     out->push_back(cMu);
   }
   
-  evt.put(out);
+  evt.put(std::move(out));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

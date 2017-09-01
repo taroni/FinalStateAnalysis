@@ -58,7 +58,7 @@ PATFinalStateVertexFitter::PATFinalStateVertexFitter(const edm::ParameterSet& ps
   produces<PATFinalStateCollection>();
 }
 void PATFinalStateVertexFitter::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
+  std::unique_ptr<PATFinalStateCollection> output(new PATFinalStateCollection);
 
   edm::Handle<edm::View<PATFinalState> > finalStates;
   evt.getByToken(srcToken_, finalStates);
@@ -93,7 +93,7 @@ void PATFinalStateVertexFitter::produce(edm::Event& evt, const edm::EventSetup& 
     }
     output->push_back(clone);
   }
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

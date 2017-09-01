@@ -37,14 +37,14 @@ MiniAODJetSystematicsEmbedder::MiniAODJetSystematicsEmbedder(const edm::Paramete
   produces<ShiftedCandCollection>("p4OutJESDownJets");
 }
 void MiniAODJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > jets;
   evt.getByToken(srcToken_, jets);
   size_t nJets = jets->size();
 
-  std::auto_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
 
   p4OutJESUpJets->reserve(nJets);
   p4OutJESDownJets->reserve(nJets);
@@ -52,7 +52,7 @@ void MiniAODJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSet
   edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;
   es.get<JetCorrectionsRecord>().get(label_, JetCorParColl);
   JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
-  std::auto_ptr<JetCorrectionUncertainty> jecUnc(
+  std::unique_ptr<JetCorrectionUncertainty> jecUnc(
       new JetCorrectionUncertainty(JetCorPar));
 
   for (size_t i = 0; i < nJets; ++i) {
@@ -84,8 +84,8 @@ void MiniAODJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSet
   }
 
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-  PutHandle p4OutJESUpJetsH = evt.put(p4OutJESUpJets, "p4OutJESUpJets");
-  PutHandle p4OutJESDownJetsH = evt.put(p4OutJESDownJets, "p4OutJESDownJets");
+  PutHandle p4OutJESUpJetsH = evt.put(std::move(p4OutJESUpJets), std::string("p4OutJESUpJets"));
+  PutHandle p4OutJESDownJetsH = evt.put(std::move(p4OutJESDownJets), std::string("p4OutJESDownJets"));
 
   // Now embed the shifted collections into our output pat jets
   for (size_t i = 0; i < output->size(); ++i) {
@@ -94,7 +94,7 @@ void MiniAODJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSet
     jet.addUserCand("jes-", CandidatePtr(p4OutJESDownJetsH, i));
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"

@@ -41,16 +41,16 @@ PATJetSystematicsEmbedder::PATJetSystematicsEmbedder(const edm::ParameterSet& ps
   produces<ShiftedCandCollection>("p4OutUESDownJets");
 }
 void PATJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& es) {
-  std::auto_ptr<pat::JetCollection> output(new pat::JetCollection);
+  std::unique_ptr<pat::JetCollection> output(new pat::JetCollection);
 
   edm::Handle<edm::View<pat::Jet> > jets;
   evt.getByLabel(src_, jets);
   size_t nJets = jets->size();
 
-  std::auto_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutUESUpJets(new ShiftedCandCollection);
-  std::auto_ptr<ShiftedCandCollection> p4OutUESDownJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutJESUpJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutJESDownJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutUESUpJets(new ShiftedCandCollection);
+  std::unique_ptr<ShiftedCandCollection> p4OutUESDownJets(new ShiftedCandCollection);
 
   p4OutJESUpJets->reserve(nJets);
   p4OutJESDownJets->reserve(nJets);
@@ -60,7 +60,7 @@ void PATJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   edm::ESHandle<JetCorrectorParametersCollection> JetCorParColl;
   es.get<JetCorrectionsRecord>().get(label_, JetCorParColl);
   JetCorrectorParameters const & JetCorPar = (*JetCorParColl)["Uncertainty"];
-  std::auto_ptr<JetCorrectionUncertainty> jecUnc(
+  std::unique_ptr<JetCorrectionUncertainty> jecUnc(
       new JetCorrectionUncertainty(JetCorPar));
 
   for (size_t i = 0; i < nJets; ++i) {
@@ -99,10 +99,10 @@ void PATJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
   }
 
   typedef edm::OrphanHandle<ShiftedCandCollection> PutHandle;
-  PutHandle p4OutJESUpJetsH = evt.put(p4OutJESUpJets, "p4OutJESUpJets");
-  PutHandle p4OutJESDownJetsH = evt.put(p4OutJESDownJets, "p4OutJESDownJets");
-  PutHandle p4OutUESUpJetsH = evt.put(p4OutUESUpJets, "p4OutUESUpJets");
-  PutHandle p4OutUESDownJetsH = evt.put(p4OutUESDownJets, "p4OutUESDownJets");
+  PutHandle p4OutJESUpJetsH = evt.put(std::move(p4OutJESUpJets), "p4OutJESUpJets");
+  PutHandle p4OutJESDownJetsH = evt.put(std::move(p4OutJESDownJets), "p4OutJESDownJets");
+  PutHandle p4OutUESUpJetsH = evt.put(std::move(p4OutUESUpJets), "p4OutUESUpJets");
+  PutHandle p4OutUESDownJetsH = evt.put(std::move(p4OutUESDownJets), "p4OutUESDownJets");
 
   // Now embed the shifted collections into our output pat taus
   for (size_t i = 0; i < output->size(); ++i) {
@@ -113,7 +113,7 @@ void PATJetSystematicsEmbedder::produce(edm::Event& evt, const edm::EventSetup& 
     jet.addUserCand("ues-", CandidatePtr(p4OutUESDownJetsH, i));
   }
 
-  evt.put(output);
+  evt.put(std::move(output));
 }
 
 #include "FWCore/Framework/interface/MakerMacros.h"
