@@ -40,6 +40,7 @@ git cms-addpkg RecoTauTag/Configuration
 git cms-addpkg RecoTauTag/RecoTau
 
 git cms-addpkg RecoMET/METFilters
+git cms-addpkg EgammaAnalysis/ElectronTools
 
 ##waiting CMSSW9XY directions
 #cd RecoTauTag/RecoTau
@@ -65,6 +66,16 @@ popd
 #git cms-merge-topic ikrav:egm_id_80X_v2
 #git cms-merge-topic rafaellopesdesa:RegressionCheckNegEnergy
 #git cms-merge-topic cms-egamma:EGM_gain_v1
+
+
+##Doesn't work. Need to clone and modify my version
+#pushd $CMSSW_BASE/src
+#git remote add cms-egamma git@github.com:cms-egamma/cmssw.git
+#git fetch cms-egamma
+#git checkout cms-egamma/CMSSW_9_0_X -- EgammaAnalysis/ElectronTools
+#git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/interface/EnergyScaleCorrection_class.h
+#popd
+
 
 #pushd EgammaAnalysis/ElectronTools/data
 #git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git
