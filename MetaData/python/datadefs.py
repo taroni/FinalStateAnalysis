@@ -37,7 +37,7 @@ elif cmssw_major_version() == 7:
     import data13TeV
     data_name_map = data13TeV.data_name_map
     datadefs = data13TeV.datadefs
-elif cmssw_major_version() == 8:
+elif cmssw_major_version() == 8  or cmssw_major_version() == 9:
     import data13TeV_LFV
     data_name_map = data13TeV_LFV.data_name_map
     datadefs = data13TeV_LFV.datadefs
