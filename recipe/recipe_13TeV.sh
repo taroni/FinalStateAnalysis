@@ -71,11 +71,12 @@ popd
 
 ##Doesn't work. Need to clone and modify my version
 #pushd $CMSSW_BASE/src
-#git remote add cms-egamma git@github.com:cms-egamma/cmssw.git
-#git fetch cms-egamma
+git remote add cms-egamma git@github.com:cms-egamma/cmssw.git
+git fetch cms-egamma
 #git checkout cms-egamma/CMSSW_9_0_X -- EgammaAnalysis/ElectronTools
-#git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/interface/EnergyScaleCorrection_class.h
-#popd
+git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/python/regressionWeights_cfi.py
+git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/python/regressionApplication_cff.py
+popd
 
 
 #pushd EgammaAnalysis/ElectronTools/data
