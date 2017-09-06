@@ -41,6 +41,7 @@ git cms-addpkg RecoTauTag/RecoTau
 
 git cms-addpkg RecoMET/METFilters
 git cms-addpkg EgammaAnalysis/ElectronTools
+git cms-addpkg RecoEgamma/EgammaTools
 
 ##waiting CMSSW9XY directions
 #cd RecoTauTag/RecoTau
