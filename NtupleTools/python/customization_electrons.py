@@ -3,6 +3,7 @@ import FWCore.ParameterSet.Config as cms
 from PhysicsTools.SelectorUtils.tools.vid_id_tools import setupAllVIDIdsInModule, setupVIDElectronSelection, switchOnVIDElectronIdProducer, DataFormat, setupVIDSelection
 from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
 
+
 def preElectrons(process, eSrc, vSrc,**kwargs):
     postfix = kwargs.pop('postfix','')
     electronMVANonTrigIDLabel = kwargs.pop('electronMVANonTrigIDLabel',"BDTIDNonTrig")
@@ -16,7 +17,6 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
         
         process.load('EgammaAnalysis.ElectronTools.regressionApplication_cff')
         
-
         process.EGMRegression = cms.Path(process.regressionApplication)
 
         process.schedule.append(process.EGMRegression)
@@ -53,14 +53,15 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
     getattr(process,regMod).srcMiniAOD = cms.InputTag(eSrc)
 
     id_modules = [
-        'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',    # both 25 and 50 ns cutbased ids produced
+        
+        #'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_25ns_V1_cff',    # both 25 and 50 ns cutbased ids produced
         #'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Spring15_50ns_V1_cff',
-        'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff',                 # recommended for both 50 and 25 ns
+        #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV60_cff',                 # recommended for both 50 and 25 ns
         #'RecoEgamma.ElectronIdentification.Identification.heepElectronID_HEEPV51_cff',                 # recommended for both 50 and 25 ns
-        'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_25ns_nonTrig_V1_cff', # will not be produced for 50 ns, triggering still to come
-        'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_25ns_Trig_V1_cff',    # 25 ns trig
+        #'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_25ns_nonTrig_V1_cff', # will not be produced for 50 ns, triggering still to come
+        #'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_25ns_Trig_V1_cff',    # 25 ns trig
         #'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring15_50ns_Trig_V1_cff',    # 50 ns trig
-        'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
+        #'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
         'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
         'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
         ]
@@ -75,11 +76,12 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
     # ----- End Fatal Exception -------------------------------------------------
 
     # redefine the setupVIDElectronSelection function
-    def modSetupVIDElectronSelection(process,cutflow,patProducer=None,addUserData=True):
+    def modSetupVIDElectronSelection(process,cutflow,patProducer=None,addUserData=True, task=None):
         eids = 'egmGsfElectronIDs{0}'.format(postfix)
         if not hasattr(process,eids):
             raise Exception('VIDProducerNotAvailable','{0} producer not available in process!'.format(eids))
         setupVIDSelection(getattr(process,eids),cutflow)
+        print 'vidproducer', getattr(process,eids)
         #add to PAT electron producer if available or specified
         if hasattr(process,'patElectrons') or patProducer is not None:
             if patProducer is None:
@@ -87,6 +89,7 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
             idName = cutflow.idName.value()
             addVIDSelectionToPATProducer(patProducer,eids,idName,addUserData)
     for idmod in id_modules:
+        print 'idmod', idmod
         setupAllVIDIdsInModule(process,idmod,modSetupVIDElectronSelection)
 
     
