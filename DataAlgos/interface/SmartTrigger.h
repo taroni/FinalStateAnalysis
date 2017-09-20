@@ -100,6 +100,10 @@ std::vector<const pat::TriggerFilter*> matchingTriggerFilters(
     const std::vector<pat::TriggerObjectStandAlone>& trgObject, const edm::TriggerNames& names,
     const std::string& pattern, bool ez=false);
 
+/* std::vector<const pat::TriggerFilter*> matchingTriggerFilters( */
+/*     const std::vector<pat::TriggerObjectStandAlone>& trgObject, const edm::TriggerNames& names, const edm::Event& evt,const edm::TriggerResults& trgResults, */
+/*     const std::string& pattern, bool ez=false); */
+
 /// Expose decision making method for testing.  Not for general use.
 SmartTriggerResult makeDecision(
     const std::vector<std::vector<std::string> >& paths,

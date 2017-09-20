@@ -68,7 +68,8 @@ def produce_final_states(process, daughter_collections, output_commands,
         eventProducer.puTag = cms.string(puTag)
         if 'extraWeights' in src:
             eventProducer.extraWeights = src['extraWeights']
-        eventProducer.trgSrc = cms.InputTag("selectedPatTrigger")
+        #eventProducer.trgSrc = cms.InputTag("selectedPatTrigger")
+        eventProducer.trgSrc = cms.InputTag("slimmedPatTrigger")        
         eventProducer.rhoSrc = cms.InputTag('fixedGridRhoAll')
         eventProducer.pvSrc = cms.InputTag(daughter_collections['vertices'])
         eventProducer.pvSrcBackup = cms.InputTag('offlineSlimmedPrimaryVertices')

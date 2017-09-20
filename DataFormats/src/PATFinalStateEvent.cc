@@ -5,6 +5,7 @@
 #include "FinalStateAnalysis/DataAlgos/interface/Hash.h"
 
 #include "DataFormats/Math/interface/deltaR.h"
+//#include "FWCore/Framework/interface/Event.h"
 
 #define FSA_DATA_FORMAT_VERSION 3
 
@@ -16,55 +17,57 @@ namespace {
       pat::TriggerObjectStandAlone obj = trgObjects.at(i);
       //std::cout << " - - dR(cand,trig" << i << "): " << reco::deltaR(cand, obj) << " max: " << maxDeltaR << std::endl;
       if (reco::deltaR(cand, obj) > maxDeltaR) continue;
-
       obj.unpackPathNames(names);
       std::vector<std::string> pathNames = obj.pathNames(false);
       for (size_t t = 0; t < pathNames.size(); t++) {
           std::string path = pathNames.at(t);
           //std::cout << " - - - path name: " << path << " match name " << trigName << std::endl;
-          if (path.compare(trigName)==0) {
+          if ((path.substr(0, path.find_last_of("_v"))).compare(trigName.substr(0, trigName.find_last_of("_v")))==0) {
             matched = true;
-            return 1;
+           return 1;
           }
       }
 
-      // Current filter matching relies only on checking for a trigger object
-      // within the desired cone size that contains the desired trigger filter.
-      // There is no requirement place on the HLT object to match pdgID type
-      // with the candidate. If this matching is desired, uncomment, and double
-      // check the below code.
-      std::vector<std::string> filterLabels = obj.filterLabels();
-      for (size_t i = 0; i < filterLabels.size(); i++) {
-          std::string filter = filterLabels.at(i);
-          if (filter.compare(trigName)==0) {
-            //std::cout << " - - - filter name: " << filter << " match name " << trigName << std::endl;
-            //std::cout << "Checking obj with pdgID = " << cand.pdgId() << std::endl;
-            //std::cout << "Trig Obj pdgId: " << obj.pdgId() << std::endl;
-            //std::cout << "Trig Obj Type: " << obj.filterIds() << std::endl;
-            //for (size_t j = 0; j < obj.filterIds().size(); j++) {
-            //  std::cout << " -- filter ID " << obj.filterIds().at(j) << std::endl;
-            //  // Match the Candidate PDG ID to the Trigger Object ID: see DataFormats/HLTReco/interface/TriggerTypeDefs.h
-            //  // Currently many miniAOD files are missing HLT Electron Trigger objects from above .h file.
-            //  if ( abs( obj.pdgId() ) == 11 && abs( obj.pdgId() ) == 11 ) {
-            //    std::cout << "  ------ XXX Matching electron!" << std::endl;
-            //    matched = true;
-            //    return 1;
-            //  }
-            //  if ( abs( obj.pdgId() ) == 13 && abs( obj.pdgId() ) == 13 ) {
-            //    std::cout << "  ------ XXX Matching muon!" << std::endl;
-            //    matched = true;
-            //    return 1;
-            //  }
-            //  if ( abs( obj.pdgId() ) == 15 && abs( obj.pdgId() ) == 15 ) {
-            //    std::cout << "  ------ XXX Matching tau!" << std::endl;
-            //    matched = true;
-            //    return 1;
-            //  }
-            //}
-            matched = true;
-            return 1;
-          }
-      }
+      // Commenting it as it is not working in CMSSW_9_3_X
+      // // Current filter matching relies only on checking for a trigger object
+      // // within the desired cone size that contains the desired trigger filter.
+      // // There is no requirement place on the HLT object to match pdgID type
+      // // with the candidate. If this matching is desired, uncomment, and double
+      // // check the below code.
+      // std::vector<std::string> filterLabels;
+      // obj.unpackFilterLabels(filterLabels);
+
+      // for (size_t i = 0; i < filterLabels.size(); i++) {
+      // 	std::string filter = filterLabels.at(i);
+      //     if (filter.compare(trigName)==0) {
+      //       //std::cout << " - - - filter name: " << filter << " match name " << trigName << std::endl;
+      //       //std::cout << "Checking obj with pdgID = " << cand.pdgId() << std::endl;
+      //       //std::cout << "Trig Obj pdgId: " << obj.pdgId() << std::endl;
+      //       //std::cout << "Trig Obj Type: " << obj.filterIds() << std::endl;
+      //       //for (size_t j = 0; j < obj.filterIds().size(); j++) {
+      //       //  std::cout << " -- filter ID " << obj.filterIds().at(j) << std::endl;
+      //       //  // Match the Candidate PDG ID to the Trigger Object ID: see DataFormats/HLTReco/interface/TriggerTypeDefs.h
+      //       //  // Currently many miniAOD files are missing HLT Electron Trigger objects from above .h file.
+      //       //  if ( abs( obj.pdgId() ) == 11 && abs( obj.pdgId() ) == 11 ) {
+      //       //    std::cout << "  ------ XXX Matching electron!" << std::endl;
+      //       //    matched = true;
+      //       //    return 1;
+      //       //  }
+      //       //  if ( abs( obj.pdgId() ) == 13 && abs( obj.pdgId() ) == 13 ) {
+      //       //    std::cout << "  ------ XXX Matching muon!" << std::endl;
+      //       //    matched = true;
+      //       //    return 1;
+      //       //  }
+      //       //  if ( abs( obj.pdgId() ) == 15 && abs( obj.pdgId() ) == 15 ) {
+      //       //    std::cout << "  ------ XXX Matching tau!" << std::endl;
+      //       //    matched = true;
+      //       //    return 1;
+      //       //  }
+      //       //}
+      //       matched = true;
+      //       return 1;
+      //     }
+      // }
     }
     if (matched)
       return 1;
@@ -110,6 +113,7 @@ PATFinalStateEvent::PATFinalStateEvent(
     const std::vector<reco::GenJet> genMuonicTaus,
     const HTXS::HiggsClassification htxsRivetInfo,
     const edm::EventID& evtId,
+    //const edm::Event& evt,
     const GenEventInfoProduct& genEventInfo,
     const GenFilterInfo& generatorFilter,
     bool isRealData,
@@ -149,6 +153,7 @@ PATFinalStateEvent::PATFinalStateEvent(
   genMuonicTaus_(genMuonicTaus),
   htxsRivetInfo_(htxsRivetInfo),
   evtID_(evtId),
+  //evt_(evt),
   genEventInfoProduct_(genEventInfo),
   generatorFilter_(generatorFilter),
   isRealData_(isRealData),
@@ -210,7 +215,7 @@ const pat::TriggerEvent& PATFinalStateEvent::trig() const {
   return triggerEvent_; }
 
 const std::vector<pat::TriggerObjectStandAlone>& PATFinalStateEvent::trigStandAlone() const {
-  return *triggerObjects_; }
+   return *triggerObjects_; }
 
 const edm::TriggerNames& PATFinalStateEvent::names() const {
   return names_; }
@@ -575,7 +580,7 @@ int PATFinalStateEvent::matchedToFilter(const reco::Candidate& cand,
     matchCount += 1;
   //std::cout << "Filters matched obj " << cand << "number of matches: " << matched << " for dr: " << maxDeltaR << std::endl;
   }
-  //std::cout << "TOTAL MATCHES: " << matchCount << std::endl;
+  //  //std::cout << "TOTAL MATCHES: " << matchCount << std::endl;
   return matchCount;
 }
 

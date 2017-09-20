@@ -18,6 +18,7 @@
 #include "DataFormats/PatCandidates/interface/TriggerPath.h"
 
 #include "DataFormats/Provenance/interface/EventID.h"
+#include "FWCore/Framework/interface/Event.h"
 
 // Cache calls to
 // smartTrigger(const std::string& trgs, const pat::TriggerEvent& result)
@@ -158,22 +159,22 @@ matchingTriggerFilters(const pat::TriggerEvent& result,
 
 std::vector<const pat::TriggerFilter*>
 matchingTriggerFilters(const std::vector<pat::TriggerObjectStandAlone>& trgObject, const edm::TriggerNames& names,
-    const std::string& pattern, bool ez) {
+		       const std::string& pattern, bool ez) {
   std::vector<const pat::TriggerFilter*> output;
   boost::regex matcher(ez ? edm::glob2reg(pattern) : pattern);
+  //std::vector< std::string > trgnames;
+  const std::vector<std::string> labels;
   for (pat::TriggerObjectStandAlone obj : trgObject) {
     obj.unpackPathNames(names);
-    std::vector<std::string> filterLabels = obj.filterLabels();
-    for (size_t i = 0; i < filterLabels.size(); ++i) {
-      if (boost::regex_match(filterLabels.at(i), matcher)) {
-        pat::TriggerFilter* filter = new pat::TriggerFilter(filterLabels.at(i));
+    for (unsigned int il = 0 ; il<names.size(); il++){
+      if (boost::regex_match(names.triggerName(il), matcher)) {
+	pat::TriggerFilter* filter = new pat::TriggerFilter(names.triggerName(il));
         output.push_back(filter);
-      }
+      }	
     }
   }
   return output;
 }
-
 SmartTriggerResult makeDecision(
     const VVString& paths, const VVInt& prescales, const VVInt& results) {
   unsigned int prescale = 0;

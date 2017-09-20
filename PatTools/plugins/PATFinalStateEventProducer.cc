@@ -119,6 +119,8 @@ private:
   edm::GetterOfProducts<LHEEventProduct> getLHEEventProduct_;
   edm::GetterOfProducts<GenEventInfoProduct> getGenEventInfoProduct_;
 
+  edm::InputTag triggersource;
+
 };
 
 PATFinalStateEventProducer::PATFinalStateEventProducer(
@@ -146,6 +148,8 @@ PATFinalStateEventProducer::PATFinalStateEventProducer(
   genMuonicTausToken_ = consumes<std::vector<reco::GenJet>>(pset.getParameter<edm::InputTag>("tauMuonicSrc")),
   extraWeights_ = pset.getParameterSet("extraWeights");
   puScenario_ = pset.getParameter<std::string>("puTag");
+
+  triggersource=pset.getParameter<edm::InputTag>("trgSrc");
 
   forbidMissing_ = pset.exists("forbidMissing") ?
     pset.getParameter<bool>("forbidMissing") : true;
@@ -304,9 +308,10 @@ void PATFinalStateEventProducer::produce(edm::Event& evt,
   }
 
   edm::Handle<pat::TriggerEvent> trig;
-
+  //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " trgSrcToken " << triggersource << std::endl;
   edm::RefProd<std::vector<pat::TriggerObjectStandAlone> > trigStandAlone =
     getRefProd<std::vector<pat::TriggerObjectStandAlone> >(trgSrcToken_, evt);
+  //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " refProd of trigger  " <<  trigStandAlone.isNonnull() << std::endl;
 
   edm::Handle<pat::PackedTriggerPrescales> trigPrescale;
   edm::Handle<edm::TriggerResults> trigResults;
