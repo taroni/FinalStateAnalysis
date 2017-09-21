@@ -6,8 +6,10 @@ from EgammaAnalysis.ElectronTools.regressionWeights_cfi import regressionWeights
 
 def preElectrons(process, eSrc, vSrc,**kwargs):
     postfix = kwargs.pop('postfix','')
-    electronMVANonTrigIDLabel = kwargs.pop('electronMVANonTrigIDLabel',"BDTIDNonTrig")
-    electronMVATrigIDLabel = kwargs.pop('electronMVATrigIDLabel',"BDTIDTrig")
+    electronMVAGeneralIDLabel = kwargs.pop('electronMVAGeneralIDLabel',"BDTIDGeneral")
+    electronMVAHzzIDLabel = kwargs.pop('electronMVAHzzIDLabel',"BDTIDHzz")
+    #electronMVANonTrigIDLabel = kwargs.pop('electronMVANonTrigIDLabel',"BDTIDNonTrig")
+    #electronMVATrigIDLabel = kwargs.pop('electronMVATrigIDLabel',"BDTIDTrig")
     applyEnergyCorrections = kwargs.pop("applyEnergyCorrections", False)
     isMCflag= kwargs.pop("isMC",False)
     isLFV=kwargs.pop("isLFV",False)
@@ -64,6 +66,7 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
         #'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
         'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
         'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_GeneralPurpose_V1_cff',
+        'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Spring16_HZZ_V1_cff',
         ]
     # something here breaks the postfix stuff... no idea
     # ----- Begin Fatal Exception 12-Nov-2015 08:36:25 CST-----------------------
@@ -93,29 +96,34 @@ def preElectrons(process, eSrc, vSrc,**kwargs):
         setupAllVIDIdsInModule(process,idmod,modSetupVIDElectronSelection)
 
     
-    CBIDLabels = ["CBIDVeto", "CBIDLoose", "CBIDMedium", "CBIDTight", "HEEPV60", "MVANonTrigWP80", "MVANonTrigWP90", "MVATrigWP90", "MVATrigWP80"] # keys of cut based id user floats
+    CBIDLabels = ["CBIDVeto", "CBIDLoose", "CBIDMedium", "CBIDTight", "MVA_WP90", "MVA_WP80", "MVA_WPLoose"]#, "HEEPV60", "MVANonTrigWP80", "MVANonTrigWP90", "MVATrigWP90", "MVATrigWP80"] # keys of cut based id user floats
     
     CBIDTags = [
         cms.InputTag('egmGsfElectronIDs{0}:cutBasedElectronID-Summer16-80X-V1-veto'.format(postfix)),
         cms.InputTag('egmGsfElectronIDs{0}:cutBasedElectronID-Summer16-80X-V1-loose'.format(postfix)),
         cms.InputTag('egmGsfElectronIDs{0}:cutBasedElectronID-Summer16-80X-V1-medium'.format(postfix)),
         cms.InputTag('egmGsfElectronIDs{0}:cutBasedElectronID-Summer16-80X-V1-tight'.format(postfix)),
-        cms.InputTag('egmGsfElectronIDs{0}:heepElectronID-HEEPV60'.format(postfix)),
-        cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp80'.format(postfix)),
-        cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp90'.format(postfix)),
-        cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring15-25ns-Trig-V1-wp90'.format(postfix)),
-        cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring15-25ns-Trig-V1-wp80'.format(postfix)),
+        #cms.InputTag('egmGsfElectronIDs{0}:heepElectronID-HEEPV60'.format(postfix)),
+        #cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp80'.format(postfix)),
+        #cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp90'.format(postfix)),
+        #cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring15-25ns-Trig-V1-wp90'.format(postfix)),
+        #cms.InputTag('egmGsfElectronIDs{0}:mvaEleID-Spring15-25ns-Trig-V1-wp80'.format(postfix)),
+        cms.InputTag("egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp90".format(postfix)),
+        cms.InputTag("egmGsfElectronIDs{0}:mvaEleID-Spring16-GeneralPurpose-V1-wp80".format(postfix)),
+        cms.InputTag("egmGsfElectronIDs{0}:mvaEleID-Spring16-HZZ-V1-wpLoose".format(postfix)),
         ]
 
-    mvaValueLabels = [electronMVANonTrigIDLabel,electronMVATrigIDLabel]
+    mvaValueLabels = [electronMVAGeneralIDLabel,electronMVAHzzIDLabel]
     mvaValues = [
-        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15NonTrig25nsV1Values".format(postfix)),
-        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15Trig25nsV1Values".format(postfix)),
+        #cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15NonTrig25nsV1Values".format(postfix)),
+        #cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15Trig25nsV1Values".format(postfix)),
+        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Values".format(postfix)),
+        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring16HZZV1Values".format(postfix)),
         ]
-    mvaCategoryLabels = ["BDTIDNonTrigCategory","BDTIDTrigCategory"]
+    mvaCategoryLabels = ["BDTIDGeneral","BDTIDHzz"]
     mvaCategories = [
-        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15NonTrig25nsV1Categories".format(postfix)),
-        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring15Trig25nsV1Categories".format(postfix)),
+        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring16GeneralPurposeV1Categories".format(postfix)),
+        cms.InputTag("electronMVAValueMapProducer{0}:ElectronMVAEstimatorRun2Spring16HZZV1Categories".format(postfix)),
         ]
 
     # N-1 results

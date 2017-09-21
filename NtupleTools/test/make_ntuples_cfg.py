@@ -627,8 +627,10 @@ process.schedule.append(process.correctMET)
 #########################################################
 
 # HZZ id labels
-electronMVANonTrigIDLabel = "BDTIDNonTrig"
-electronMVATrigIDLabel = "BDTIDTrig"
+electronMVAGeneralIDLabel = "BDTIDGeneral"
+electronMVAHzzIDLabel = "BDTIDHzz"
+#electronMVANonTrigIDLabel = "BDTIDNonTrig"
+#electronMVATrigIDLabel = "BDTIDTrig"
 
 #########################################
 ### calibrate electrons and embed ids ###
@@ -637,8 +639,10 @@ from FinalStateAnalysis.NtupleTools.customization_electrons import preElectrons
 fs_daughter_inputs['electrons'] = preElectrons(process,
                                                fs_daughter_inputs['electrons'],
                                                fs_daughter_inputs['vertices'],
-                                               electronMVANonTrigIDLabel=electronMVANonTrigIDLabel,
-                                               electronMVATrigIDLabel=electronMVATrigIDLabel,
+#                                               electronMVANonTrigIDLabel=electronMVANonTrigIDLabel,
+#                                               electronMVATrigIDLabel=electronMVATrigIDLabel,
+                                               electronMVAGeneralIDLabel=electronMVAGeneralIDLabel,
+                                               electronMVAHzzIDLabel=electronMVAHzzIDLabel,
                                                applyEnergyCorrections=bool(options.eCalib),
                                                isMC=bool(options.isMC),
                                                isSync=bool(options.isSync),
@@ -649,8 +653,10 @@ for fs in additional_fs:
     additional_fs[fs]['electrons'] = preElectrons(process,
                                                   additional_fs[fs]['electrons'],
                                                   additional_fs[fs]['vertices'],
-                                                  electronMVANonTrigIDLabel=electronMVANonTrigIDLabel,
-                                                  electronMVATrigIDLabel=electronMVATrigIDLabel,
+#                                                  electronMVANonTrigIDLabel=electronMVANonTrigIDLabel,
+#                                                  electronMVATrigIDLabel=electronMVATrigIDLabel,
+                                                  electronMVAGeneralIDLabel=electronMVAGeneralIDLabel,
+                                                  electronMVAHzzIDLabel=electronMVAHzzIDLabel,
                                                   applyEnergyCorrections=bool(options.eCalib),
                                                   isMC=bool(options.isMC),
                                                   isSync=bool(options.isSync),
@@ -792,8 +798,9 @@ idCheatLabel = "HZZ4lIDPass" # Gets loose ID. For tight ID, append "Tight".
 isoCheatLabel = "HZZ4lIsoPass"
 if options.hzz:
     from FinalStateAnalysis.NtupleTools.customization_hzz import hzzCustomize
-    hzzCustomize(process, fs_daughter_inputs, idCheatLabel, isoCheatLabel, 
-                 electronMVANonTrigIDLabel, "dretFSRCand")
+    hzzCustomize(process, fs_daughter_inputs, idCheatLabel, isoCheatLabel,
+                 electronMVAHzzIDLabel , "dretFSRCand")
+#                 electronMVANonTrigIDLabel, "dretFSRCand")
     # fs_daughter_inputs entries for electrons, muons, jets, and fsr are automatically 
     # set by hzzCustomize()
 
