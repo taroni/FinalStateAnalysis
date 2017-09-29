@@ -8,6 +8,7 @@
 //#include "FWCore/Framework/interface/Event.h"
 
 #define FSA_DATA_FORMAT_VERSION 3
+#define DEBUG_ 0
 
 namespace {
   int matchedToAnObject(const std::vector<pat::TriggerObjectStandAlone> trgObjects, const edm::TriggerNames names,
@@ -21,7 +22,7 @@ namespace {
       std::vector<std::string> pathNames = obj.pathNames(false);
       for (size_t t = 0; t < pathNames.size(); t++) {
           std::string path = pathNames.at(t);
-          //std::cout << " - - - path name: " << path << " match name " << trigName << std::endl;
+          if(DEBUG_)std::cout << " - - - path name: " << path << " match name " << trigName << std::endl;
           if ((path.substr(0, path.find_last_of("_v"))).compare(trigName.substr(0, trigName.find_last_of("_v")))==0) {
             matched = true;
            return 1;
@@ -586,7 +587,7 @@ int PATFinalStateEvent::matchedToFilter(const reco::Candidate& cand,
 
 int PATFinalStateEvent::matchedToPath(const reco::Candidate& cand,
     const std::string& pattern, double maxDeltaR) const {
-  //std::cout << evtID_ << " smart trigger pattern: " << pattern << std::endl;
+  if(DEBUG_)std::cout << evtID_ << " smart trigger pattern: " << pattern << std::endl;
   SmartTriggerResult result = smartTrigger(pattern, names(), trigPrescale(), trigResults(), evtID_);
   //std::cout << " result: group " << result.group << ", prescale " << result.prescale << ", passed " << result.passed << std::endl;
   // Loop over all the paths that fired and see if any matched this object.
@@ -594,9 +595,9 @@ int PATFinalStateEvent::matchedToPath(const reco::Candidate& cand,
     return -1;
   int matchCount = 0;
   for (size_t i = 0; i < result.paths.size(); ++i) {
-    //std::cout << " - path: " << result.paths[i] << std::endl;
+    if(DEBUG_)std::cout << " - path: " << result.paths[i] << std::endl;
     bool matched = matchedToAnObject(trigStandAlone(), names(), cand, maxDeltaR, result.paths.at(i));
-    //std::cout << " - path: " << result.paths[i] << " matched: " << matched << std::endl;
+    if(DEBUG_)std::cout << " - path: " << result.paths[i] << " matched: " << matched << std::endl;
     if (matched)
       matchCount += 1;
   }

@@ -5,6 +5,7 @@
 <use   name="FWCore/Utilities"/>
 <use   name="FinalStateAnalysis/Utilities"/>
 <use   name="RecoMET/METPUSubtraction"/>
+<use   name="EgammaAnalysis/ElectronTools"/>
 <use   name="rootrflx"/>
 <use   name="xrootd"/>
 <use   name="root"/>

@@ -519,7 +519,7 @@ datadefs['data_SingleMuon_Run2016B_PromptReco-v2_25ns'] = {
    }
 datadefs['data_SingleMuon_Run2016C'] = {
       'datasetpath' : "/SingleMuon/Run2016C-PromptReco-v2/MINIAOD",
-      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.tx",
+      'lumi_mask' : "FinalStateAnalysis/RecoTools/data/masks/Cert_271036-284044_13TeV_PromptReco_Collisions16_JSON.txt",
       'firstRun' : 275420,
       'lastRun' : 276283,
       'analyses' : ['HET'],

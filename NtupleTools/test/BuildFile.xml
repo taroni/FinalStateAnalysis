@@ -9,7 +9,9 @@
 <use   name="FinalStateAnalysis/DataFormats"/>
 <use   name="FinalStateAnalysis/NtupleTools"/>
 <use   name="RecoMET/METPUSubtraction"/>
-<use   name="RecoMET/METFilters"/>
+<use   name="EgammaAnalysis/ElectronTools"/>
+<use   name="RecoEgamma/ElectronIdentification"/>
+<use   name="RecoEgamma/EgammaTools"/>
 <use   name="RecoTauTag/RecoTau"/>
 
 <environment>

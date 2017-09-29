@@ -34,7 +34,7 @@
 // For Rivet Tools
 #include "SimDataFormats/HTXS/interface/HiggsTemplateCrossSections.h"
 
-
+#define DEBUG_ 0 
 class PATFinalStateEventProducer : public edm::EDProducer {
 public:
   PATFinalStateEventProducer(const edm::ParameterSet& pset);
@@ -155,7 +155,7 @@ PATFinalStateEventProducer::PATFinalStateEventProducer(
     pset.getParameter<bool>("forbidMissing") : true;
 
   trgResultsSrcToken_ = consumes<edm::TriggerResults>(pset.getParameter<edm::InputTag>("trgResultsSrc"));
-  trgResultsSrc2Token_ = consumes<edm::TriggerResults>(pset.getParameter<edm::InputTag>("trgResultsSrc2"));
+						      trgResultsSrc2Token_ = consumes<edm::TriggerResults>(pset.getParameter<edm::InputTag>("trgResultsSrc2"));
   //l1extraIsoTauSrcToken_ = consumes< std::vector< l1extra::L1JetParticle > >(pset.getParameter<edm::InputTag>("l1extraIsoTauSrc"));
   htxsSrc_ = consumes<HTXS::HiggsClassification>(edm::InputTag("rivetProducerHTXS","HiggsClassification"));
 
@@ -327,6 +327,10 @@ void PATFinalStateEventProducer::produce(edm::Event& evt,
   }
   const edm::TriggerNames& names = evt.triggerNames(*trigResults);
   evt.getByToken(trgPrescaleSrcToken_, trigPrescale);
+
+  for (unsigned int index = 0 ; index<trigResults.product()->size(); index++){
+    if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " index " << index << " "<< names.triggerName(index) << ", prescale "<< trigPrescale.product()->getPrescaleForIndex(index)<< std::endl; 
+  }
 
   //edm::Handle< std::vector<l1extra::L1JetParticle> > l1extraIsoTaus;
   //evt.getByToken(l1extraIsoTauSrcToken_, l1extraIsoTaus);

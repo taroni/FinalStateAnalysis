@@ -20,6 +20,9 @@
 #include "DataFormats/Provenance/interface/EventID.h"
 #include "FWCore/Framework/interface/Event.h"
 
+
+#define DEBUG_ 0
+
 // Cache calls to
 // smartTrigger(const std::string& trgs, const pat::TriggerEvent& result)
 // because it is very expensive!
@@ -84,13 +87,14 @@ chooseGroup(const VVInt& prescales) {
         minInGrp = prescales[i][j];
       if (prescales[i][j] > maxInGrp)
         maxInGrp = prescales[i][j];
+      if(DEBUG_) std::cout << __PRETTY_FUNCTION__ << " "<< __LINE__ << " prescales " << i << " "<< j << " "<< prescales[i][j] << std::endl;
     }
     // Make sure all items have the same prescale.  If not, skip this group.
     if (minInGrp != maxInGrp)
       continue;
-    // If the prescale is zero, the trigger is off. Skip it.
-    if (minInGrp == 0)
-      continue;
+    // // If the prescale is zero, the trigger is off. Skip it.
+    // if (minInGrp == 0)
+    //   continue;
     // Otherwise use this one (as it comes first) if it has a LOWER prescale
     // Not LT not LTE
     if (minInGrp < lowest) {
@@ -98,6 +102,7 @@ chooseGroup(const VVInt& prescales) {
       bestGroup = i;
     }
   }
+  if(DEBUG_) std::cout << __PRETTY_FUNCTION__ << " "<< __LINE__ <<  " bestgroup " << bestGroup << std::endl;
   return bestGroup;
 }
 
@@ -129,10 +134,15 @@ std::vector<int> matchingTriggerPaths(
     const edm::TriggerResults trgResults,
     const std::string& pattern, bool ez) {
   std::vector<int> output;
+  if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
   try {
     boost::regex matcher(ez ? edm::glob2reg(pattern) : pattern);
     for (unsigned int i=0, n=trgResults.size(); i<n; ++i) {
+      if(DEBUG_) {
+	if (boost::regex_match(names.triggerName(i), matcher)) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " "<< i << " name "<< names.triggerName(i) << ", pattern "<< pattern << ", matcher " << matcher << " " << boost::regex_match(names.triggerName(i), matcher) << std::endl;
+      }
       if (boost::regex_match(names.triggerName(i), matcher)) {
+	if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " " << i<< std::endl;
         output.push_back(i);
       }
     }
@@ -141,6 +151,7 @@ std::vector<int> matchingTriggerPaths(
       << " trigger path regex expression: [" << pattern << "]" << std::endl;
     throw;
   }
+  if(DEBUG_)  std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " output size " << output.size() << std::endl; 
   return output;
 }
 
@@ -177,14 +188,19 @@ matchingTriggerFilters(const std::vector<pat::TriggerObjectStandAlone>& trgObjec
 }
 SmartTriggerResult makeDecision(
     const VVString& paths, const VVInt& prescales, const VVInt& results) {
+  if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+
   unsigned int prescale = 0;
   bool passed = false;
   unsigned int group = chooseGroup(prescales);
+  if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " group " << group << " prescale size " << prescales.size() <<  std::endl;
   vstring chosenPaths;
   if (group < prescales.size()) {
     // We know by construction the prescales are the same in the whole group
     prescale = prescales[group][0];
+    if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " prescale " << prescale <<  std::endl;
     for (size_t i = 0; i < results[group].size(); ++i) {
+      if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " path " << paths[group][i] << ", result " << i << " " << results[group][i] <<  std::endl;
       if (results[group][i]) {
         passed = true;
         // Push back all the paths that passed
@@ -197,18 +213,25 @@ SmartTriggerResult makeDecision(
   output.group = group;
   output.prescale = prescale;
   output.passed = passed;
+  for (size_t i = 0; i < output.paths.size(); ++i) {
+    if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " "<< __LINE__ << " " << output.paths[i] <<  ", passed? "  << bool(output.passed) << std::endl;
+    
+  }
   return output;
+
 }
 
 // Non-cached version
 SmartTriggerResult smartTrigger(const std::string& trgs,
     const pat::TriggerEvent& result, bool ez) {
   // Tokenize the trigger groups
+  //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
   vstring groups = getGroups(trgs);
   VVInt prescales;
   VVInt results;
   VVString pathGroups;
   for (size_t i = 0; i < groups.size(); ++i) {
+    //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
     // Get the paths in this group
     VInt groupPrescale;
     VInt groupResult;
@@ -216,6 +239,7 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
     // The real names of the matched paths.
     vstring realpaths;
     for (size_t p = 0; p < paths.size(); ++p) {
+      //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
       const std::string& path = paths[p];
       // Get all the triggers that match this path pattern.  There should be
       // only one.  The point of the smart trigger is that each path type is a
@@ -232,18 +256,28 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
         }
         edm::LogError("SmartTriggerMultiMatchHLT") << err.str();
       }
+      if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+      
       const pat::TriggerPath* trgPath = matching.size() ? matching[0] : NULL;
       int thePrescale = (trgPath != NULL) ? trgPath->prescale() : 0;
       int theResult = (trgPath != NULL) ? trgPath->wasAccept() : -1;
       realpaths.push_back((trgPath != NULL) ? trgPath->name() : "error");
       groupPrescale.push_back(thePrescale);
       groupResult.push_back(theResult);
+      if (trgPath != NULL) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " trgPath "<< trgPath->name() << " theResult "<< theResult << std::endl;
+
     }
     pathGroups.push_back(realpaths);
     prescales.push_back(groupPrescale);
     results.push_back(groupResult);
+    if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+
   }
+  if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+    
   SmartTriggerResult output = makeDecision(pathGroups, prescales, results);
+  if(DEBUG_) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+
 
   return output;
 }
@@ -252,11 +286,16 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
     const edm::TriggerNames& names, const pat::PackedTriggerPrescales& trgPrescales, 
     const edm::TriggerResults& trgResults, bool ez) {
   // Tokenize the trigger groups
+  if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
   vstring groups = getGroups(trgs);
   VVInt prescales;
   VVInt results;
   VVString pathGroups;
+  // for (size_t itr =0 ; itr<trgResults.size() ; itr++ ){
+  //   if ( trgResults.at(itr).accept() ) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " path   " << names.triggerNames()[itr] << ", results" << trgResults.at(itr).accept() <<  std::endl ;
+  // }
   for (size_t i = 0; i < groups.size(); ++i) {
+    //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
     // Get the paths in this group
     VInt groupPrescale;
     VInt groupResult;
@@ -265,10 +304,13 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
     vstring realpaths;
     for (size_t p = 0; p < paths.size(); ++p) {
       const std::string& path = paths[p];
+      //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " path "<< path << std::endl;
       // Get all the triggers that match this path pattern.  There should be
       // only one.  The point of the smart trigger is that each path type is a
       // separate group.
       std::vector<int> matching = matchingTriggerPaths(names, trgResults, path, ez);
+      if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl ;
+
       if (matching.size() > 1) {
         std::stringstream err;
         err << "Error: more than one"
@@ -279,16 +321,31 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
         }
         edm::LogError("SmartTriggerMultiMatchHLT") << err.str();
       }
+      //if (matching.size()!=0) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " matching "<< matching[0] << " trgResults "<<trgResults.size()<< std::endl;
+      // for (unsigned int itr = 0 ; itr<trgResults.size(); itr++){
+      // 	std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " "<< itr <<" " << names.triggerName(itr) <<  " passed " << trgResults.at(itr).accept()<< std::endl;
+      //      }
+      //if (matching.size()!=0) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " path " << path << " accepted " << trgResults.at(matching[0]).accept() << std::endl ;
+
       realpaths.push_back(matching.size() ? names.triggerName(matching[0]) : "error");
       groupPrescale.push_back(matching.size() ? trgPrescales.getPrescaleForIndex(matching[0]) : 0);
-      groupResult.push_back(matching.size() ? trgResults.accept(matching[0]) : -1);
+      groupResult.push_back(matching.size() ? trgResults.at(matching[0]).accept() : -1);
+      if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
+      if(DEBUG_){
+	if (matching.size()) std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " " << matching[0] << " trgPath "<<  names.triggerName(matching[0])<< " theResult "<< trgResults.at(matching[0]).accept() << std::endl;
+      }
     }
+    if(DEBUG_)std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
     pathGroups.push_back(realpaths);
     prescales.push_back(groupPrescale);
     results.push_back(groupResult);
   }
   SmartTriggerResult output = makeDecision(pathGroups, prescales, results);
-
+  if(DEBUG_){
+    for (size_t i=0; i<  output.paths.size(); i++){
+      std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " path " <<output.paths[i]<< ", passed? " << output.passed<<   std::endl;
+    }
+  }
   return output;
 }
 
@@ -296,11 +353,13 @@ SmartTriggerResult smartTrigger(const std::string& trgs,
 const SmartTriggerResult& smartTrigger(const std::string& trgs,
     const pat::TriggerEvent& result, const edm::EventID& evt, bool ez) {
   // Check if we have cached the result.
+  //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
   if (evt != lastTrigEvent) {
     // new event, clear the cache
     cache.clear();
   } else {
     // If we already have computed these triggers for this event, return it.
+    // std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
     std::map<std::string, SmartTriggerResult>::iterator findit = cache.find(trgs);
     if (findit != cache.end())
       return findit->second;
@@ -316,11 +375,13 @@ const SmartTriggerResult& smartTrigger(const std::string& trgs,
     const edm::TriggerNames& names, const pat::PackedTriggerPrescales& trgPrescales, 
     const edm::TriggerResults& trgResults, const edm::EventID& evt, bool ez) {
   // Check if we have cached the result.
+  //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << std::endl;
   if (evt != lastTrigEvent) {
     // new event, clear the cache
     cache.clear();
   } else {
     // If we already have computed these triggers for this event, return it.
+    //std::cout << __PRETTY_FUNCTION__ << " " << __LINE__ << " " << trgs<< std::endl;
     std::map<std::string, SmartTriggerResult>::iterator findit = cache.find(trgs);
     if (findit != cache.end())
       return findit->second;

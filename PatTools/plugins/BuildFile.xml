@@ -13,10 +13,8 @@
   <use   name="CommonTools/UtilAlgos"/>
   <use   name="PhysicsTools/Utilities"/>
   <use   name="PhysicsTools/PatAlgos"/>
+  <use   name="RecoEgamma/EgammaTools"/>
 
-  <use   name="ZZMatrixElement/MELA"/>
-  <use   name="ZZMatrixElement/MEMCalculators"/>
-  
   <use   name="CondFormats/JetMETObjects"/>
   <use   name="CondFormats/BTauObjects"/>
   <use   name="JetMETCorrections/Objects"/>
@@ -26,8 +24,6 @@
   <use   name="EgammaAnalysis/ElectronTools"/>
   
   <use   name="RecoBTag/SecondaryVertex"/>
-
-  <use   name="ZZMatrixElement/MEMCalculators"/>
 
   <use   name="SimDataFormats/HTXS"/>
 </library>

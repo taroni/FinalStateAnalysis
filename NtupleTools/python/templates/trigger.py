@@ -23,69 +23,36 @@ _trig_template = PSet(
 
 singleLepton_25ns_MC = PSet(
     _trig_template.replace(
-        name='singleMu', 
-        paths=r'HLT_Mu50_v\\d+'
-        ),
-    _trig_template.replace(
         name='singleIsoMu20',
         paths=r'HLT_IsoMu20_v\\d+'
         ),
-    _trig_template.replace(
-        name='singleIsoMu22',
-        paths=r'HLT_IsoMu22_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoMu22eta2p1',
-        paths=r'HLT_IsoMu22_eta2p1_v\\d+'
-        ),
-
     _trig_template.replace(
         name='singleIsoMu27',
         paths=r'HLT_IsoMu27_v\\d+'
         ),
     _trig_template.replace(
-        name='singleIsoTkMu20',
-        paths=r'HLT_IsoTkMu20_v\\d+'
+        name='singleMu27',
+        paths=r'HLT_Mu27_v\\d+'
         ),
     _trig_template.replace(
-        name='singleIsoTkMu22',
-        paths=r'HLT_IsoTkMu22_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoTkMu22eta2p1',
-        paths=r'HLT_IsoTkMu22_eta2p1_v\\d+'
+        name='singleMu20',
+        paths=r'HLT_Mu20_v\\d+'
         ),
     _trig_template.replace(
         name='singleIsoMu24',
         paths=r'HLT_IsoMu24_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoTkMu24',
-        paths=r'HLT_IsoTkMu24_v\\d+'
         ),
     _trig_template.replace(
         name='singleIsoMu24eta2p1',
-        paths=r'HLT_IsoMu24_eta2p1__v\\d+'
+        paths=r'HLT_IsoMu24_eta2p1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleIsoTkMu24eta2p1',
-        paths=r'HLT_IsoTkMu24_eta2p1__v\\d+'
+        name='singleMu50',
+        paths=r'HLT_Mu50_v\\d+'
         ),
     _trig_template.replace(
         name='singleE27Tight',
         paths=r'HLT_Ele27_WPTight_Gsf_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleE27eta2p1Loose',
-        paths=r'HLT_Ele27_eta2p1_WPLoose_Gsf_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleE25eta2p1Tight',
-        paths=r'HLT_Ele25_eta2p1_WPTight_Gsf_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE27eta2p1Tight',
-        paths=r'HLT_Ele27_eta2p1_WPTight_Gsf_v\\d+'
         ),
     _trig_template.replace(
         name='singleTau140',
@@ -110,102 +77,49 @@ singleLepton_25ns_MC = PSet(
     _trig_template.replace(
         name='singleMu_leg2_noiso', 
         paths=r'HLT_Mu8_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE_leg1', 
-        paths=r'HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE_leg2', 
-        paths=r'HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-
+        )
     )
 
 singleLepton_25ns = PSet(
-    _trig_template.replace(
-        name='singleMu', 
-        paths=r'HLT_Mu50_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleEle115',
-        paths=r'HLT_Ele115_CaloIdVT_GsfTrkIdT_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleEle45L1JetTauSeeded',
-        paths=r'HLT_Ele45_WPLoose_Gsf_L1JetTauSeeded_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleE27Tight',
-        paths=r'HLT_Ele27_WPTight_Gsf_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleE27eta2p1Loose',
-        paths=r'HLT_Ele27_eta2p1_WPLoose_Gsf_v\\d+',
-        ),
-    _trig_template.replace(
-        name='singleE25eta2p1Tight',
-        paths=r'HLT_Ele25_eta2p1_WPTight_Gsf_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE27eta2p1Tight',
-        paths=r'HLT_Ele27_eta2p1_WPTight_Gsf_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoMu18',
-        paths=r'HLT_IsoMu18_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoTkMu20',
-        paths=r'HLT_IsoTkMu20_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoTkMu22',
-        paths=r'HLT_IsoTkMu22_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoTkMu22eta2p1',
-        paths=r'HLT_IsoTkMu22_eta2p1_v\\d+'
-        ),
-    _trig_template.replace(
+        _trig_template.replace(
         name='singleIsoMu20',
         paths=r'HLT_IsoMu20_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoMu22',
-        paths=r'HLT_IsoMu22_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleIsoMu22eta2p1',
-        paths=r'HLT_IsoMu22_eta2p1_v\\d+'
         ),
     _trig_template.replace(
         name='singleIsoMu27',
         paths=r'HLT_IsoMu27_v\\d+'
         ),
     _trig_template.replace(
+        name='singleMu27',
+        paths=r'HLT_Mu27_v\\d+'
+        ),
+    _trig_template.replace(
+        name='singleMu20',
+        paths=r'HLT_Mu20_v\\d+'
+        ),
+    _trig_template.replace(
         name='singleIsoMu24',
         paths=r'HLT_IsoMu24_v\\d+'
         ),
     _trig_template.replace(
-        name='singleIsoTkMu24',
-        paths=r'HLT_IsoTkMu24_v\\d+'
+        name='singleIsoMu24eta2p1',
+        paths=r'HLT_IsoMu24_eta2p1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE23WPLoose',
-        paths=r'HLT_Ele23_WPLoose_Gsf_v\\d+'
+        name='singleMu50',
+        paths=r'HLT_Mu50_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE22eta2p1Loose',
-        paths=r'HLT_Ele22_eta2p1_WPLoose_Gsf_v\\d+'
+        name='singleE27Tight',
+        paths=r'HLT_Ele27_WPTight_Gsf_v\\d+',
         ),
     _trig_template.replace(
-        name='singleE25eta2p1Loose',
-        paths=r'HLT_Ele25_eta2p1_WPLoose_Gsf_v\\d+'
+        name='singleTau140',
+        paths=r'HLT_VLooseIsoPFTau140_eta2p1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE22eta2p1LooseTau20',
-        paths=r'HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleTau140Trk50',
+        paths=r'HLT_VLooseIsoPFTau140_Trk50_eta2p1_v\\d+'
         ),
     _trig_template.replace(
         name='singleMu_leg1', 
@@ -222,23 +136,7 @@ singleLepton_25ns = PSet(
     _trig_template.replace(
         name='singleMu_leg2_noiso', 
         paths=r'HLT_Mu8_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE_leg1', 
-        paths=r'HLT_Ele17_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE_leg2', 
-        paths=r'HLT_Ele12_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleTau140',
-        paths=r'HLT_VLooseIsoPFTau140_eta2p1_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleTau140Trk50',
-        paths=r'HLT_VLooseIsoPFTau140_Trk50_eta2p1_v\\d+'
-        ),
+        )
     )
 
 doubleLepton_25ns = PSet(
@@ -247,36 +145,8 @@ doubleLepton_25ns = PSet(
         paths=r'HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_v\\d+|HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_v\\d+'
         ),
     _trig_template.replace(
-        name='doubleE',
-        paths=r'HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v\\d+'
-        ),
-    _trig_template.replace(
         name='doubleE_23_12',
         paths=r'HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE23SingleMu8',
-        paths=r'HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleE17SingleMu8',
-        paths=r'HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleESingleMu',
-        paths=r'HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleMuSingleE',
-        paths=r'HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleMu17SingleE12',
-        paths=r'HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v\\d+'
-        ),
-    _trig_template.replace(
-        name='singleMu23SingleE12',
-        paths=r'HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_v\\d+'
         ),
     _trig_template.replace(
         name='singleMu23SingleE12DZ',
@@ -287,80 +157,76 @@ doubleLepton_25ns = PSet(
         paths=r'HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ_v\\d+'
         ),
     _trig_template.replace(
-        name='singleMu23SingleE8',
-        paths=r'HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ_v\\d+'
-        ),
-    _trig_template.replace(
-        name='doubleTau40',
-        paths=r'HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v\\d+'
+        name='doubleLooseIsoTau40',
+        paths=r'HLT_DoubleLooseChargedIsoPFTau40_Trk1_eta2p1_Reg_v\\d+'
         ),
     _trig_template.replace(
         name='doubleTau35',
-        paths=r'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v\\d+'
+        paths=r'HLT_DoubleMediumChargedIsoPFTau35_Trk1_eta2p1_Reg_v\\d+'
         ),
     _trig_template.replace(
-        name='doubleTau32',
-        paths=r'HLT_DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg_v\\d+'
-        ),
-     _trig_template.replace(
-         name='doubleTauCmbIso35Reg',
-         paths=r'HLT_DoubleMediumCombinedIsoPFTau35_Trk1_eta2p1_Reg_v\\d+'
-         ),
-     _trig_template.replace(
-         name='doubleTauCmbIso40Reg',
-         paths=r'HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_Reg_v\\d+'
-         ),
-     _trig_template.replace(
-         name='doubleTauCmbIso40',
-         paths=r'HLT_DoubleMediumCombinedIsoPFTau40_Trk1_eta2p1_v\\d+'
-         ),
-     _trig_template.replace(
-        name='singleE22SingleTau20SingleL1',
-        paths=r'HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='doubleLooseIsoTau35',
+        paths=r'HLT_DoubleLooseChargedIsoPFTau35_Trk1_eta2p1_Reg_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE24SingleTau20',
-        paths=r'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v\\d+'
+        name='singleE24SingleLooseIsoTau30',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE24SingleTau20SingleL1',
-        paths=r'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleE24SingleMediumIsoTau30',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_MediumChargedIsoPFTau30_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE27SingleTau20SingleL1',
-        paths=r'HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleE24SingleTightIsoTau30',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_TightChargedIsoPFTau30_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE32SingleTau20SingleL1',
-        paths=r'HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleE24SingleLooseIsoTau30TightID',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_LooseChargedIsoPFTau30_eta2p1_TightID_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE20SingleTau28',
-        paths=r'HLT_Ele20_eta2p1_WPLoose_Gsf_LooseIsoPFTau28_v\\d+'
+        name='singleE24SingleMediumIsoTau30TightID',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_MediumChargedIsoPFTau30_eta2p1_TightID_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE22SingleTau29',
-        paths=r'HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau29_v\\d+'
+        name='singleE24SingleTightIsoTau30TightID',
+        paths=r'HLT_Ele24_eta2p1_WPTight_Gsf_TightChargedIsoPFTau30_eta2p1_TightID_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE24SingleTau30',
-        paths=r'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau30_v\\d+'
+        name='singleMu20eta2p1LooseTau27eta2p1',
+        paths=r'HLT_IsoMu20_eta2p1_LooseChargedIsoPFTau27_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleE36SingleTau30',
-        paths=r'HLT_Ele36_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleMu20eta2p1MediumTau27eta2p1',
+        paths=r'HLT_IsoMu20_eta2p1_MediumChargedIsoPFTau27_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleMu19eta2p1LooseTau20singleL1',
-        paths=r'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleMu20eta2p1TightTau27eta2p1',
+        paths=r'HLT_IsoMu20_eta2p1_TightChargedIsoPFTau27_eta2p1_CrossL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleMu21eta2p1LooseTau20singleL1',
-        paths=r'HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1_v\\d+'
+        name='singleMu24eta2p1LooseTau20singleL1',
+        paths=r'HLT_IsoMu24_eta2p1_LooseChargedIsoPFTau20_SingleL1_v\\d+'
         ),
     _trig_template.replace(
-        name='singleMu19eta2p1LooseTau20',
-        paths=r'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v\\d+'
+        name='singleMu24eta2p1MediumTau20singleL1',
+        paths=r'HLT_IsoMu24_eta2p1_MediumChargedIsoPFTau20_SingleL1_v\\d+'
+        ),
+    _trig_template.replace(
+        name='singleMu24eta2p1TightTau20singleL1',
+        paths=r'HLT_IsoMu24_eta2p1_TightChargedIsoPFTau20_SingleL1_v\\d+'
+        ),
+    _trig_template.replace(
+        name='singleMu24eta2p1LooseTau20TightIDsingleL1',
+        paths=r'HLT_IsoMu24_eta2p1_LooseChargedIsoPFTau20_TightID_SingleL1_v\\d+'
+        ),
+    _trig_template.replace(
+        name='singleMu24eta2p1MediumTau20TightIDsingleL1',
+        paths=r'HLT_IsoMu24_eta2p1_MediumChargedIsoPFTau20_TightID_SingleL1_v\\d+'
+        ),
+    _trig_template.replace(
+        name='singleMu24eta2p1TightTau20TightIDsingleL1',
+        paths=r'HLT_IsoMu24_eta2p1_TightChargedIsoPFTau20_TightID_SingleL1_v\\d+'
         ),
     )
 
