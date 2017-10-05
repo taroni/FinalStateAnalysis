@@ -43,7 +43,15 @@ git cms-addpkg RecoMET/METFilters
 git cms-addpkg EgammaAnalysis/ElectronTools
 git cms-addpkg RecoEgamma/EgammaTools
 git cms-addpkg RecoEgamma/ElectronIdentification
+git cms-addpkg RecoJets/JetProducers
 
+#if [ "$MAJOR_VERSION" = "9" ] && [ "$MINOR_VERSION" < "4" ] ; then
+#    echo "once the fix is merged in 94X use a cherry-pick"
+#    git cms-addpkg RecoJets/JetProducers
+#    git remote add ahinzmann https://github.com/ahinzmann/cmssw.git
+#    git fetch ahinzmann
+#    git checkout checkTracks94
+#fi
 
 ##waiting CMSSW9XY directions
 #cd RecoTauTag/RecoTau
@@ -80,7 +88,10 @@ git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/python/regre
 git checkout cms-egamma/EGM_gain_v1 -- EgammaAnalysis/ElectronTools/python/regressionApplication_cff.py
 popd
 
-
+cd EgammaAnalysis/ElectronTools/data
+git clone https://github.com/ECALELFS/ScalesSmearings.git
+git checkout Moriond17_23Jan_v2
+cd - 
 #pushd EgammaAnalysis/ElectronTools/data
 #git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git
 #popd
