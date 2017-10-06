@@ -90,7 +90,6 @@ popd
 
 cd EgammaAnalysis/ElectronTools/data
 git clone https://github.com/ECALELFS/ScalesSmearings.git
-git checkout Moriond17_23Jan_v2
 cd - 
 #pushd EgammaAnalysis/ElectronTools/data
 #git clone -b Moriond17_gainSwitch_unc https://github.com/ECALELFS/ScalesSmearings.git

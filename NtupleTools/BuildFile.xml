@@ -6,6 +6,7 @@
 <use   name="FinalStateAnalysis/Utilities"/>
 <use   name="RecoMET/METPUSubtraction"/>
 <use   name="EgammaAnalysis/ElectronTools"/>
+<use   name="RecoEgamma/EgammaTools"/>
 <use   name="rootrflx"/>
 <use   name="xrootd"/>
 <use   name="root"/>
