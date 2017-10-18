@@ -45,13 +45,12 @@ git cms-addpkg RecoEgamma/EgammaTools
 git cms-addpkg RecoEgamma/ElectronIdentification
 git cms-addpkg RecoJets/JetProducers
 
-#if [ "$MAJOR_VERSION" = "9" ] && [ "$MINOR_VERSION" < "4" ] ; then
-#    echo "once the fix is merged in 94X use a cherry-pick"
-#    git cms-addpkg RecoJets/JetProducers
-#    git remote add ahinzmann https://github.com/ahinzmann/cmssw.git
-#    git fetch ahinzmann
-#    git checkout checkTracks94
-#fi
+if [ "$MAJOR_VERSION" = "9" ] && [ "$MINOR_VERSION" < "4" ] ; then
+    echo "until  the fix is merged a custum fix is needed (taken from ahinzmann)"
+    git remote add taroniCMSSW https://github.com/taroni/cmssw.git
+    git fetch taroniCMSSW
+    git checkout taroniCMSSW/porting92X --  RecoJets/JetProducers/src/PileupJetIdAlgo.cc
+fi
 
 ##waiting CMSSW9XY directions
 #cd RecoTauTag/RecoTau
