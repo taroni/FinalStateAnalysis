@@ -28,7 +28,7 @@ import os
 import re
 #from FinalStateAnalysis.Utilities.rootbindings import ROOT
 import ROOT
-from graphReader import GraphReaderTrackingEta
+from graphReader import GraphReaderTrackingEta, GraphReaderMuon, GraphReaderMuonMC
 from correctionloader import CorrectionLoader
 
 mu_trackingEta_2016 = GraphReaderTrackingEta(
@@ -38,6 +38,14 @@ mu_trackingEta_MORIOND2017 = GraphReaderTrackingEta(
     os.path.join(os.environ['fsa'], 'TagAndProbe/data/Tracking_EfficienciesAndSF_BCDEFGH_full2016.root'),'ratio_eff_eta3_dr030e030_corr'
 )
 
+def muLeg_trigger(lep):
+    return  GraphReaderMuon(
+            os.path.join(os.environ['fsa'], 'TagAndProbe/data/Muon_%sleg_2016BtoH_eff.root'%lep)
+    )
+def mc_muLeg_trigger(lep):
+    return  GraphReaderMuonMC(
+            os.path.join(os.environ['fsa'], 'TagAndProbe/data/Muon_%sleg_2016BtoH_eff.root'%lep)
+    )
 
 
 _DATA_DIR = os.path.join(os.environ['CMSSW_BASE'], 'src',
@@ -64,21 +72,24 @@ _DATA_FILES = {
         'PFID'   : os.path.join(_DATA_DIR, 'MuonID_Z_2016runB_2p6fb.root'),
         'Iso'    : os.path.join(_DATA_DIR, 'MuonISO_Z_2016runB_2p6fb.root')
     },
-'2016BCD' : {
+    '2016BCD' : {
         'PFID'   : os.path.join(_DATA_DIR, 'MuonID_Z_RunBCD_prompt80X_7p65.root'),
         'Iso'    : os.path.join(_DATA_DIR, 'MuonIso_Z_RunBCD_prompt80X_7p65.root'),
         'Trigger': os.path.join(_DATA_DIR, 'SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root')
     },
-'2016ReReco' : {
+    '2016ReReco' : {
         'PFID'   : [os.path.join(_DATA_DIR, 'MuonIDEfficienciesAndSF_2016BCDEF.root'),
                     os.path.join(_DATA_DIR, 'MuonIDEfficienciesAndSF_2016GH.root')
-                    ],
+        ],
         'Iso'    : [os.path.join(_DATA_DIR, 'MuonIsoEfficienciesAndSF_2016BCDEF.root'),
                     os.path.join(_DATA_DIR, 'MuonIsoEfficienciesAndSF_2016GH.root'),
-                    ],
+        ],
         'Trigger':[ os.path.join(_DATA_DIR, 'MuonTriggerEfficienciesAndSF_PeriodBCDEF_2016.root'),
                     os.path.join(_DATA_DIR, 'MuonTriggerEfficienciesAndSF_PeriodGH_2016.root')
-                    ]
+        ],
+        'TriggerData' : [ os.path.join(_DATA_DIR, 'MuonTriggerEfficienciesAndSF_PeriodBCDEF_2016.root'),
+                          os.path.join(_DATA_DIR, 'MuonTriggerEfficienciesAndSF_PeriodGH_2016.root')
+        ],
     }
 }
 
@@ -87,85 +98,6 @@ _DATA_FILES = {
 #ROOT.gSystem.Load("libFinalStateAnalysisTagAndProbe")
 #muon_pog_Mu13Mu8_eta_eta_2011 = ROOT.Eff_HLT_Mu13_Mu8_2011_TPfit_RunAB_EtaEta_DATAoverMC
 #muon_pog_Mu17Mu8_eta_eta_2011 = ROOT.Eff_HLT_Mu17_Mu8_2011_TPfit_RunAB_EtaEta_DATAoverMC
-
-def make_muon_pog_PFTight_2011():
-    ''' Make PFTight DATA/MC corrector for 2011 '''
-    return MuonPOG2011Combiner(
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            "DATA/MC_PFTIGHT_nH10_2011A_pt__abseta<1.2",
-            "DATA/MC_PFTIGHT_nH10_2011A_pt__abseta>1.2",
-            "DATA/MC_PFTIGHT_nH10_2011A_eta__pt>20",
-        ),
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            "DATA/MC_PFTIGHT_nH10_2011B_pt__abseta<1.2",
-            "DATA/MC_PFTIGHT_nH10_2011B_pt__abseta>1.2",
-            "DATA/MC_PFTIGHT_nH10_2011B_eta__pt>20",
-        )
-    )
-
-def make_muon_pog_PFTight_2012():
-    ''' Make PFTight DATA/MC corrector for 2012 '''
-    return BetterMuonPOGCorrection(
-        _DATA_FILES['2012ReReco']['PFID'],
-        [(0.9, 'DATA_over_MC_Tight_pt_abseta<0.9'   ),
-         (1.2, 'DATA_over_MC_Tight_pt_abseta0.9-1.2'),
-         (2.1, 'DATA_over_MC_Tight_pt_abseta1.2-2.1'),
-         (2.4, 'DATA_over_MC_Tight_pt_abseta2.1-2.4')],
-        'DATA_over_MC_Tight_eta_pt20-500'
-    )
-
-def make_muon_pog_PFTight_2012ABCD():
-    ''' Make PFTight DATA/MC corrector for 2012 '''
-    return MuonPOGCorrection3R(
-        _DATA_FILES['2012ABCD'],
-        "DATA_over_MC_Tight_pt_abseta<0.9_2012ABCD",
-        "DATA_over_MC_Tight_pt_abseta0.9-1.2_2012ABCD",
-        "DATA_over_MC_Tight_pt_abseta1.2-2.1_2012ABCD",
-        "DATA_over_MC_Tight_eta_pt20-500_2012ABCD",
-    )
-
-def make_muon_pog_PFTight_2015CD():
-    ''' Make PFTight DATA/MC corrector for 2012 '''
-    return MuonPOGCorrection2D(
-        _DATA_FILES['2015CD']['PFID'],
-        "MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio"
-    )
-def make_muon_pog_PFMedium_2015CD():
-    ''' Make PFTight DATA/MC corrector for 2012 '''
-    return MuonPOGCorrection2D(
-        _DATA_FILES['2015CD']['PFID'],
-        "MC_NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio"
-    )
-def make_muon_pog_PFLoose_2015CD():
-    return MuonPOGCorrection2D(
-        _DATA_FILES['2015CD']['PFID'],
-        "MC_NUM_LooseID_DEN_genTracks_PAR_pt_spliteta_bin1/pt_abseta_ratio"
-    )
-
-def make_muon_pog_LooseIso_2015CD():
-    return MuonPOGCorrectionIso2D(
-        _DATA_FILES['2015CD']['Iso'],
-        "MC_NUM_LooseRelIso_DEN_LooseID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_LooseRelIso_DEN_MediumID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_LooseRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-    )
-def make_muon_pog_MediumIso_2015CD():
-    return MuonPOGCorrectionIso2D(
-        _DATA_FILES['2015CD']['Iso'],
-        "MC_NUM_MediumRelIso_DEN_LooseID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_MediumRelIso_DEN_MediumID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_MediumRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-    )
-def make_muon_pog_TightIso_2015CD():
-    return MuonPOGCorrectionIso2D(
-        _DATA_FILES['2015CD']['Iso'],
-        "MC_NUM_TightRelIso_DEN_LooseID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_TightRelIso_DEN_MediumID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-        "MC_NUM_TightRelIso_DEN_TightID_PAR_pt_spliteta_bin1/pt_abseta_ratio",
-    )
-
 
 
 def make_muon_pog_PFTight_2016B():
@@ -254,109 +186,6 @@ def make_muon_pog_TightIso_2016BCD():
 
 
 
-
-
-def make_muon_pog_PFRelIsoDB012_2012():
-    return BetterMuonPOGCorrection(
-        _DATA_FILES['2012ReReco']['Iso'],
-        [(0.9, 'DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta<0.9'   ),
-         (1.2, 'DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta0.9-1.2'),
-         (2.1, 'DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta1.2-2.1'), 
-         (2.4, 'DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta2.1-2.4')], 
-        'DATA_over_MC_combRelIsoPF04dBeta<012_Tight_eta_pt20-500'
-    )
-
-
-def make_muon_pog_PFRelIsoDB012_2012ABCD():
-    ''' Make PFTight DATA/MC corrector for 2012 '''
-    return MuonPOGCorrection3R(
-        _DATA_FILES['2012ABCD'],
-        "DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta<0.9_2012ABCD",
-        "DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta0.9-1.2_2012ABCD",
-        "DATA_over_MC_combRelIsoPF04dBeta<012_Tight_pt_abseta1.2-2.1_2012ABCD",
-        "DATA_over_MC_combRelIsoPF04dBeta<012_Tight_eta_pt20-500_2012ABCD",
-    )
-
-
-
-def make_muon_pog_PFRelIsoDB02_2012():
-    return MuonPOGCorrection(
-        _DATA_FILES['2012'],
-        'DATA/MC_combRelIsoPF04dBeta<02_Tight_pt_abseta<1.2',
-        'DATA/MC_combRelIsoPF04dBeta<02_Tight_pt_abseta>1.2',
-        'DATA/MC_combRelIsoPF04dBeta<02_Tight_eta_pt20-100',
-    )
-
-def make_muon_pog_PFRelIsoDB02_2011():
-    return MuonPOG2011Combiner(
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            'DATA/MC_combRelPFISO20_2011A_pt__abseta<1.2',
-            'DATA/MC_combRelPFISO20_2011A_pt__abseta>1.2',
-            'DATA/MC_combRelPFISO20_2011A_eta__pt>20',
-        ),
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            'DATA/MC_combRelPFISO20_2011B_pt__abseta<1.2',
-            'DATA/MC_combRelPFISO20_2011B_pt__abseta>1.2',
-            'DATA/MC_combRelPFISO20_2011B_eta__pt>20',
-        ),
-    )
-
-def make_muon_pog_PFRelIsoDB012_2011():
-    return MuonPOG2011Combiner(
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            'DATA/MC_combRelPFISO12_2011A_pt__abseta<1.2',
-            'DATA/MC_combRelPFISO12_2011A_pt__abseta>1.2',
-            'DATA/MC_combRelPFISO12_2011A_eta__pt>20',
-        ),
-        MuonPOGCorrection(
-            _DATA_FILES['2011'],
-            'DATA/MC_combRelPFISO12_2011B_pt__abseta<1.2',
-            'DATA/MC_combRelPFISO12_2011B_pt__abseta>1.2',
-            'DATA/MC_combRelPFISO12_2011B_eta__pt>20',
-        ),
-    )
-
-
-# These are only measured in 2012
-def make_muon_pog_Mu17Mu8_Mu17_2012():
-    return MuonPOGCorrection(
-        _DATA_FILES['2012'],
-        'DATA/MC_DoubleMu17Mu8_Mu17_Tight_pt_abseta<1.2',
-        'DATA/MC_DoubleMu17Mu8_Mu17_Tight_pt_abseta>1.2',
-        'DATA/MC_DoubleMu17Mu8_Mu17_Tight_eta_pt20-100',
-    )
-def make_muon_pog_Mu17Mu8_Mu8_2012():
-    return MuonPOGCorrection(
-        _DATA_FILES['2012'],
-        'DATA/MC_DoubleMu17Mu8_Mu8_Tight_pt_abseta<1.2',
-        'DATA/MC_DoubleMu17Mu8_Mu8_Tight_pt_abseta>1.2',
-        'DATA/MC_DoubleMu17Mu8_Mu8_Tight_eta_pt20-100',
-    )
-
-def make_muon_pog_IsoMu24eta2p1_2012_early():
-    return MuonPOGCorrection(
-        _DATA_FILES['2012'],
-        'DATA/MC_IsoMu24_eta2p1_TightIso_pt_abseta<1.2',
-        'DATA/MC_IsoMu24_eta2p1_TightIso_pt_abseta>1.2',
-        'DATA/MC_IsoMu24_eta2p1_TightIso_abseta_pt26-100',
-        pt_thr = 26,
-    )
-
-def make_muon_pog_IsoMu24eta2p1_2012():
-   # Taking into account the Muon Pt Dependence of the trigger until 26, from then on assuming eta dependence 
-   # To accont for the turn on. That value could be adjusted 
-    return MuonPOGCorrection3R(
-        _DATA_FILES['2012ReReco']['SingleMuTrg'],
-        'IsoMu24_eta2p1_DATA_over_MC_TightID_IsodB_PT_ABSETA_Barrel_0to0p9_pt25-500_2012ABCD',
-        'IsoMu24_eta2p1_DATA_over_MC_TightID_IsodB_PT_ABSETA_Transition_0p9to1p2_pt25-500_2012ABCD', 
-        'IsoMu24_eta2p1_DATA_over_MC_TightID_IsodB_PT_ABSETA_Endcaps_1p2to2p1_pt25-500_2012ABCD',
-        'IsoMu24_eta2p1_DATA_over_MC_TightID_IsodB_ETA_0to0p9_0p9to1p2_1p2to2p1_pt25-500_2012ABCD',
-        pt_thr = 25,
-    )
-
 def make_muon_pog_IsoMu22oIsoTkMu22_2016BCD():
 
     ''' trigger efficiencies in DATA; weigthed by lumi for two sets available , viz Run273158_to_274093(621.9 /pb) and Run274094_to_276097 (7036.4 /pb); more info in MUON POG twiki '''
@@ -366,15 +195,6 @@ def make_muon_pog_IsoMu22oIsoTkMu22_2016BCD():
             ["IsoMu22_OR_IsoTkMu22_PtEtaBins_Run273158_to_274093/efficienciesDATA/pt_abseta_DATA","IsoMu22_OR_IsoTkMu22_PtEtaBins_Run274094_to_276097/efficienciesDATA/pt_abseta_DATA"],621.9,7036.4
         )
 
-
-def make_muon_pog_IsoMu20oIsoTkMu20_2015CD():
-    return MuonPOGCorrectionTrig2D_weighted(
-            _DATA_FILES['2015CD']['Trigger'],
-            ["runD_IsoMu20_OR_IsoTkMu20_HLTv4p2_PtEtaBins/pt_abseta_ratio","runD_IsoMu20_OR_IsoTkMu20_HLTv4p3_PtEtaBins/pt_abseta_ratio"],0.401,1.899
-        )
-
-
-
 def make_muon_pog_IsoMu24oIsoTkMu24_2016ReReco():
 
     ''' trigger efficiencies in DATA; weigthed by lumi for two sets available , viz Run273158_to_274093(621.9 /pb) and Run274094_to_276097 (7036.4 /pb); more info in MUON POG twiki '''
@@ -383,6 +203,13 @@ def make_muon_pog_IsoMu24oIsoTkMu24_2016ReReco():
             _DATA_FILES['2016ReReco']['Trigger'],
             "IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio",19.72,16.15
         )
+
+def make_eff_muon_pog_IsoMu24oIsoTkMu24_2016ReReco():
+    ''' trigger efficiencies in DATA; weigthed by lumi for two sets available , viz Run273158_to_274093(621.9 /pb) and Run274094_to_276097 (7036.4 /pb); more info in MUON POG twiki '''
+    return MuonPOGCorrectionTrig2D_ReReco(
+            _DATA_FILES['2016ReReco']['TriggerData'],
+            "IsoMu24_OR_IsoTkMu24_PtEtaBins/efficienciesDATA/pt_abseta_DATA",19.72,16.15
+    )
 
 
 def make_muon_pog_PFTight_2016ReReco():

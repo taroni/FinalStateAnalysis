@@ -126,6 +126,7 @@ if __name__ == "__main__":
         log.setLevel(logging.DEBUG)
 
     override_keyword   = 'OVERRIDE_META_TREE_'
+   
     meta_override_keys = filter(lambda x: x.startswith(override_keyword), os.environ.keys())
     meta_override      = [(i.replace(override_keyword,''), os.environ[i]) for i in meta_override_keys]
     def get_meta_treename(sample):
@@ -151,6 +152,7 @@ if __name__ == "__main__":
     for sample_name, search_dir, all_files in find_sample_dirs(
             args.directory.split(':'), args.jobid):
 
+        #if ('MuonEG' in sample_name or 'SingleMuon' in sample_name) : continue
         sumEventsAll=0 
 
         tree_name   = get_meta_treename( sample_name )

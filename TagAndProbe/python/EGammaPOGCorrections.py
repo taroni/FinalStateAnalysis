@@ -10,6 +10,16 @@ import os
 import re
 #from FinalStateAnalysis.Utilities.rootbindings import ROOT
 import ROOT
+from graphReader import GraphReader, GraphReaderMC
+
+def eleLeg_trigger(lep):
+    return  GraphReader(
+            os.path.join(os.environ['fsa'], 'TagAndProbe/data/Electron_%sleg_eff.root'%lep)
+    )
+def mc_eleLeg_trigger(lep):
+    return  GraphReaderMC(
+            os.path.join(os.environ['fsa'], 'TagAndProbe/data/Electron_%sleg_eff.root'%lep)
+    )
 
 _DATA_DIR = os.path.join(os.environ['CMSSW_BASE'], 'src',
                          "FinalStateAnalysis", "TagAndProbe", "data")

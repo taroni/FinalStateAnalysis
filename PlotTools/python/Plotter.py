@@ -16,6 +16,7 @@ from FinalStateAnalysis.PlotTools.RebinView import RebinView
 from FinalStateAnalysis.Utilities.struct import struct
 import FinalStateAnalysis.Utilities.prettyjson as prettyjson
 import ROOT
+import optimizer
 
 _original_draw = plotting.Legend.Draw
 # Make legends not have crappy border
@@ -36,6 +37,7 @@ class Plotter(object):
         If [blinder] is not None, it will be applied to the data view.
         '''
         self.outputdir = outputdir
+        self.base_out_dir = outputdir
         self.views = data_views(files, lumifiles, forceLumi)
         self.canvas = plotting.Canvas(name='adsf', title='asdf')
         self.canvas.cd()
@@ -59,18 +61,20 @@ class Plotter(object):
             'ZZ*',
             'WW*',
         ]
-        file_to_map = filter(lambda x: x.startswith('data_'), self.views.keys())[0]
+        file_to_map = filter(lambda x: x.startswith('data_SingleElectron'), self.views.keys())[0]
         if not file_to_map: #no data here!
             file_to_map = self.views.keys()[0]
         #from pdb import set_trace; set_trace()
+        #print file_to_map
         self.file_dir_structure = Plotter.map_dir_structure( self.views[file_to_map]['file'] )
 
     @staticmethod
     def map_dir_structure(directory, dirName=''):
-        objects = [(i.GetName(), i.GetClassName()) for i in directory.GetListOfKeys()]
+        objects = [(i.GetName(), i.GetClassName()) for i in directory.GetListOfKeys() if i.GetName()!='.']
         ret     = []
         for keyname, keyclass in objects:
             if keyclass.startswith('TDirectory'):
+                #print keyname, keyclass, directory, dirName
                 subdirName = os.path.join(dirName,keyname)
                 ret.append(subdirName)
                 ret.extend(Plotter.map_dir_structure(directory.Get(keyname), subdirName))
@@ -121,6 +125,20 @@ class Plotter(object):
         raise KeyError("I can't find a view that matches %s, I have: %s" % (
             sample_pattern, " ".join(self.views.keys())))
 
+    def mc_views(self, rebin=1, preprocess=None, folder=''):
+        ''' return a list with all the mc samples views'''
+        mc_views = []
+        for x in self.mc_samples:
+            mc_view = self.get_view(x)
+            if preprocess:
+                mc_view = preprocess(mc_view)
+            if folder:
+                mc_view = self.get_wild_dir(mc_view, folder)
+            mc_views.append(
+                self.rebin_view(mc_view, rebin)
+                )
+        return mc_views
+
     def make_stack(self, rebin=1, preprocess=None, folder='', sort=False):
         ''' Make a stack of the MC histograms '''
         
@@ -146,13 +164,15 @@ class Plotter(object):
         nentries = entries if entries is not None else len(samples)
         legend = None
         if leftside:
-            legend = plotting.Legend(nentries, leftmargin=0.03, topmargin=0.05, rightmargin=0.65)
+            legend = plotting.Legend(nentries, leftmargin=0.03, topmargin=0.05, rightmargin=0.65, entryheight=0.03)
         else:
-            legend = plotting.Legend(nentries, rightmargin=0.07, topmargin=0.05, leftmargin=0.45)
+            legend = plotting.Legend(nentries, rightmargin=0.07, topmargin=0.05, leftmargin=0.45, entryheight=0.03)
         for sample in samples:
             legend.AddEntry(sample)
         legend.SetEntrySeparation(0.0)
+
         legend.SetMargin(0.35)
+        legend.SetTextSize(0.04)
         legend.Draw()
         self.keep.append(legend)
         return legend
@@ -253,7 +273,7 @@ class Plotter(object):
                          else position
         stat_box = ROOT.TPaveText(p[0], p[1], p[2], p[3], 'NDC')
         for line in text.split('\n'):
-            print line
+            #print line
             stat_box.AddText(line)
         
         #Set some graphics options not to suck
