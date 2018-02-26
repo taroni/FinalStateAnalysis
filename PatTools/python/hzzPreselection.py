@@ -22,7 +22,7 @@ def getStrings():
             'abs(superCluster().eta) < 2.5 &'
             'userFloat("ipDXY") < 0.5 &'
             'userFloat("dz") < 1.0 &'
-            'gsfTrack().trackerExpectedHitsInner().numberOfHits() <= 1 &'
+            'gsfTrack().trackerExpectedHitsInner().numberOfAllHits() <= 1 &'
             'abs(userFloat("ip3DS")) < 4.0' )
     
     elec_mva = ('('

@@ -44,6 +44,7 @@ git cms-addpkg EgammaAnalysis/ElectronTools
 git cms-addpkg RecoEgamma/EgammaTools
 git cms-addpkg RecoEgamma/ElectronIdentification
 git cms-addpkg RecoJets/JetProducers
+git cms-addpkg SimDataFormats/HTXS
 
 if [ "$MAJOR_VERSION" = "9" ] && [ "$MINOR_VERSION" < "4" ] ; then
     echo "until  the fix is merged a custum fix is needed (taken from ahinzmann)"
@@ -96,7 +97,7 @@ cd -
 
 echo "Checking out Rivet Tools for Higgs Template Cross Section"
 pushd $CMSSW_BASE/src
-git cms-addpkg SimDataFormats/HTXS
+
 #git remote add perozzi https://github.com/perrozzi/cmssw.git
 #git fetch perozzi
 #git checkout perozzi/HTXS_clean -- SimDataFormats/HTXS
